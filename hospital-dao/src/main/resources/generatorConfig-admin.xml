@@ -27,7 +27,7 @@
 		</javaTypeResolver>
 
 		<!-- 生成模型的包名和位置 -->
-		<javaModelGenerator targetPackage="com.hos.po.model.admin"
+		<javaModelGenerator targetPackage="com.simi.po.model.admin"
 			targetProject="hospital-dao">
             <property name="enableSubPackages" value="false" />
             <property name="trimStrings" value="true" />

@@ -9,6 +9,11 @@ public class Constants {
 	 */
 	public static int CHECK_CODE_MAX_LENGTH = 999999;
 	
+	
+	public static int SUCCESS_0 = 0;
+	public static int ERROR_999 = 999;
+	public static int ERROR_100 = 100;
+	
 	//字典类型定义
 	public static String DICT_AREA = "area"; //地区
 	public static String DICT_TITLE = "title"; //职称
