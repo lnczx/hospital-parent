@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hos.po.dao.dict.DictOrgsMapper">
+	<resultMap id="BaseResultMap" type="com.hos.po.model.dict.DictOrgs">
+		<id column="org_id" property="orgId" jdbcType="NUMERIC" />
+		<result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+		<result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
+		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
+		<result column="admin_id" property="adminId" jdbcType="NUMERIC" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		org_id, org_code, parent_code, name, remark, add_time, update_time, admin_id
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from dict_orgs
+		where org_id = #{orgId,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="selectByAll" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from dict_orgs
+	</select>
+	
+	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.hos.vo.dict.DictOrgSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from dict_orgs
+		<include refid="bySearchVo"/>
+	</select>
+	
+	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.hos.vo.dict.DictOrgSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from dict_orgs
+		<include refid="bySearchVo"/>
+	</select>
+	
+	<sql id="bySearchVo">
+	    where 1 = 1
+	    <if test="orgId != null">
+			and org_id = #{orgId,jdbcType=NUMERIC}
+		</if>
+		
+	    <if test="orgCode != null">
+			and org_code = #{orgCode,jdbcType=VARCHAR}
+		</if>
+		
+	    <if test="parentCode != null">
+			and parent_code = #{parentCode,jdbcType=VARCHAR}
+		</if>
+		
+	    <if test="name != null">
+			and name = #{name,jdbcType=VARCHAR}
+		</if>
+		
+
+	</sql>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from dict_orgs
+		where org_id = #{orgId,jdbcType=NUMERIC}
+	</delete>
+	<insert id="insert" parameterType="com.hos.po.model.dict.DictOrgs">
+		<selectKey resultType="java.lang.Long" keyProperty="orgId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into dict_orgs (org_code, parent_code, name,
+		remark, add_time, update_time,
+		admin_id)
+		values (#{orgCode,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC},
+		#{adminId,jdbcType=NUMERIC})
+	</insert>
+	<insert id="insertSelective" parameterType="com.hos.po.model.dict.DictOrgs">
+		<selectKey resultType="java.lang.Long" keyProperty="orgId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into dict_orgs
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orgCode != null">
+				org_code,
+			</if>
+			<if test="parentCode != null">
+				parent_code,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="adminId != null">
+				admin_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orgCode != null">
+				#{orgCode,jdbcType=VARCHAR},
+			</if>
+			<if test="parentCode != null">
+				#{parentCode,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=NUMERIC},
+			</if>
+			<if test="adminId != null">
+				#{adminId,jdbcType=NUMERIC},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hos.po.model.dict.DictOrgs">
+		update dict_orgs
+		<set>
+			<if test="orgCode != null">
+				org_code = #{orgCode,jdbcType=VARCHAR},
+			</if>
+			<if test="parentCode != null">
+				parent_code = #{parentCode,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=NUMERIC},
+			</if>
+			<if test="adminId != null">
+				admin_id = #{adminId,jdbcType=NUMERIC},
+			</if>
+		</set>
+		where org_id = #{orgId,jdbcType=NUMERIC}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hos.po.model.dict.DictOrgs">
+		update dict_orgs
+		set org_code = #{orgCode,jdbcType=VARCHAR},
+		parent_code = #{parentCode,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		add_time = #{addTime,jdbcType=NUMERIC},
+		update_time = #{updateTime,jdbcType=NUMERIC},
+		admin_id = #{adminId,jdbcType=NUMERIC}
+		where org_id = #{orgId,jdbcType=NUMERIC}
+	</update>
+</mapper>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hos.po.dao.dict.DictsMapper">
+	<resultMap id="BaseResultMap" type="com.hos.po.model.dict.Dicts">
+		<id column="id" property="id" jdbcType="NUMERIC" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="VARCHAR" />
+		<result column="level" property="level" jdbcType="SMALLINT" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
+		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, type, code, name, pid, level, remarks, add_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from dicts
+		where id = #{id,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.hos.vo.dict.DictSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from dicts
+		<include refid="bySearchVo"/>
+	</select>
+	
+	<sql id="bySearchVo">
+	    where 1 = 1
+	    <if test="type != null">
+			and type = #{type,jdbcType=VARCHAR}
+		</if>
+		
+	    <if test="code != null">
+			and code = #{code,jdbcType=VARCHAR}
+		</if>
+		
+	    <if test="name != null">
+			and name = #{name,jdbcType=VARCHAR}
+		</if>
+		
+	    <if test="pid != null">
+			and pid = #{pid,jdbcType=VARCHAR}
+		</if>
+		
+	    <if test="level != null">
+			and level = #{level,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from dicts
+		where id = #{id,jdbcType=NUMERIC}
+	</delete>
+	<insert id="insert" parameterType="com.hos.po.model.dict.Dicts">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into dicts (type, code, name,
+		pid, level, remarks,
+		add_time, update_time)
+		values (#{type,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{pid,jdbcType=VARCHAR}, #{level,jdbcType=SMALLINT}, #{remarks,jdbcType=VARCHAR},
+		#{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC})
+	</insert>
+	<insert id="insertSelective" parameterType="com.hos.po.model.dict.Dicts">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into dicts
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="type != null">
+				type,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="pid != null">
+				pid,
+			</if>
+			<if test="level != null">
+				level,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="pid != null">
+				#{pid,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				#{level,jdbcType=SMALLINT},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=NUMERIC},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hos.po.model.dict.Dicts">
+		update dicts
+		<set>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="pid != null">
+				pid = #{pid,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				level = #{level,jdbcType=SMALLINT},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=NUMERIC},
+			</if>
+		</set>
+		where id = #{id,jdbcType=NUMERIC}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hos.po.model.dict.Dicts">
+		update dicts
+		set type = #{type,jdbcType=VARCHAR},
+		code = #{code,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		pid = #{pid,jdbcType=VARCHAR},
+		level = #{level,jdbcType=SMALLINT},
+		remarks = #{remarks,jdbcType=VARCHAR},
+		add_time = #{addTime,jdbcType=NUMERIC},
+		update_time = #{updateTime,jdbcType=NUMERIC}
+		where id = #{id,jdbcType=NUMERIC}
+	</update>
+</mapper>

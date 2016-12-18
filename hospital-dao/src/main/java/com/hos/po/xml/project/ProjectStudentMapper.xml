@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hos.po.dao.project.ProjectStudentMapper">
+	<resultMap id="BaseResultMap" type="com.hos.po.model.project.ProjectStudent">
+		<id column="id" property="id" jdbcType="NUMERIC" />
+		<result column="p_id" property="pId" jdbcType="NUMERIC" />
+		<result column="stu_id" property="stuId" jdbcType="NUMERIC" />
+		<result column="mobile" property="mobile" jdbcType="CHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="city_id" property="cityId" jdbcType="NUMERIC" />
+		<result column="org_id" property="orgId" jdbcType="NUMERIC" />
+		<result column="title_id" property="titleId" jdbcType="NUMERIC" />
+		<result column="addr" property="addr" jdbcType="VARCHAR" />
+		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
+		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, p_id, stu_id, mobile, sex, email, city_id, org_id, title_id, addr, add_time,
+		update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from project_student
+		where id = #{id,jdbcType=NUMERIC}
+	</select>
+
+	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from project_student
+		<include refid="bySearchVo" />
+	</select>
+
+	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from project_student
+		<include refid="bySearchVo" />
+	</select>
+
+	<sql id="bySearchVo">
+		where 1 = 1
+		<if test="pId != null">
+			and p_id = #{pId,jdbcType=NUMERIC}
+		</if>
+
+		<if test="orgId != null">
+			and org_id = #{orgId,jdbcType=NUMERIC}
+		</if>
+
+		<if test="pYear != null">
+			and p_year = #{pYear,jdbcType=DATE}
+		</if>
+
+		<if test="pNo != null">
+			and p_no = #{pNo,jdbcType=VARCHAR}
+		</if>
+
+		<if test="name != null">
+			and name = #{name,jdbcType=VARCHAR}
+		</if>
+
+		<if test="level != null">
+			and level = #{level,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from project_student
+		where id = #{id,jdbcType=NUMERIC}
+	</delete>
+	<insert id="insert" parameterType="com.hos.po.model.project.ProjectStudent">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into project_student (p_id, stu_id, mobile,
+		sex, email, city_id,
+		org_id, title_id, addr,
+		add_time, update_time)
+		values (#{pId,jdbcType=NUMERIC},
+		#{stuId,jdbcType=NUMERIC}, #{mobile,jdbcType=CHAR},
+		#{sex,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{cityId,jdbcType=NUMERIC},
+		#{orgId,jdbcType=NUMERIC},
+		#{titleId,jdbcType=NUMERIC}, #{addr,jdbcType=VARCHAR},
+		#{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC})
+	</insert>
+	<insert id="insertSelective" parameterType="com.hos.po.model.project.ProjectStudent">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into project_student
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pId != null">
+				p_id,
+			</if>
+			<if test="stuId != null">
+				stu_id,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="cityId != null">
+				city_id,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="titleId != null">
+				title_id,
+			</if>
+			<if test="addr != null">
+				addr,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pId != null">
+				#{pId,jdbcType=NUMERIC},
+			</if>
+			<if test="stuId != null">
+				#{stuId,jdbcType=NUMERIC},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=CHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="cityId != null">
+				#{cityId,jdbcType=NUMERIC},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=NUMERIC},
+			</if>
+			<if test="titleId != null">
+				#{titleId,jdbcType=NUMERIC},
+			</if>
+			<if test="addr != null">
+				#{addr,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=NUMERIC},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hos.po.model.project.ProjectStudent">
+		update project_student
+		<set>
+			<if test="pId != null">
+				p_id = #{pId,jdbcType=NUMERIC},
+			</if>
+			<if test="stuId != null">
+				stu_id = #{stuId,jdbcType=NUMERIC},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=CHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="cityId != null">
+				city_id = #{cityId,jdbcType=NUMERIC},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=NUMERIC},
+			</if>
+			<if test="titleId != null">
+				title_id = #{titleId,jdbcType=NUMERIC},
+			</if>
+			<if test="addr != null">
+				addr = #{addr,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=NUMERIC},
+			</if>
+		</set>
+		where id = #{id,jdbcType=NUMERIC}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hos.po.model.project.ProjectStudent">
+		update project_student
+		set p_id = #{pId,jdbcType=NUMERIC},
+		stu_id = #{stuId,jdbcType=NUMERIC},
+		mobile =
+		#{mobile,jdbcType=CHAR},
+		sex = #{sex,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		city_id = #{cityId,jdbcType=NUMERIC},
+		org_id =
+		#{orgId,jdbcType=NUMERIC},
+		title_id = #{titleId,jdbcType=NUMERIC},
+		addr = #{addr,jdbcType=VARCHAR},
+		add_time = #{addTime,jdbcType=NUMERIC},
+		update_time =
+		#{updateTime,jdbcType=NUMERIC}
+		where id = #{id,jdbcType=NUMERIC}
+	</update>
+</mapper>

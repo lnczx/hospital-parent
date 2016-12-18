@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hos.po.dao.project.ProjectCourseMapper">
+	<resultMap id="BaseResultMap" type="com.hos.po.model.project.ProjectCourse">
+		<id column="course_id" property="courseId" jdbcType="NUMERIC" />
+		<result column="p_id" property="pId" jdbcType="NUMERIC" />
+		<result column="course_date" property="courseDate" jdbcType="DATE" />
+		<result column="start_time" property="startTime" jdbcType="TIME" />
+		<result column="end_time" property="endTime" jdbcType="TIME" />
+		<result column="course_datetime" property="courseDatetime" jdbcType="NUMERIC" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="teacher" property="teacher" jdbcType="VARCHAR" />
+		<result column="title_id" property="titleId" jdbcType="NUMERIC" />
+		<result column="org_id" property="orgId" jdbcType="NUMERIC" />
+		<result column="course_type" property="courseType" jdbcType="NUMERIC" />
+		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
+		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		course_id, p_id, course_date, start_time, end_time, course_datetime, content, teacher,
+		title_id, org_id, course_type, add_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from projct_course
+		where course_id = #{courseId,jdbcType=NUMERIC}
+	</select>
+	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from projct_course
+		<include refid="bySearchVo" />
+	</select>
+
+	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from projct_course
+		<include refid="bySearchVo" />
+	</select>
+
+	<sql id="bySearchVo">
+		where 1 = 1
+		<if test="pId != null">
+			and p_id = #{pId,jdbcType=NUMERIC}
+		</if>
+
+		<if test="orgId != null">
+			and org_id = #{orgId,jdbcType=NUMERIC}
+		</if>
+
+		<if test="pYear != null">
+			and p_year = #{pYear,jdbcType=DATE}
+		</if>
+
+		<if test="pNo != null">
+			and p_no = #{pNo,jdbcType=VARCHAR}
+		</if>
+
+		<if test="name != null">
+			and name = #{name,jdbcType=VARCHAR}
+		</if>
+
+		<if test="level != null">
+			and level = #{level,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from projct_course
+		where course_id = #{courseId,jdbcType=NUMERIC}
+	</delete>
+	<insert id="insert" parameterType="com.hos.po.model.project.ProjectCourse">
+		<selectKey resultType="java.lang.Long" keyProperty="courseId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into projct_course (p_id, course_date, start_time,
+		end_time, course_datetime, content,
+		teacher, title_id, org_id,
+		course_type, add_time, update_time
+		)
+		values (#{pId,jdbcType=NUMERIC}, #{courseDate,jdbcType=DATE}, #{startTime,jdbcType=TIME},
+		#{endTime,jdbcType=TIME}, #{courseDatetime,jdbcType=NUMERIC},
+		#{content,jdbcType=VARCHAR},
+		#{teacher,jdbcType=VARCHAR}, #{titleId,jdbcType=NUMERIC}, #{orgId,jdbcType=NUMERIC},
+		#{courseType,jdbcType=NUMERIC},
+		#{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.hos.po.model.project.ProjectCourse">
+		<selectKey resultType="java.lang.Long" keyProperty="courseId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into projct_course
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pId != null">
+				p_id,
+			</if>
+			<if test="courseDate != null">
+				course_date,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="courseDatetime != null">
+				course_datetime,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="teacher != null">
+				teacher,
+			</if>
+			<if test="titleId != null">
+				title_id,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="courseType != null">
+				course_type,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pId != null">
+				#{pId,jdbcType=NUMERIC},
+			</if>
+			<if test="courseDate != null">
+				#{courseDate,jdbcType=DATE},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIME},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIME},
+			</if>
+			<if test="courseDatetime != null">
+				#{courseDatetime,jdbcType=NUMERIC},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="teacher != null">
+				#{teacher,jdbcType=VARCHAR},
+			</if>
+			<if test="titleId != null">
+				#{titleId,jdbcType=NUMERIC},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=NUMERIC},
+			</if>
+			<if test="courseType != null">
+				#{courseType,jdbcType=NUMERIC},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=NUMERIC},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hos.po.model.project.ProjectCourse">
+		update projct_course
+		<set>
+			<if test="pId != null">
+				p_id = #{pId,jdbcType=NUMERIC},
+			</if>
+			<if test="courseDate != null">
+				course_date = #{courseDate,jdbcType=DATE},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIME},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIME},
+			</if>
+			<if test="courseDatetime != null">
+				course_datetime = #{courseDatetime,jdbcType=NUMERIC},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="teacher != null">
+				teacher = #{teacher,jdbcType=VARCHAR},
+			</if>
+			<if test="titleId != null">
+				title_id = #{titleId,jdbcType=NUMERIC},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=NUMERIC},
+			</if>
+			<if test="courseType != null">
+				course_type = #{courseType,jdbcType=NUMERIC},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=NUMERIC},
+			</if>
+		</set>
+		where course_id = #{courseId,jdbcType=NUMERIC}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hos.po.model.project.ProjectCourse">
+		update projct_course
+		set p_id = #{pId,jdbcType=NUMERIC},
+		course_date = #{courseDate,jdbcType=DATE},
+		start_time = #{startTime,jdbcType=TIME},
+		end_time = #{endTime,jdbcType=TIME},
+		course_datetime = #{courseDatetime,jdbcType=NUMERIC},
+		content =
+		#{content,jdbcType=VARCHAR},
+		teacher = #{teacher,jdbcType=VARCHAR},
+		title_id = #{titleId,jdbcType=NUMERIC},
+		org_id = #{orgId,jdbcType=NUMERIC},
+		course_type =
+		#{courseType,jdbcType=NUMERIC},
+		add_time = #{addTime,jdbcType=NUMERIC},
+		update_time = #{updateTime,jdbcType=NUMERIC}
+		where course_id =
+		#{courseId,jdbcType=NUMERIC}
+	</update>
+</mapper>

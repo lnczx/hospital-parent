@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hos.po.dao.project.ProjectsMapper">
+	<resultMap id="BaseResultMap" type="com.hos.po.model.project.Projects">
+		<id column="p_id" property="pId" jdbcType="NUMERIC" />
+		<result column="p_year" property="pYear" jdbcType="DATE" />
+		<result column="p_no" property="pNo" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="org_id" property="orgId" jdbcType="NUMERIC" />
+		<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+		<result column="p_header" property="pHeader" jdbcType="VARCHAR" />
+		<result column="p_header_tel" property="pHeaderTel" jdbcType="VARCHAR" />
+		<result column="addr" property="addr" jdbcType="VARCHAR" />
+		<result column="credit" property="credit" jdbcType="SMALLINT" />
+		<result column="num_recruit" property="numRecruit" jdbcType="INTEGER" />
+		<result column="num_term" property="numTerm" jdbcType="SMALLINT" />
+		<result column="status" property="status" jdbcType="SMALLINT" />
+		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
+		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		p_id, p_year, p_no, name, org_id, org_name, p_header, p_header_tel, addr, credit,
+		num_recruit, num_term, status, add_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from projects
+		where p_id = #{pId,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from projects
+		<include refid="bySearchVo"/>
+	</select>
+	
+	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from projects
+		<include refid="bySearchVo"/>
+	</select>
+	
+	<sql id="bySearchVo">
+	    where 1 = 1
+	    <if test="pId != null">
+			and p_id = #{pId,jdbcType=NUMERIC}
+		</if>
+		
+	    <if test="orgId != null">
+			and org_id = #{orgId,jdbcType=NUMERIC}
+		</if>
+		
+	    <if test="pYear != null">
+			and p_year = #{pYear,jdbcType=DATE}
+		</if>
+		
+	    <if test="pNo != null">
+			and p_no = #{pNo,jdbcType=VARCHAR}
+		</if>
+		
+	    <if test="name != null">
+			and name = #{name,jdbcType=VARCHAR}
+		</if>
+
+	    <if test="level != null">
+			and level = #{level,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from projects
+		where p_id = #{pId,jdbcType=NUMERIC}
+	</delete>
+	<insert id="insert" parameterType="com.hos.po.model.project.Projects">
+		<selectKey resultType="java.lang.Long" keyProperty="pId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into projects (p_year, p_no, name,
+		org_id, org_name, p_header,
+		p_header_tel, addr, credit,
+		num_recruit, num_term, status,
+		add_time, update_time)
+		values (#{pYear,jdbcType=DATE}, #{pNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{orgId,jdbcType=NUMERIC}, #{orgName,jdbcType=VARCHAR}, #{pHeader,jdbcType=VARCHAR},
+		#{pHeaderTel,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{credit,jdbcType=SMALLINT},
+		#{numRecruit,jdbcType=INTEGER}, #{numTerm,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT},
+		#{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC})
+	</insert>
+	<insert id="insertSelective" parameterType="com.hos.po.model.project.Projects">
+		<selectKey resultType="java.lang.Long" keyProperty="pId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into projects
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pYear != null">
+				p_year,
+			</if>
+			<if test="pNo != null">
+				p_no,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="orgName != null">
+				org_name,
+			</if>
+			<if test="pHeader != null">
+				p_header,
+			</if>
+			<if test="pHeaderTel != null">
+				p_header_tel,
+			</if>
+			<if test="addr != null">
+				addr,
+			</if>
+			<if test="credit != null">
+				credit,
+			</if>
+			<if test="numRecruit != null">
+				num_recruit,
+			</if>
+			<if test="numTerm != null">
+				num_term,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pYear != null">
+				#{pYear,jdbcType=DATE},
+			</if>
+			<if test="pNo != null">
+				#{pNo,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=NUMERIC},
+			</if>
+			<if test="orgName != null">
+				#{orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="pHeader != null">
+				#{pHeader,jdbcType=VARCHAR},
+			</if>
+			<if test="pHeaderTel != null">
+				#{pHeaderTel,jdbcType=VARCHAR},
+			</if>
+			<if test="addr != null">
+				#{addr,jdbcType=VARCHAR},
+			</if>
+			<if test="credit != null">
+				#{credit,jdbcType=SMALLINT},
+			</if>
+			<if test="numRecruit != null">
+				#{numRecruit,jdbcType=INTEGER},
+			</if>
+			<if test="numTerm != null">
+				#{numTerm,jdbcType=SMALLINT},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=SMALLINT},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=NUMERIC},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hos.po.model.project.Projects">
+		update projects
+		<set>
+			<if test="pYear != null">
+				p_year = #{pYear,jdbcType=DATE},
+			</if>
+			<if test="pNo != null">
+				p_no = #{pNo,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=NUMERIC},
+			</if>
+			<if test="orgName != null">
+				org_name = #{orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="pHeader != null">
+				p_header = #{pHeader,jdbcType=VARCHAR},
+			</if>
+			<if test="pHeaderTel != null">
+				p_header_tel = #{pHeaderTel,jdbcType=VARCHAR},
+			</if>
+			<if test="addr != null">
+				addr = #{addr,jdbcType=VARCHAR},
+			</if>
+			<if test="credit != null">
+				credit = #{credit,jdbcType=SMALLINT},
+			</if>
+			<if test="numRecruit != null">
+				num_recruit = #{numRecruit,jdbcType=INTEGER},
+			</if>
+			<if test="numTerm != null">
+				num_term = #{numTerm,jdbcType=SMALLINT},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=SMALLINT},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=NUMERIC},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=NUMERIC},
+			</if>
+		</set>
+		where p_id = #{pId,jdbcType=NUMERIC}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hos.po.model.project.Projects">
+		update projects
+		set p_year = #{pYear,jdbcType=DATE},
+		p_no = #{pNo,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		org_id = #{orgId,jdbcType=NUMERIC},
+		org_name = #{orgName,jdbcType=VARCHAR},
+		p_header = #{pHeader,jdbcType=VARCHAR},
+		p_header_tel = #{pHeaderTel,jdbcType=VARCHAR},
+		addr = #{addr,jdbcType=VARCHAR},
+		credit = #{credit,jdbcType=SMALLINT},
+		num_recruit = #{numRecruit,jdbcType=INTEGER},
+		num_term = #{numTerm,jdbcType=SMALLINT},
+		status = #{status,jdbcType=SMALLINT},
+		add_time = #{addTime,jdbcType=NUMERIC},
+		update_time = #{updateTime,jdbcType=NUMERIC}
+		where p_id = #{pId,jdbcType=NUMERIC}
+	</update>
+</mapper>
