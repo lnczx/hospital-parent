@@ -43,8 +43,9 @@
     <!-- use-default-filters="false" 只扫描指定的注解 -->
     <context:component-scan base-package="com.simi.action.**,
     									  com.simi.action.admin.**,
-    									  com.simi.action.project.**,
-    									  com.simi.action.student.**"
+    									  com.hos.action.**,
+    									  com.host.action.project.**,
+    									  com.host.action.student.**"
     									 use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>

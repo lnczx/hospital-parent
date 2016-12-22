@@ -12,22 +12,24 @@
 	<context:component-scan
 		base-package="com.simi.service.**,
 					  com.simi.service.admin.**,
-					  com.simi.service.dict.**,
-					  com.simi.service.project.**,
-					  com.simi.service.student.**,
-					  com.simi.service.async.**,
+					  com.hos.service.**,
+					  com.hos.service.dict.**,
+					  com.hos.service.project.**,
+					  com.hos.service.student.**,
+					  com.hos.service.async.**,
 					  com.simi.service.impl.**,
-					  com.simi.service.impl.dict.**,
-					  com.simi.service.impl.project.**,
-					  com.simi.service.impl.student.**,
 					  com.simi.service.impl.admin.**,
-					  com.simi.service.impl.async.**">
+					  com.hos.service.impl.**,
+					  com.hos.service.impl.dict.**,
+					  com.hos.service.impl.project.**,
+					  com.hos.service.impl.student.**,
+					  com.hos.service.impl.async.**">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 	</context:component-scan>
 
 	<task:annotation-driven executor="defaultTaskExecutor" scheduler="defaultTaskScheduler" />
-	<bean id="exceptionHandlingTaskExecutor" class="com.simi.service.async.ExceptionHandlingAsyncTaskExecutor">
+	<bean id="exceptionHandlingTaskExecutor" class="com.hos.service.async.ExceptionHandlingAsyncTaskExecutor">
 		<constructor-arg ref="defaultTaskExecutor" />
 	</bean>
 	<task:executor id="defaultTaskExecutor" pool-size="5" />

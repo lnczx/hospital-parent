@@ -34,12 +34,6 @@
 
 		<dependency>
 			<groupId>com.hos</groupId>
-			<artifactId>hospital-dao</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.hos</groupId>
 			<artifactId>hospital-service</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
