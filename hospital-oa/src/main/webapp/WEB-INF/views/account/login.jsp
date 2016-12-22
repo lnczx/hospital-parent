@@ -5,6 +5,7 @@
 <head>
 <!--common css for all pages-->
 <%@ include file="../shared/importCss.jsp"%>
+<link rel="stylesheet" href="<c:url value='/static/h-ui.admin/css/H-ui.login.css'/>" />
 </head>
 <body>
 	<input type="hidden" id="TenantId" name="TenantId" value="" />
@@ -28,14 +29,14 @@
 						<input id="" name="" type="password" placeholder="密码" class="input-text size-L">
 					</div>
 				</div>
-				<div class="row cl">
+				<!-- <div class="row cl">
 					<div class="formControls col-xs-8 col-xs-offset-3">
 						<input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}"
 							onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width: 150px;">
 						<img src="images/VerifyCode.aspx.png">
 						<a id="kanbuq" href="javascript:;">看不清，换一张</a>
 					</div>
-				</div>
+				</div> -->
 				<div class="row cl">
 					<div class="formControls col-xs-8 col-xs-offset-3">
 						<label for="online">
@@ -58,8 +59,8 @@
 	<!-- js placed at the end of the document so the pages load faster -->
 	<!--common script for all pages-->
 	<%@ include file="../shared/importJs.jsp"%>
-	<script src="<c:url value='/assets/jquery.validate.min.js'/>" type="text/javascript"></script>
-	<script src="<c:url value='/js/simi/login.js'/>" type="text/javascript"></script>
+	<script src="<c:url value='/lib/jquery.validation/1.14.0/jquery.validate.min.js'/>" type="text/javascript"></script>
+	<script src="<c:url value='/static/app/js/login.js'/>" type="text/javascript"></script>
 	
 	
 </body>

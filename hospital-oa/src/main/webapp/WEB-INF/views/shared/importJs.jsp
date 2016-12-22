@@ -5,4 +5,4 @@
 <script type="text/javascript" src="<c:url value='/lib/jquery.contextmenu/jquery.contextmenu.r2.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/h-ui/js/H-ui.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/h-ui.admin/js/H-ui.admin.js'/>"></script>
-<script src="<c:url value='/js/common-scripts.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/static/app/js/common-scripts.js'/>"></script>
