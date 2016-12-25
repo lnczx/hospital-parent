@@ -46,7 +46,6 @@
 				<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="15"><input type="checkbox" name="" value=""></th>
 							<th width="30">ID</th>
 							<th width="60">用户名</th>
 							<th width="80">昵称</th>
@@ -61,8 +60,7 @@
 					<tbody>
 						<c:forEach items="${contentModel.list}" var="item">
 							<tr class="text-c">
-								<td><input type="checkbox" id="selectIds" value="1" name=""></td>
-								<td>1</td>
+								<td>${ item.id }</td>
 								<td>${ item.username }</td>
 								<td>${ item.name }</td>
 								<td>${ item.orgName }</td>

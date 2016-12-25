@@ -64,10 +64,6 @@
 	    <if test="name != null">
 			and name = #{name,jdbcType=VARCHAR}
 		</if>
-
-	    <if test="level != null">
-			and level = #{level,jdbcType=VARCHAR}
-		</if>
 	</sql>
 	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

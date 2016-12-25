@@ -141,7 +141,7 @@ public class AdminLoginController extends BaseController {
 
 
         String returnUrl = ServletRequestUtils.getStringParameter(request, "returnUrl", null);
-        if(returnUrl==null)
+//        if(returnUrl==null)
         	returnUrl="/home/index";
     	return "redirect:"+returnUrl;
 

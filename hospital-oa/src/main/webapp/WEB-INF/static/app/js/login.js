@@ -53,3 +53,7 @@ $('.form-signin input').keypress(function(e) {
 		return false;
 	}
 });
+
+if(window !=top){  
+    top.location.href=location.href;  
+}
