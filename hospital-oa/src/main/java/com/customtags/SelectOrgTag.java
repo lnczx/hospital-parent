@@ -52,7 +52,7 @@ public class SelectOrgTag extends SimpleTagSupport {
 			selectHtml.append("<select id = \"orgId\" name=\"orgId\" class=\"select\">");
 
 			if (hasAll.equals("1")) {
-				selectHtml.append("<option value='0' >选择二级单位</option>");
+				selectHtml.append("<option value='' >选择二级单位</option>");
 			}
 
 			DictOrgs item = null;

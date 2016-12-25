@@ -73,7 +73,6 @@ public class AdminAccountServiceImpl implements AdminAccountService {
 		return adminAccountMapper.insert(record);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public AdminAccount login(String username, String password) throws NoSuchAlgorithmException {
 		
@@ -139,13 +138,9 @@ public class AdminAccountServiceImpl implements AdminAccountService {
 	public List<AdminAccountVo> getAdminAccountViewList(List<AdminAccount> list) {
 		List<Long> roleIds = new ArrayList<Long>();
 		AdminAccount item = null;
-		// 将AdminAccount中的roleId放到List集合中
-		for (int i = 0; i < list.size(); i++) {
-			item = list.get(i);
-			roleIds.add(item.getRoleId());
-		}
+
 		// 根据roleIds查询出对应的AdminRole
-		List<AdminRole> roleList = adminRoleMapper.selectByRoleIds(roleIds);
+		List<AdminRole> roleList = adminRoleMapper.selectAll();
 		List<AdminAccountVo> result = new ArrayList<AdminAccountVo>();
 		Long roleId = 0L;
 		// AdminAccount中的roleId和AdminRole中的Id进行比较，相同则为roleName赋值
@@ -159,10 +154,11 @@ public class AdminAccountServiceImpl implements AdminAccountService {
 			String roleName = "";
 			for (AdminRole ar : roleList) {
 				if (ar.getId().equals(roleId)) {
-					vo.setRoleName(roleName);
+					roleName = ar.getName();
 					break;
 				}
 			}
+			vo.setRoleName(roleName);
 			
 			//机构
 			String orgName = "";

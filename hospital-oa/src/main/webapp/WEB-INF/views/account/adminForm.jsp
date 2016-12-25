@@ -11,7 +11,8 @@
 <!--css for this page-->
 </head>
 <body>
-	<article class="page-container"> <form:form modelAttribute="formData" action="adminForm" id="admin-form"
+	<article class="page-container"> 
+	<form:form modelAttribute="formData"  id="admin-form" action="/hospital-oa/account/adminForm"
 		class="form form-horizontal" method="POST">
 		<form:hidden path="id" />
 		<div class="row cl">
@@ -23,6 +24,7 @@
 				<form:input path="username" class="input-text" autocomplete="off" placeholder="用户名" />
 			</div>
 		</div>
+		<c:if test="${formData.id == 0 }">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">
 				<span class="c-red">*</span>
@@ -38,9 +40,10 @@
 				确认密码：
 			</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text" autocomplete="off" placeholder="确认新密码" id="password2" name="password2">
+				<input type="password" class="input-text" autocomplete="off" placeholder="确认新密码" id="confirmPassword" name="confirmPassword">
 			</div>
 		</div>
+		</c:if>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">
 				<span class="c-red">*</span>

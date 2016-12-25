@@ -26,13 +26,13 @@
 		where id = #{id,jdbcType=NUMERIC}
 	</select>
 
-	<select id="selectByListPage" resultMap="BaseResultMap"  parameterType="com.simi.vo.admin.AccountSearchVo">
+	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.simi.vo.admin.AccountSearchVo">
 		select
 		<include refid="Base_Column_List" />
 		from admin_account
 		<include refid="bySearchVo" />
 	</select>
-	
+
 	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.simi.vo.admin.AccountSearchVo">
 		select
 		<include refid="Base_Column_List" />
@@ -42,19 +42,19 @@
 
 	<sql id="bySearchVo">
 		WHERE 1 = 1
-		
+
 		<if test="ids != null">
 			and id in
 			<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
 				${item}
 			</foreach>
 		</if>
-		
+
 		<if test="name != null">
 			and name = #{name,jdbcType=VARCHAR}
 		</if>
 
-		<if test="username != null">
+		<if test="username != null and username != ''">
 			and username = #{username,jdbcType=VARCHAR}
 		</if>
 
@@ -63,11 +63,11 @@
 		</if>
 
 		<if test="roleId != null">
-			and role_id = #{roleId,jdbcType=VARCHAR}
+			and role_id = #{roleId,jdbcType=NUMERIC}
 		</if>
-		
+
 		<if test="orgId != null">
-			and org_id = #{orgId,jdbcType=VARCHAR}
+			and org_id = #{orgId,jdbcType=NUMERIC}
 		</if>
 	</sql>
 
@@ -229,8 +229,8 @@
 		register_time = #{registerTime,jdbcType=TIMESTAMP},
 		role_id = #{roleId,jdbcType=NUMERIC},
 		org_id = #{orgId,jdbcType=NUMERIC},
-		im_username = #{imUsername jdbcType=VARCHAR},
-		nickname = #{nickname jdbcType=VARCHAR}
+		im_username = #{imUsername,jdbcType=VARCHAR},
+		nickname = #{nickname,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=NUMERIC}
 	</update>
 </mapper>

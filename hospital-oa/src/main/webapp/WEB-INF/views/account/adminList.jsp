@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ include file="../shared/taglib.jsp"%>
+<%@ taglib prefix="selectOrgTag" uri="/WEB-INF/views/tags/selectOrg.tld"%>
+<%@ taglib prefix="selectRoleTag" uri="/WEB-INF/views/tags/selectRole.tld"%>
 <html>
 <head>
 <!--common css for all pages-->
@@ -16,35 +18,24 @@
 	</a></nav>
 	<div class="page-container">
 		<div class="text-c">
+			<form:form modelAttribute="searchModel" id="searchForm" action="/hospital-oa/account/list" method="GET">
 			搜索条件：
 			<span class="select-box inline">
-				<select name="" class="select">
-					<option value="0">选择二级单位</option>
-					<option value="1">护理学院</option>
-					<option value="2">协和医学院继续教育学院</option>
-				</select>
-			</span>
-			<span class="select-box inline">
-				<select name="" class="select">
-					<option value="0">选择用户类型</option>
-					<option value="3">项目管理员</option>
-					<option value="2">二级单位管理员</option>
-					<option value="1">继教处管理员</option>
-				</select>
-			</span>
-			<input type="text" class="input-text" style="width: 250px" placeholder="输入用户名" id="" name="">
-			<button type="submit" class="btn btn-success radius" id="" name="">
-				<i class="Hui-iconfont">&#xe665;</i>
-				搜用户
-			</button>
+					<selectOrgTag:select selectedId="0" sessionOrgId="${sessionScope.accountAuth.orgId}" />
+				</span>
+				<span class="select-box inline">
+					<selectRoleTag:select selectedId="0" />
+				</span>
+				<form:input path="username" class="input-text" style="width: 250px" placeholder="输入用户名" />
+				<button type="submit" class="btn btn-success radius" id="" name="">
+					<i class="Hui-iconfont">&#xe665;</i>
+					搜用户
+				</button>
+			</form:form>
 		</div>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
 			<span class="l">
-				<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
-					<i class="Hui-iconfont">&#xe6e2;</i>
-					批量删除
-				</a>
-				<a href="javascript:;" onClick="btn_add_pop('添加用户', '/account/register?id=0', '800', '800')" class="btn btn-primary radius">
+				<a href="javascript:;" onClick="btn_add('/account/adminForm?id=0')" class="btn btn-primary radius">
 					<i class="Hui-iconfont">&#xe600;</i>
 					添加用户
 				</a>
@@ -84,10 +75,15 @@
 										<span class="label label-danger radius">停用</span>
 									</c:if></td>
 								<td class="td-manage">
-									<a style="text-decoration: none" onClick="btn_update('修改用户', 'account/register?id=0')"
-										href="javascript:;" title="修改">
+									<a style="text-decoration: none" onClick="btn_add('/account/adminForm?id=${item.id}')" href="javascript:;"
+										title="修改">
 										<i class="Hui-iconfont f-18">&#xe60c;</i>
-									</a>
+									</a> |
+									<a style="text-decoration: none" class="ml-5"
+										onClick="btn_add_pop('修改密码','/account/adminPasswordForm?id=${item.id}','600','270')" href="javascript:;" title="修改密码">
+										<i class="Hui-iconfont f-18">&#xe63f;</i>
+									</a> 
+									
 								</td>
 							</tr>
 						</c:forEach>

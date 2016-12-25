@@ -40,13 +40,13 @@ public class SelectRoleTag extends SimpleTagSupport {
 			
 			roleSelect.append("<select id = \"roleId\" name=\"roleId\" class=\"select\">");
 
-			roleSelect.append("<option value='0' >用户类型</option>");
+			roleSelect.append("<option value='' >用户类型</option>");
 			
 			AdminRole role = new AdminRole();
 			
 			String selected = "";
 			
-			for (int i = 0; i < list.size(); i++) {
+			for (int i = 1; i < list.size(); i++) {
 				role = list.get(i);
 				selected = "";
 				if (selectedId != null && role.getId().equals(Long.valueOf(selectedId))) {

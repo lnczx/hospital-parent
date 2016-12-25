@@ -4,13 +4,28 @@ var appName = "/hospital-oa";
 
 var appRootUrl = "http://" + host + "/" + appName + "/";
 
-function btn_add_pop(title,url,id,w,h){
-	url = appName + "/" + url;
+
+function btn_add(path) {
+	location.href = appRootUrl + path;
+}
+
+function btn_add_blank(path) {
+	window.open(appRootUrl + path, "_blank");
+}
+
+// 修改按钮事件
+function btn_update(path) {
+	// location.href = appRootUrl + "account/register?id=" + id;
+	location.href = appRootUrl + path;
+}
+
+function btn_add_pop(title,url,w,h){
+	url = appRootUrl + url;
 	layer_show(title,url,w,h);
 }
 
-function btn_update_pop(title,url,id,w,h){
-	url = appName + "/" + url;
+function btn_update_pop(title,url,w,h){
+	url =appRootUrl + url;
 	layer_show(title,url,w,h);
 }
 
@@ -19,7 +34,7 @@ function btn_add_layer(title,url){
 	var index = layer.open({
 		type: 2,
 		title: title,
-		content: appName + "/" + url
+		content: appRootUrl + url
 	});
 	layer.full(index);
 }
@@ -30,7 +45,7 @@ function btn_update_layer(title,url) {
 	var index = layer.open({
 		type: 2,
 		title: title,
-		content: appName + "/" + url
+		content: appRootUrl + url
 	});
 	layer.full(index);
 }
@@ -44,6 +59,7 @@ function btn_del(path) {
 //    location.href = appRootUrl + "account/delete/" + id;
     location.href = appRootUrl + path;
 }
+
 
 //菜单点击展开
 function setSubMenuId(menuId) {
