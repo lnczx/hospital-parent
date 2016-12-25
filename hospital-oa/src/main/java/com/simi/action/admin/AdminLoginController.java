@@ -62,7 +62,8 @@ public class AdminLoginController extends BaseController {
         String username = accountLoginVo.getUsername().trim();
         String password = accountLoginVo.getPassword().trim();
         AdminAccount account = adminAccountService.login(username, password);
-
+        
+        
     	if ( account == null ) {
         	result.addError(new FieldError("contentModel","username","用户名或密码错误。"));
         	result.addError(new FieldError("contentModel","password","用户名或密码错误。"));
@@ -132,6 +133,10 @@ public class AdminLoginController extends BaseController {
     	accountRole.setAuthorityMenus(authorityMenus);
     	accountRole.setPermissionMenus(permissionMenus);
     	accountAuth.setAccountRole(accountRole);
+    	accountAuth.setOrgId(account.getOrgId());
+    	String appName = request.getSession().getServletContext().getContextPath();
+    	accountAuth.setAppName(appName);
+    	
     	AuthHelper.setSessionAccountAuth(request, accountAuth);
 
 

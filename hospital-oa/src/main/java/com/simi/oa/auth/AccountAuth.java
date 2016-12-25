@@ -5,7 +5,9 @@ public class AccountAuth {
 	private Long id;
 	private String name;
 	private String username;
+	private String appName;
 	private AccountRole accountRole;
+	private Long orgId;
 
 	public AccountAuth(Long id, String name, String username){
 		this.id=id;
@@ -37,6 +39,22 @@ public class AccountAuth {
 	}
 	public AccountRole getAccountRole(){
 		return this.accountRole;
+	}
+
+	public String getAppName() {
+		return this.appName;
+	}
+
+	public void setAppName(String appName) {
+		this.appName = appName;
+	}
+
+	public Long getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
 	}
 
 }

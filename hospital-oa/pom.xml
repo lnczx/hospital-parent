@@ -124,7 +124,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>simi-oa</finalName>
+		<finalName>hospital-oa</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>

@@ -44,11 +44,11 @@ public class DictSearchVo {
 		this.pid = pid;
 	}
 
-	public int getLevel() {
+	public Integer getLevel() {
 		return level;
 	}
 
-	public void setLevel(int level) {
+	public void setLevel(Integer level) {
 		this.level = level;
 	}
 }

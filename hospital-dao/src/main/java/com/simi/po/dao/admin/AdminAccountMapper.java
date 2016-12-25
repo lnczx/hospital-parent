@@ -1,9 +1,9 @@
 package com.simi.po.dao.admin;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.simi.po.model.admin.AdminAccount;
+import com.simi.vo.admin.AccountSearchVo;
 
 public interface AdminAccountMapper {
     int deleteByPrimaryKey(Long id);
@@ -18,15 +18,8 @@ public interface AdminAccountMapper {
 
     int updateByPrimaryKey(AdminAccount record);
 
-    List<AdminAccount> selectByListPage(HashMap conditions);
+    List<AdminAccount> selectByListPage(AccountSearchVo accountSearchVo);
 
-    AdminAccount selectByUsername(String username);
-
-    AdminAccount selectByUsernameAndPassword(HashMap conditions);
-
-    List<AdminAccount> selectByRoleId(Long roleId);
-
-    List<AdminAccount> selectByIds(List<Long> ids);
-
-	List<AdminAccount> selectByAll();
+    List<AdminAccount> selectBySearchVo(AccountSearchVo accountSearchVo);
+    
 }

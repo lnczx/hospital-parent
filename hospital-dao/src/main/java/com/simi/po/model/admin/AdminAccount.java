@@ -23,7 +23,7 @@ public class AdminAccount {
 
     private Long roleId;
 
-    private Long organizationId;
+    private Long orgId;
 
     private String imUsername;
     
@@ -110,14 +110,6 @@ public class AdminAccount {
         this.roleId = roleId;
     }
 
-    public Long getOrganizationId() {
-        return organizationId;
-    }
-
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
-    }
-
 	public String getImUsername() {
 		return imUsername;
 	}
@@ -132,6 +124,14 @@ public class AdminAccount {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public Long getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
 	}
 
 

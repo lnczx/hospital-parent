@@ -94,7 +94,7 @@ public class DictServiceImpl implements DictService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dicts> LoadCourseTypeData() {
-		//学科表  subject
+		//课程类型  实践 理论
 		DictSearchVo searchVo = new DictSearchVo();
 		searchVo.setType(Constants.DICT_COURSE_TYPE);
 		List<Dicts> listCourseType = memDictMap.get("listCourseType");

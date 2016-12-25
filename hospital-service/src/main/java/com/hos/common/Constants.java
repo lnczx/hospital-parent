@@ -3,7 +3,7 @@ package com.hos.common;
 public class Constants {
 
 	public static String URL_ENCODE = "UTF-8";
-	public static int PAGE_MAX_NUMBER = 10;
+	public static int PAGE_MAX_NUMBER = 1;
 	/**
 	 * 验证码最大值
 	 */

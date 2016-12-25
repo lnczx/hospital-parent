@@ -1,155 +1,110 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.simi.oa.common.UrlHelper"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	import="com.simi.oa.common.UrlHelper"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <%@ include file="../shared/taglib.jsp"%>
-
+<%@ taglib prefix="selectOrgTag" uri="/WEB-INF/views/tags/selectOrg.tld"%>
+<%@ taglib prefix="selectRoleTag" uri="/WEB-INF/views/tags/selectRole.tld"%>
 <html>
 <head>
-
 <!--common css for all pages-->
 <%@ include file="../shared/importCss.jsp"%>
-
 <!--css for this page-->
-
 </head>
-
 <body>
-
-	<section id="container"> <!--header start--> <%@ include
-		file="../shared/pageHeader.jsp"%> <!--header end-->
-
-	<!--sidebar start--> <%@ include file="../shared/sidebarMenu.jsp"%>
-	<!--sidebar end--> <!--main content start--> <section id="main-content">
-	<section class="wrapper"> <!-- page start-->
-	<div class="row">
-		<div class="col-lg-12">
-			<section class="panel"> <header class="panel-heading">
-			用户管理 </header>
-
-			<hr
-				style="width: 100%; color: black; height: 1px; background-color: black;" />
-
-			<div class="panel-body">
-				<form:form modelAttribute="adminAccount" action="adminForm"
-					id="admin-form" class="form-horizontal " method="POST">
-					<form:hidden path="id" />
-					<div class="form-group">
-						<label class="col-sm-2 col-sm-2 control-label">姓名</label>
-						<div class="col-sm-5">
-							<form:input path="name" class="form-control placeholder-no-fix"
-								autocomplete="off" placeholder="姓名" />
-							<br />
-							<form:errors path="name" class="field-has-error"></form:errors>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 col-sm-2 control-label">昵称</label>
-						<div class="col-sm-5">
-							<form:input path="nickname"
-								class="form-control placeholder-no-fix" autocomplete="off"
-								placeholder="昵称" />
-							<br />
-							<form:errors path="nickname" class="field-has-error"></form:errors>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-2 col-sm-2 control-label">手机号</label>
-						<div class="col-sm-5">
-							<form:input path="mobile"
-								class="form-control placeholder-no-fix" autocomplete="off"
-								placeholder="手机号" />
-							<br />
-							<form:errors path="nickname" class="field-has-error"></form:errors>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-2 col-sm-2 control-label">邮箱</label>
-						<div class="col-sm-5">
-							<form:input path="email" class="form-control placeholder-no-fix"
-								autocomplete="off" placeholder="邮箱" />
-							<br />
-							<form:errors path="email" class="field-has-error"></form:errors>
-
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-2 col-sm-2 control-label">用户名</label>
-						<div class="col-sm-5">
-							<form:input path="username"
-								class="form-control placeholder-no-fix" autocomplete="off"
-								placeholder="用户名" />
-							<br />
-							<form:errors path="username" class="field-has-error"></form:errors>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-2 col-sm-2 control-label">密码</label>
-						<div class="col-sm-5">
-							<form:password path="password"
-								class="form-control placeholder-no-fix" autocomplete="off"
-								placeholder="密码" />
-							<br />
-							<form:errors path="password" class="field-has-error"></form:errors>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-2 col-sm-2 control-label">确认密码</label>
-						<div class="col-sm-5">
-							<form:password path="confirmPassword"
-								class="form-control placeholder-no-fix" autocomplete="off"
-								placeholder="确认密码" />
-							<br />
-							<form:errors path="confirmPassword" class="field-has-error"></form:errors>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-2 col-sm-2 control-label">绑定角色</label>
-						<div class="col-sm-5">
-							<form:select path="roleId" class="form-control">
-								<option value="">请选择</option>
-								<form:options items="${selectDataSource}" />
-							</form:select>
-						</div>
-					</div>
-					
-					<div class="form-actions fluid">
-
-						<div class="col-md-offset-3">
-							<button type="button" id="btn_submit" class="btn btn-success">保存</button>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<button class="btn btn-success" type="reset">重置</button>
-						</div>
-					</div>
-
-				</form:form>
+	<article class="page-container"> <form:form modelAttribute="formData" action="adminForm" id="admin-form"
+		class="form form-horizontal" method="POST">
+		<form:hidden path="id" />
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">
+				<span class="c-red">*</span>
+				用户名：
+			</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<form:input path="username" class="input-text" autocomplete="off" placeholder="用户名" />
 			</div>
-			</section>
 		</div>
-	</div>
-	<!-- page end--> </section> </section> <!--main content end--> <!--footer start--> <%@ include
-		file="../shared/pageFooter.jsp"%> <!--footer end-->
-	</section>
-
-	<!-- js placed at the end of the document so the pages load faster -->
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">
+				<span class="c-red">*</span>
+				初始密码：
+			</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">
+				<span class="c-red">*</span>
+				确认密码：
+			</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="password" class="input-text" autocomplete="off" placeholder="确认新密码" id="password2" name="password2">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">
+				<span class="c-red">*</span>
+				昵称：
+			</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<form:input path="name" class="input-text" autocomplete="off" placeholder="昵称" />
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">
+				<span class="c-red">*</span>
+				二级单位：
+			</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<selectOrgTag:select selectedId="${formData.roleId }" sessionOrgId="${sessionScope.accountAuth.orgId}" />
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">
+				<span class="c-red">*</span>
+				用户类型：
+			</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<selectRoleTag:select selectedId="${formData.roleId }" />
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"> 联系方式： </label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<form:input path="mobile" class="input-text" autocomplete="off" placeholder="手机号/座机" />
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"> 邮箱： </label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<form:input path="email" class="input-text" autocomplete="off" placeholder="@" />
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">
+				<span class="c-red">状态*</span>
+			</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<form:radiobutton path="enable" value="1" label="正常" />
+				<form:radiobutton path="enable" value="0" label="停用" />
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form:form> </article>
 	<!--common script for all pages-->
 	<%@ include file="../shared/importJs.jsp"%>
-
-
 	<!--script for this page-->
-	<script
-		src="<c:url value='/assets/jquery-validation/dist/jquery.validate.min.js'/>"
-		type="text/javascript"></script>
-	<script src="<c:url value='/js/simi/common/validate-methods.js'/>"
-		type="text/javascript"></script>
-	<script src="<c:url value='/js/simi/admin/adminForm.js'/>"
-		type="text/javascript"></script>
+	<script src="<c:url value='/lib/jquery.validation/1.14.0/jquery.validate.min.js'/>" type="text/javascript"></script>
+	<script src="<c:url value='/lib/jquery.validation/1.14.0/validate-methods.js'/>" type="text/javascript"></script>
+	<script src="<c:url value='/lib/jquery.validation/1.14.0/messages_zh.min.js'/>" type="text/javascript"></script>
+	<script src="<c:url value='/static/app/js/account/adminForm.js'/>" type="text/javascript"></script>
 </body>
 </html>

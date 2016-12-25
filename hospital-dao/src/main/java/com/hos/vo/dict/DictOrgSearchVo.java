@@ -9,6 +9,10 @@ public class DictOrgSearchVo {
 	private String parentCode;
 	
 	private String name;
+	
+	private Short isParent;
+	
+	private Short isOrg;
 
 	public Long getOrgId() {
 		return orgId;
@@ -40,6 +44,22 @@ public class DictOrgSearchVo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Short getIsParent() {
+		return isParent;
+	}
+
+	public void setIsParent(Short isParent) {
+		this.isParent = isParent;
+	}
+
+	public Short getIsOrg() {
+		return isOrg;
+	}
+
+	public void setIsOrg(Short isOrg) {
+		this.isOrg = isOrg;
 	}
 	
 

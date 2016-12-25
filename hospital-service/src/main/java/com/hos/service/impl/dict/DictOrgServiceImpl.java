@@ -103,5 +103,18 @@ public class DictOrgServiceImpl implements DictOrgService {
 		}
 		return null;
 	}
+	
+	@Override
+	public DictOrgs findById(Long orgId) {
+		
+		List<DictOrgs> list = dictService.LoadOrgData();
+		
+		for(DictOrgs item : list) {
+			if (item.getOrgId().equals(orgId)) {
+				return item;
+			}
+		}
+		return null;
+	}
 
 }

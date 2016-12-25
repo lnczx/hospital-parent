@@ -5,6 +5,7 @@
 		<id column="org_id" property="orgId" jdbcType="NUMERIC" />
 		<result column="org_code" property="orgCode" jdbcType="VARCHAR" />
 		<result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="NUMERIC" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
@@ -12,7 +13,7 @@
 		<result column="admin_id" property="adminId" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		org_id, org_code, parent_code, name, remark, add_time, update_time, admin_id
+		org_id, org_code, parent_code, parent_id, name, remark, add_time, update_time, admin_id
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
@@ -59,13 +60,21 @@
 			and name = #{name,jdbcType=VARCHAR}
 		</if>
 		
+		<if test="isParent != null">
+			and parent_id = 0
+		</if>
+		
+		<if test="isOrg != null">
+			and parent_id > 0
+		</if>
+		
 
 	</sql>
 	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from dict_orgs
-		where org_id = #{orgId,jdbcType=NUMERIC}
-	</delete>
+	delete from dict_orgs
+	where org_id = #{orgId,jdbcType=NUMERIC}
+</delete>
 	<insert id="insert" parameterType="com.hos.po.model.dict.DictOrgs">
 		<selectKey resultType="java.lang.Long" keyProperty="orgId" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -73,7 +82,8 @@
 		insert into dict_orgs (org_code, parent_code, name,
 		remark, add_time, update_time,
 		admin_id)
-		values (#{orgCode,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		values (#{orgCode,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, 
+		#{parentId,jdbcType=NUMERIC},#{name,jdbcType=VARCHAR},
 		#{remark,jdbcType=VARCHAR}, #{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC},
 		#{adminId,jdbcType=NUMERIC})
 	</insert>
@@ -88,6 +98,9 @@
 			</if>
 			<if test="parentCode != null">
 				parent_code,
+			</if>
+			<if test="parentId != null">
+				parent_id,
 			</if>
 			<if test="name != null">
 				name,
@@ -111,6 +124,9 @@
 			</if>
 			<if test="parentCode != null">
 				#{parentCode,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=NUMERIC},
 			</if>
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
@@ -138,6 +154,9 @@
 			<if test="parentCode != null">
 				parent_code = #{parentCode,jdbcType=VARCHAR},
 			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=NUMERIC},
+			</if>
 			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
 			</if>
@@ -160,6 +179,7 @@
 		update dict_orgs
 		set org_code = #{orgCode,jdbcType=VARCHAR},
 		parent_code = #{parentCode,jdbcType=VARCHAR},
+		parent_id = #{parentId,jdbcType=NUMERIC},
 		name = #{name,jdbcType=VARCHAR},
 		remark = #{remark,jdbcType=VARCHAR},
 		add_time = #{addTime,jdbcType=NUMERIC},

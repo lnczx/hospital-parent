@@ -1,79 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!--header start-->
-<header class="header white-bg">
-	<div class="sidebar-toggle-box">
-		<div data-original-title="Toggle Navigation" data-placement="right"
-			class="icon-reorder tooltips"></div>
-	</div>
-	<!--logo start-->
-	<a href="/index" class="logo">运营平台</a>
-	<!--logo end-->
-	<div class="nav notify-row" id="top_menu">
-		<!--  notification start -->
-		<ul class="nav top-menu">
-
-			<!-- inbox dropdown start-->
-			<li id="header_inbox_bar" class="dropdown"><a
-				data-toggle="dropdown" class="dropdown-toggle" href="#"> <i
-					class="icon-envelope-alt"></i> <span class="badge bg-important">5</span>
-			</a>
-				<ul class="dropdown-menu extended inbox">
-					<div class="notify-arrow notify-arrow-red"></div>
-					<li>
-						<p class="red">You have 5 new messages</p>
+<header class="navbar-wrapper">
+	<div class="navbar navbar-fixed-top">
+		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="index.html">继续教育项目管理平台</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="index.html">H-ui</a> <span class="logo navbar-slogan f-l mr-10 hidden-xs"></span> <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
+			<nav class="nav navbar-nav">
+				<ul class="cl">
+					<li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 常用功能 <i class="Hui-iconfont">&#xe6d5;</i></a>
+						<ul class="dropDown-menu menu radius box-shadow">
+							<li><a href="javascript:;" onclick="article_add('继教项目管理老版系统','http://jjxmglxt.pumc.edu.cn/app/login.do')"><i class="Hui-iconfont">&#xe616;</i> 进入老版系统</a></li>
+							<li><a href="javascript:;" onclick="picture_add('导入模板下载','template-index.html')"><i class="Hui-iconfont">&#xe613;</i> 导入模板下载</a></li>
+						</ul>
 					</li>
-					<li><a href="#"> <span class="photo"><img
-								alt="avatar" src="<c:url value='/img/avatar-mini.jpg'/>"></span>
-							<span class="subject"> <span class="from">Jonathan
-									Smith</span> <span class="time">Just now</span>
-						</span> <span class="message"> Hello, this is an example msg. </span>
-					</a></li>
-					<li><a href="#"> <span class="photo"><img
-								alt="avatar" src="<c:url value='/img/avatar-mini2.jpg'/>"></span>
-							<span class="subject"> <span class="from">Jhon Doe</span>
-								<span class="time">10 mins</span>
-						</span> <span class="message"> Hi, Jhon Doe Bhai how are you ? </span>
-					</a></li>
-					<li><a href="#"> <span class="photo"><img
-								alt="avatar" src="<c:url value='/img/avatar-mini3.jpg'/>"></span>
-							<span class="subject"> <span class="from">Jason
-									Stathum</span> <span class="time">3 hrs</span>
-						</span> <span class="message"> This is awesome dashboard. </span>
-					</a></li>
-					<li><a href="#"> <span class="photo"><img
-								alt="avatar" src="<c:url value='/img/avatar-mini4.jpg'/>"></span>
-							<span class="subject"> <span class="from">Jondi
-									Rose</span> <span class="time">Just now</span>
-						</span> <span class="message"> Hello, this is metrolab </span>
-					</a></li>
-					<li><a href="#">See all messages</a></li>
-				</ul></li>
-			<!-- inbox dropdown end -->
-
-		</ul>
-		<!--  notification end -->
-	</div>
-	<div class="top-nav ">
-		<!--search & user info start-->
-		<ul class="nav pull-right top-menu">
-			<!-- <li><input type="text" class="form-control search"
-				placeholder="Search"></li> -->
-			<!-- user login dropdown start-->
-			<li class="dropdown"><a data-toggle="dropdown"
-				class="dropdown-toggle" href="#"> <img alt=""
-					src="<c:url value='/img/avatar1_small.jpg'/>"> <span
-					class="username">Jhon Doue</span> <b class="caret"></b>
-			</a>
-				<ul class="dropdown-menu extended logout">
-					<div class="log-arrow-up"></div>
-					<li><a href="#"><i class=" icon-suitcase"></i>Profile</a></li>
-					<li><a href="#"><i class="icon-cog"></i> Settings</a></li>
-					<li><a href="#"><i class="icon-bell-alt"></i> Notification</a></li>
-					<li><a href="/simi-oa/account/logout"><i class="icon-key"></i> Log Out</a></li>
-				</ul></li>
-			<!-- user login dropdown end -->
-		</ul>
-		<!--search & user info end-->
+				</ul>
+			</nav>
+			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+				<ul class="cl">
+					<li>${accountAuth.name}</li>
+					<li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">${accountAuth.username} <i class="Hui-iconfont">&#xe6d5;</i></a>
+						<ul class="dropDown-menu menu radius box-shadow">
+							<li><a href="#">个人信息</a></li>
+							<li><a href="/hospital-oa/account/logout">退出</a></li>
+						</ul>
+					</li>
+					<!-- 消息  留着备用
+					<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>
+					-->
+					<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
+						<ul class="dropDown-menu menu radius box-shadow">
+							<li><a href="javascript:;" data-val="default" title="默认（蓝色）">默认（蓝色）</a></li>
+							<li><a href="javascript:;" data-val="green" title="绿色">绿色</a></li>
+							<li><a href="javascript:;" data-val="red" title="红色">红色</a></li>
+							<li><a href="javascript:;" data-val="yellow" title="黄色">黄色</a></li>
+							<li><a href="javascript:;" data-val="orange" title="绿色">橙色</a></li>
+							<li><a href="javascript:;" data-val="black" title="黑色">黑色</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
 	</div>
 </header>

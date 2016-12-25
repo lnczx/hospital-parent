@@ -29,4 +29,6 @@ public interface DictOrgService {
 
 	DictOrgs findByOrgCode(String orgCode);
 
+	DictOrgs findById(Long orgId);
+
 }

@@ -1,6 +1,7 @@
 package com.simi.action.admin;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -39,7 +40,7 @@ public class AdminAccountController extends AdminController {
 
 	@Autowired
 	private AdminAuthorityService adminAuthorityService;
-		
+
 	@RequestMapping(value = "/register", method = { RequestMethod.GET })
 	public String register(HttpServletRequest request, Model model) {
 		Long ids = Long.valueOf(request.getParameter("id"));
@@ -48,49 +49,41 @@ public class AdminAccountController extends AdminController {
 			ids = 0L;
 		}
 		AdminAccount account = adminAccountService.initAccount();
-		
-		AccountRegisterVo accountRegisterVo = new AccountRegisterVo();
+
+//		AccountRegisterVo accountRegisterVo = new AccountRegisterVo();
 		if (ids != null && ids > 0L) {
 			account = adminAccountService.selectByPrimaryKey(ids);
-			BeanUtils.copyProperties(account, accountRegisterVo);
-			
-		}		
-		accountRegisterVo.setId(account.getId());
-				
-		model.addAttribute("adminAccount", accountRegisterVo);
-		model.addAttribute(selectDataSourceName,
-				adminRoleService.getSelectSource());
-		
+//			BeanUtils.copyProperties(account, accountRegisterVo);
+
+		}
+//		accountRegisterVo.setId(account.getId());
+
+		model.addAttribute("formData", account);
+
 		return "account/adminForm";
 	}
 
 	@RequestMapping(value = "/adminForm", method = { RequestMethod.POST })
-	public String register(
-			HttpServletRequest request,
-			Model model,
-			@Valid @ModelAttribute("adminAccount") AccountRegisterVo accountRegisterVo,
-			BindingResult result) throws ValidatException,
-			NoSuchAlgorithmException {  
-		Long ids = Long.valueOf(request.getParameter("id"));	 // 主键id
-		
-		Long roleId = Long.valueOf(request.getParameter("roleId"));//选择的角色
-		
-		
+	public String register(HttpServletRequest request, Model model, @Valid @ModelAttribute("adminAccount") AccountRegisterVo accountRegisterVo,
+			BindingResult result) throws ValidatException, NoSuchAlgorithmException {
+		Long ids = Long.valueOf(request.getParameter("id")); // 主键id
+
+		Long roleId = Long.valueOf(request.getParameter("roleId"));// 选择的角色
+
 		AdminAccount account = null;
-		
-		//新增
-		if (ids == null||ids == 0) {
+
+		// 新增
+		if (ids == null || ids == 0) {
 			account = adminAccountService.initAccount();
-			
+
 		} else {
-			
+
 			account = adminAccountService.selectByPrimaryKey(ids);
 		}
-		
-		
+
 		BeanUtils.copyProperties(accountRegisterVo, account);
-		
-			String passwordMd5 = StringUtil.md5(account.getPassword().trim());
+
+		String passwordMd5 = StringUtil.md5(account.getPassword().trim());
 		account.setPassword(passwordMd5);
 		if (accountRegisterVo == null) {
 			return register(request, model);
@@ -99,50 +92,48 @@ public class AdminAccountController extends AdminController {
 		String password = accountRegisterVo.getPassword();
 		String confirmPassword = accountRegisterVo.getConfirmPassword();
 		if (!password.equals(confirmPassword)) {
-			result.addError(new FieldError("adminAccount", "confirmPassword",
-					"确认密码与密码输入不一致。"));
+			result.addError(new FieldError("adminAccount", "confirmPassword", "确认密码与密码输入不一致。"));
 			return register(request, model);
 		}
+		
+		AccountSearchVo searchVo = new AccountSearchVo();
+		searchVo.setUsername(username);
+		List<AdminAccount> list = adminAccountService.selectBySearchVo(searchVo);
+		AdminAccount adminAccount = null;
+		
+		if (!list.isEmpty()) {
+			adminAccount = list.get(0);
+		}
 
-		AdminAccount adminAccount = adminAccountService.selectByUsername(username);
-
-		if (adminAccount != null && adminAccount.getId() > 0 
-				&& adminAccount.getId() != accountRegisterVo.getId()) {
-			result.addError(new FieldError("adminAccount", "username",
-					"该用户名已被注册。"));
+		if (adminAccount != null && adminAccount.getId() > 0 && adminAccount.getId() != accountRegisterVo.getId()) {
+			result.addError(new FieldError("adminAccount", "username", "该用户名已被注册。"));
 			return register(request, model);
 		}
-		if (ids == null||ids == 0) {
+		if (ids == null || ids == 0) {
 			account.setId(0L);
 			adminAccountService.insertSelective(account);
 		} else {
-			adminAccountService.updateByPrimaryKeySelective(account);				
-		}		
-		
-		AdminAccount account2 = adminAccountService.selectByUsername(account.getUsername());
-						
+			adminAccountService.updateByPrimaryKeySelective(account);
+		}
+
+
 		model.addAttribute("adminAccount", account);
-		
-		String returnUrl = ServletRequestUtils.getStringParameter(request,
-				"returnUrl", null);
+
+		String returnUrl = ServletRequestUtils.getStringParameter(request, "returnUrl", null);
 		if (returnUrl == null)
 			returnUrl = "/account/list";
 		return "redirect:/account/list";
 	}
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET })
-	public String list(HttpServletRequest request, Model model,
-			AccountSearchVo searchVo) {
+	public String list(HttpServletRequest request, Model model, AccountSearchVo searchVo) {
 		model.addAttribute("requestUrl", request.getServletPath());
 		model.addAttribute("requestQuery", request.getQueryString());
 
 		model.addAttribute("searchModel", searchVo);
-		int pageNo = ServletRequestUtils.getIntParameter(request,
-				ConstantOa.PAGE_NO_NAME, ConstantOa.DEFAULT_PAGE_NO);
-		int pageSize = ServletRequestUtils.getIntParameter(request,
-				ConstantOa.PAGE_SIZE_NAME, ConstantOa.DEFAULT_PAGE_SIZE);
-		model.addAttribute("contentModel",
-				adminAccountService.listPage(searchVo, pageNo, pageSize));
+		int pageNo = ServletRequestUtils.getIntParameter(request, ConstantOa.PAGE_NO_NAME, ConstantOa.DEFAULT_PAGE_NO);
+		int pageSize = ServletRequestUtils.getIntParameter(request, ConstantOa.PAGE_SIZE_NAME, ConstantOa.DEFAULT_PAGE_SIZE);
+		model.addAttribute("contentModel", adminAccountService.listPage(searchVo, pageNo, pageSize));
 
 		return "account/adminList";
 	}
@@ -157,16 +148,13 @@ public class AdminAccountController extends AdminController {
 	 */
 	// @AuthPassport
 	@RequestMapping(value = "/authorize/{id}", method = { RequestMethod.GET })
-	public String authorize(HttpServletRequest request, Model model,
-			@PathVariable(value = "id") String id) {
+	public String authorize(HttpServletRequest request, Model model, @PathVariable(value = "id") String id) {
 		Long ids = Long.valueOf(id.trim());
 		if (!model.containsAttribute("contentModel")) {
-			AdminAccount adminAccount = adminAccountService
-					.selectByPrimaryKey(ids);
+			AdminAccount adminAccount = adminAccountService.selectByPrimaryKey(ids);
 			model.addAttribute("contentModel", adminAccount);
 		}
-		model.addAttribute(selectDataSourceName,
-				adminRoleService.getSelectSource());
+		model.addAttribute(selectDataSourceName, adminRoleService.getSelectSource());
 		return "account/authorize";
 	}
 
@@ -182,19 +170,15 @@ public class AdminAccountController extends AdminController {
 	 */
 	// @AuthPassport
 	@RequestMapping(value = "/authorize/{id}", method = { RequestMethod.POST })
-	public String authorize(HttpServletRequest request, Model model,
-			@Valid @ModelAttribute("contentModel") AdminAccount adminAccount,
+	public String authorize(HttpServletRequest request, Model model, @Valid @ModelAttribute("contentModel") AdminAccount adminAccount,
 			@PathVariable(value = "id") String id, BindingResult result) {
 		Long ids = Long.valueOf(id.trim());
 		if (result.hasErrors())
 			return authorize(request, model, id);
 		if (adminAccount != null) {
-			adminAccountService.updateBind(ids, adminAccount.getRoleId(),
-					adminAccount.getOrganizationId(),
-					adminAccount.getImUsername());
+			adminAccountService.updateBind(ids, adminAccount.getRoleId(), adminAccount.getOrgId(), adminAccount.getImUsername());
 		}
-		String returnUrl = ServletRequestUtils.getStringParameter(request,
-				"returnUrl", null);
+		String returnUrl = ServletRequestUtils.getStringParameter(request, "returnUrl", null);
 		if (returnUrl == null)
 			returnUrl = "/account/list";
 		return "redirect:" + returnUrl;
@@ -205,8 +189,7 @@ public class AdminAccountController extends AdminController {
 	 */
 	// @AuthPassport
 	@RequestMapping(value = "/enable/{id}", method = { RequestMethod.GET })
-	public String enableAdminRole(Model model,
-			@PathVariable(value = "id") String id, HttpServletRequest response) {
+	public String enableAdminRole(Model model, @PathVariable(value = "id") String id, HttpServletRequest response) {
 		Long ids = Long.valueOf(id.trim());
 		AdminAccount adminAccount = adminAccountService.selectByPrimaryKey(ids);
 		if (adminAccount != null) {
@@ -221,8 +204,7 @@ public class AdminAccountController extends AdminController {
 	 */
 	// @AuthPassport
 	@RequestMapping(value = "/disable/{id}", method = { RequestMethod.GET })
-	public String disableAdminRole(Model model,
-			@PathVariable(value = "id") String id, HttpServletRequest response) {
+	public String disableAdminRole(Model model, @PathVariable(value = "id") String id, HttpServletRequest response) {
 		Long ids = Long.valueOf(id.trim());
 		AdminAccount adminAccount = adminAccountService.selectByPrimaryKey(ids);
 		if (adminAccount != null) {
@@ -237,8 +219,7 @@ public class AdminAccountController extends AdminController {
 	 */
 	// @AuthPassport
 	@RequestMapping(value = "/delete/{id}", method = { RequestMethod.GET })
-	public String deleterAdminRole(Model model,
-			@PathVariable(value = "id") String id, HttpServletRequest response) {
+	public String deleterAdminRole(Model model, @PathVariable(value = "id") String id, HttpServletRequest response) {
 		Long ids = Long.valueOf(id.trim());
 		String path = "redirect:/account/list";
 		int result = adminAccountService.deleteByPrimaryKey(ids);

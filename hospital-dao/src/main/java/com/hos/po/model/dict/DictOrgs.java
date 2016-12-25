@@ -6,6 +6,8 @@ public class DictOrgs {
     private String orgCode;
 
     private String parentCode;
+    
+    private Long parentId;
 
     private String name;
 
@@ -80,4 +82,12 @@ public class DictOrgs {
     public void setAdminId(Long adminId) {
         this.adminId = adminId;
     }
+
+	public Long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
 }

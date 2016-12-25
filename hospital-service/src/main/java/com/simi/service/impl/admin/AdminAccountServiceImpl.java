@@ -1,9 +1,7 @@
 package com.simi.service.impl.admin;
 
-
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -12,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hos.po.model.dict.DictOrgs;
+import com.hos.service.dict.DictOrgService;
+import com.hos.service.dict.DictService;
 import com.simi.service.admin.AdminAccountService;
 import com.simi.service.admin.AdminOrganizationService;
 import com.simi.service.admin.AdminRoleService;
@@ -21,9 +22,9 @@ import com.simi.po.dao.admin.AdminAccountMapper;
 import com.simi.po.dao.admin.AdminRoleMapper;
 import com.simi.po.model.admin.AdminAccount;
 import com.simi.po.model.admin.AdminRole;
+import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.DateUtil;
 import com.meijia.utils.StringUtil;
-
 
 @Service
 public class AdminAccountServiceImpl implements AdminAccountService {
@@ -39,7 +40,9 @@ public class AdminAccountServiceImpl implements AdminAccountService {
 
 	@Autowired
 	public AdminRoleMapper adminRoleMapper;
-
+	
+	@Autowired
+	public DictOrgService dictOrgService;
 
 	@Override
 	public AdminAccount selectByPrimaryKey(Long id) {
@@ -49,35 +52,19 @@ public class AdminAccountServiceImpl implements AdminAccountService {
 	@Override
 	@SuppressWarnings("unchecked")
 	public PageInfo listPage(AccountSearchVo accountSearchVo, int pageNo, int pageSize) {
-		String name = accountSearchVo.getName();
-		String username = accountSearchVo.getUsername();
 
-		HashMap<String,String> conditions = new HashMap<String,String>();
-
-		if(name!=null && !name.isEmpty()){
-			conditions.put("name", name);
+		PageHelper.startPage(pageNo, pageSize);
+		List<AdminAccount> list = adminAccountMapper.selectByListPage(accountSearchVo);
+		if (list != null && list.size() > 0) {
+			List<AdminAccountVo> adminAccountViewList = this.getAdminAccountViewList(list);
+			for (int i = 0; i < list.size(); i++) {
+				if (adminAccountViewList.get(i) != null) {
+					list.set(i, adminAccountViewList.get(i));
+				}
+			}
 		}
-		if(username!=null && !username.isEmpty()){
-			conditions.put("username", username);
-		}
-
-		 PageHelper.startPage(pageNo, pageSize);
-         List<AdminAccount> list = adminAccountMapper.selectByListPage(conditions);
-         if(list!=null && list.size()>0){
-        	 List<AdminAccountVo> adminAccountViewList = this.getAdminAccountViewList(list);
-        	 for(int i = 0; i < list.size(); i++) {
-        	 if (adminAccountViewList.get(i) != null) {
-        		 list.set(i, adminAccountViewList.get(i));
-        	 }
-         	}
-         }
-        PageInfo result = new PageInfo(list);
-        return result;
-    }
-
-	@Override
-	public AdminAccount selectByUsername(String username){
-		return adminAccountMapper.selectByUsername(username);
+		PageInfo result = new PageInfo(list);
+		return result;
 	}
 
 	@Override
@@ -88,18 +75,23 @@ public class AdminAccountServiceImpl implements AdminAccountService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public AdminAccount login(String username, String password) throws NoSuchAlgorithmException{
-
-		HashMap<String,String> conditions = new HashMap<String,String>();
-
-		conditions.put("username", username);
-		conditions.put("password", StringUtil.md5(password.trim()));
-		AdminAccount po = adminAccountMapper.selectByUsernameAndPassword(conditions);
+	public AdminAccount login(String username, String password) throws NoSuchAlgorithmException {
+		
+		
+		AccountSearchVo accountSearchVo = new AccountSearchVo();
+		accountSearchVo.setUsername(username);
+		accountSearchVo.setPassword(StringUtil.md5(password.trim()));
+		accountSearchVo.setEnable((short) 1);
+		List<AdminAccount> list = adminAccountMapper.selectBySearchVo(accountSearchVo);
+		AdminAccount po = null;
+		if (!list.isEmpty()) {
+			po = list.get(0);
+		}
 		return po;
 	}
 
 	@Override
-	public AdminAccount initAccount()  {
+	public AdminAccount initAccount() {
 		AdminAccount account = new AdminAccount();
 		account.setId(0L);
 		account.setName("");
@@ -109,15 +101,15 @@ public class AdminAccountServiceImpl implements AdminAccountService {
 		account.setRegisterTime(DateUtil.getNowOfDate());
 		account.setVersion(0L);
 		account.setRoleId(1L);
-		account.setOrganizationId(0L);
+		account.setOrgId(0L);
 		return account;
 	}
 
 	@Override
-	public AdminAccount updateBind(Long id, Long roleId, Long organizationId,String imUsername) {
+	public AdminAccount updateBind(Long id, Long roleId, Long orgId, String imUsername) {
 		AdminAccount adminAccount = adminAccountMapper.selectByPrimaryKey(id);
 		adminAccount.setRoleId(roleId);
-		adminAccount.setOrganizationId(organizationId);
+		adminAccount.setOrgId(orgId);
 		adminAccount.setImUsername(imUsername);
 		adminAccountMapper.updateByPrimaryKeySelective(adminAccount);
 		return adminAccount;
@@ -144,71 +136,56 @@ public class AdminAccountServiceImpl implements AdminAccountService {
 	}
 
 	@Override
-	public List<AdminAccount> selectByListPage(HashMap conditions) {
-		return adminAccountMapper.selectByListPage(conditions);
-	}
-
-	@Override
-	public AdminAccount selectByUsernameAndPassword(HashMap conditions) {
-		return adminAccountMapper.selectByUsernameAndPassword(conditions);
-	}
-
-	@Override
-	public List<AdminAccount> selectByRoleId(Long roleId) {
-		return adminAccountMapper.selectByRoleId(roleId);
-	}
-
-	@Override
 	public List<AdminAccountVo> getAdminAccountViewList(List<AdminAccount> list) {
-		 List<Long> roleIds = new ArrayList<Long>();
-	     AdminAccount item = null;
-	     //将AdminAccount中的roleId放到List集合中
-	     for (int i = 0 ; i < list.size(); i ++) {
-	     	item = list.get(i);
-	     	roleIds.add(item.getRoleId());
-	     }
-	     //根据roleIds查询出对应的AdminRole
-	     List<AdminRole> roleList = adminRoleMapper.selectByRoleIds(roleIds);
-	     List<AdminAccountVo> result = new ArrayList<AdminAccountVo>();
-	     Long roleId = 0L;
-	     //AdminAccount中的roleId和AdminRole中的Id进行比较，相同则为roleName赋值
-	     for (int i = 0 ; i < list.size(); i ++) {
-	     	item = list.get(i);
-	     	roleId = item.getRoleId();
+		List<Long> roleIds = new ArrayList<Long>();
+		AdminAccount item = null;
+		// 将AdminAccount中的roleId放到List集合中
+		for (int i = 0; i < list.size(); i++) {
+			item = list.get(i);
+			roleIds.add(item.getRoleId());
+		}
+		// 根据roleIds查询出对应的AdminRole
+		List<AdminRole> roleList = adminRoleMapper.selectByRoleIds(roleIds);
+		List<AdminAccountVo> result = new ArrayList<AdminAccountVo>();
+		Long roleId = 0L;
+		// AdminAccount中的roleId和AdminRole中的Id进行比较，相同则为roleName赋值
+		for (int i = 0; i < list.size(); i++) {
+			item = list.get(i);
+			roleId = item.getRoleId();
 
-	     	AdminAccountVo vo = new AdminAccountVo();
-	     	BeanUtils.copyProperties(item, vo);
+			AdminAccountVo vo = new AdminAccountVo();
+			BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
 
-	     	String roleName = "";
-	     	AdminRole adminRole = null;
-	     	for(int n = 0; n < roleList.size(); n++) {
-	     		adminRole = roleList.get(n);
-	     		if (adminRole.getId().equals(roleId)) {
-	     			roleName = adminRole.getName();
-	     			break;
-	     		}
-	     	}
-	     	vo.setRoleName(roleName);;
-	     	result.add(vo);
-	     }
-	     return result;
-	}
-
-	@Override
-	public List<AdminAccount> selectByIds(List<Long> ids) {
-		return adminAccountMapper.selectByIds(ids);
+			String roleName = "";
+			for (AdminRole ar : roleList) {
+				if (ar.getId().equals(roleId)) {
+					vo.setRoleName(roleName);
+					break;
+				}
+			}
+			
+			//机构
+			String orgName = "";
+			if (item.getOrgId() > 0L) {
+				DictOrgs dictOrg = dictOrgService.findById(item.getOrgId());
+				orgName = dictOrg.getName();
+			}
+			vo.setOrgName(orgName);
+			
+			result.add(vo);
+		}
+		return result;
 	}
 
 	@Override
 	public int updateByPrimaryKeySelectives(AdminAccount record) {
-		
+
 		return adminAccountMapper.updateByPrimaryKeySelective(record);
 	}
-
+	
 	@Override
-	public List<AdminAccount> selectByAll() {
-		
-		return adminAccountMapper.selectByAll();
+	public List<AdminAccount> selectBySearchVo(AccountSearchVo searchVo) {
+		return adminAccountMapper.selectBySearchVo(searchVo);
 	}
 
 }
