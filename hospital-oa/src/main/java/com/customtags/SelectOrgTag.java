@@ -11,11 +11,8 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.hos.po.model.dict.DictOrgs;
-import com.hos.po.model.dict.Dicts;
 import com.hos.service.dict.DictOrgService;
-import com.hos.service.dict.DictService;
 import com.hos.vo.dict.DictOrgSearchVo;
-import com.simi.oa.auth.AuthHelper;
 
 public class SelectOrgTag extends SimpleTagSupport {
 

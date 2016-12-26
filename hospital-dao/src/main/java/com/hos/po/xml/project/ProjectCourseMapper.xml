@@ -13,12 +13,13 @@
 		<result column="title_id" property="titleId" jdbcType="NUMERIC" />
 		<result column="org_id" property="orgId" jdbcType="NUMERIC" />
 		<result column="course_type" property="courseType" jdbcType="NUMERIC" />
+		<result column="admin_id" property="adminId" jdbcType="NUMERIC" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
 		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		course_id, p_id, course_date, start_time, end_time, course_datetime, content, teacher,
-		title_id, org_id, course_type, add_time, update_time
+		title_id, org_id, course_type, admin_id, add_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
@@ -77,13 +78,13 @@
 		insert into projct_course (p_id, course_date, start_time,
 		end_time, course_datetime, content,
 		teacher, title_id, org_id,
-		course_type, add_time, update_time
+		course_type, admin_id, add_time, update_time
 		)
 		values (#{pId,jdbcType=NUMERIC}, #{courseDate,jdbcType=DATE}, #{startTime,jdbcType=TIME},
 		#{endTime,jdbcType=TIME}, #{courseDatetime,jdbcType=NUMERIC},
 		#{content,jdbcType=VARCHAR},
 		#{teacher,jdbcType=VARCHAR}, #{titleId,jdbcType=NUMERIC}, #{orgId,jdbcType=NUMERIC},
-		#{courseType,jdbcType=NUMERIC},
+		#{courseType,jdbcType=NUMERIC}, #{adminId,jdbcType=NUMERIC}, 
 		#{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC}
 		)
 	</insert>
@@ -123,6 +124,9 @@
 			<if test="courseType != null">
 				course_type,
 			</if>
+			<if test="adminId != null">
+				admin_id,
+			</if>
 			<if test="addTime != null">
 				add_time,
 			</if>
@@ -160,6 +164,9 @@
 			</if>
 			<if test="courseType != null">
 				#{courseType,jdbcType=NUMERIC},
+			</if>
+			<if test="adminId != null">
+				#{adminId,jdbcType=NUMERIC},
 			</if>
 			<if test="addTime != null">
 				#{addTime,jdbcType=NUMERIC},
@@ -202,6 +209,9 @@
 			<if test="courseType != null">
 				course_type = #{courseType,jdbcType=NUMERIC},
 			</if>
+			<if test="adminId != null">
+				admin_id = #{adminId,jdbcType=NUMERIC},
+			</if>
 			<if test="addTime != null">
 				add_time = #{addTime,jdbcType=NUMERIC},
 			</if>
@@ -225,6 +235,7 @@
 		org_id = #{orgId,jdbcType=NUMERIC},
 		course_type =
 		#{courseType,jdbcType=NUMERIC},
+		admin_id = #{adminId,jdbcType=NUMERIC},
 		add_time = #{addTime,jdbcType=NUMERIC},
 		update_time = #{updateTime,jdbcType=NUMERIC}
 		where course_id =

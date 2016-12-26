@@ -52,7 +52,8 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 		record.setTitleId(0L);
 		record.setOrgId(0L);
 		record.setCityId(0L);
-		record.setAddr("");			
+		record.setAddr("");		
+		record.setAdminId(0L);
 		record.setAddTime(TimeStampUtil.getNowSecond());
 		record.setUpdateTime(TimeStampUtil.getNowSecond());
 

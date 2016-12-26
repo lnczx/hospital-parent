@@ -59,7 +59,7 @@
 								<td>${ item.credit }</td>
 								<td>${ item.numRecruit }</td>
 								<td>${item.numTerm }</td>
-								<td></td>
+								<td>${item.dateRange }</td>
 								<td class="td-manage"><a href="javascript:;" onclick="" class="btn btn-primary-outline size-S radius">招生简章</a>
 									&nbsp; <a href="javascript:;" onclick="project_show('查看课表','schedule-list.html','10001')"
 										class="btn btn-primary-outline size-S radius">课表</a> &nbsp; <a href="javascript:;"

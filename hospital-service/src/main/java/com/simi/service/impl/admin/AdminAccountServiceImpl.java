@@ -4,7 +4,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hos.po.model.dict.DictOrgs;
 import com.hos.service.dict.DictOrgService;
-import com.hos.service.dict.DictService;
 import com.simi.service.admin.AdminAccountService;
 import com.simi.service.admin.AdminOrganizationService;
 import com.simi.service.admin.AdminRoleService;

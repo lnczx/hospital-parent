@@ -8,7 +8,7 @@ import com.hos.vo.project.ProjectSearchVo;
 
 
 
-public interface ProjectSCourseService {
+public interface ProjectCourseService {
 
 	int insertSelective(ProjectCourse record);
 

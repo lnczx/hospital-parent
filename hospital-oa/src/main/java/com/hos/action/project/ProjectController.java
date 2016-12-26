@@ -2,7 +2,6 @@ package com.hos.action.project;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +21,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.github.pagehelper.PageInfo;
 import com.hos.common.Constants;
+import com.hos.po.model.project.Projects;
 import com.hos.service.project.ProjectService;
 import com.hos.vo.project.ProjectSearchVo;
+import com.hos.vo.project.ProjectVo;
 import com.meijia.utils.ExcelUtil;
 import com.meijia.utils.RandomUtil;
 import com.meijia.utils.StringUtil;
@@ -61,7 +62,14 @@ public class ProjectController extends BaseController {
 
 		@SuppressWarnings("rawtypes")
 		PageInfo pageInfo = projectService.selectByListPage(searchVo, pageNo, pageSize);
-
+		List<Projects> list = pageInfo.getList();
+		for (int i =0; i < list.size(); i++) {
+			Projects item = list.get(i);
+			ProjectVo vo = projectService.getVo(item);
+			list.set(i, vo);
+		}
+		pageInfo = new PageInfo(list);
+		
 		model.addAttribute("contentModel", pageInfo);
 
 		return "project/projectList";
@@ -164,7 +172,12 @@ public class ProjectController extends BaseController {
 
 		// 获取登录的用户
 		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
-
+		if (accountAuth == null) {
+			model.addAttribute("errors", "长时间未操作,请重新登录后进行导入.");
+			return "project/projectImportError";
+		}
+		
+		Long adminId = accountAuth.getId();
 		// 创建一个通用的多部分解析器.
 		String path = Constants.IMPORT_PATH;
 		String newFileName = request.getParameter("newFileName").toString();
@@ -179,7 +192,7 @@ public class ProjectController extends BaseController {
 		InputStream in = new FileInputStream(path + newFileName);
 		excelDatas = ExcelUtil.readToList(path + newFileName, in, 0, 0);
 
-		AppResultData<Object> validateResult = projectService.doProjectImport(excelDatas, newFileName);
+		AppResultData<Object> validateResult = projectService.doProjectImport(excelDatas, newFileName, adminId);
 		
 		String totals = request.getParameter("totals").toString();
 		String totalNews = request.getParameter("totalNews").toString();

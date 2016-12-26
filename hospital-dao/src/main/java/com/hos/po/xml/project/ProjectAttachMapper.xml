@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hos.po.dao.project.ProjectAttachMapper">
+	<resultMap id="BaseResultMap" type="com.hos.po.model.project.ProjectAttach">
+		<id column="id" property="id" jdbcType="NUMERIC" />
+		<result column="p_id" property="pId" jdbcType="NUMERIC" />
+		<result column="attach_type" property="attachType" jdbcType="VARCHAR" />
+		<result column="file_name" property="fileName" jdbcType="VARCHAR" />
+		<result column="file_type" property="fileType" jdbcType="VARCHAR" />
+		<result column="file_size" property="fileSize" jdbcType="INTEGER" />
+		<result column="admin_id" property="adminId" jdbcType="NUMERIC" />
+		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, p_id, attach_type, file_name, file_type, file_size, admin_id, add_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from project_attach
+		where id = #{id,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from project_attach
+		<include refid="bySearchVo"/>
+	</select>
+	
+	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectSearchVo">
+		select
+		<include refid="Base_Column_List" />
+		from project_attach
+		<include refid="bySearchVo"/>
+	</select>
+	
+	<sql id="bySearchVo">
+	    where 1 = 1
+	    <if test="pId != null">
+			and p_id = #{pId,jdbcType=NUMERIC}
+		</if>
+		
+	    <if test="attachType != null">
+			and attach_type = #{attachType,jdbcType=VARCHAR}
+		</if>
+		
+	</sql>
+	
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from project_attach
+		where id = #{id,jdbcType=NUMERIC}
+	</delete>
+	<insert id="insert" parameterType="com.hos.po.model.project.ProjectAttach">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into project_attach (p_id, attach_type, file_name,
+		file_type, file_size, admin_id,
+		add_time)
+		values (#{pId,jdbcType=NUMERIC}, #{attachType,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR},
+		#{fileType,jdbcType=VARCHAR}, #{fileSize,jdbcType=INTEGER}, #{adminId,jdbcType=NUMERIC},
+		#{addTime,jdbcType=NUMERIC})
+	</insert>
+	<insert id="insertSelective" parameterType="com.hos.po.model.project.ProjectAttach">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into project_attach
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pId != null">
+				p_id,
+			</if>
+			<if test="attachType != null">
+				attach_type,
+			</if>
+			<if test="fileName != null">
+				file_name,
+			</if>
+			<if test="fileType != null">
+				file_type,
+			</if>
+			<if test="fileSize != null">
+				file_size,
+			</if>
+			<if test="adminId != null">
+				admin_id,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pId != null">
+				#{pId,jdbcType=NUMERIC},
+			</if>
+			<if test="attachType != null">
+				#{attachType,jdbcType=VARCHAR},
+			</if>
+			<if test="fileName != null">
+				#{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="fileType != null">
+				#{fileType,jdbcType=VARCHAR},
+			</if>
+			<if test="fileSize != null">
+				#{fileSize,jdbcType=INTEGER},
+			</if>
+			<if test="adminId != null">
+				#{adminId,jdbcType=NUMERIC},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=NUMERIC},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hos.po.model.project.ProjectAttach">
+		update project_attach
+		<set>
+			<if test="pId != null">
+				p_id = #{pId,jdbcType=NUMERIC},
+			</if>
+			<if test="attachType != null">
+				attach_type = #{attachType,jdbcType=VARCHAR},
+			</if>
+			<if test="fileName != null">
+				file_name = #{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="fileType != null">
+				file_type = #{fileType,jdbcType=VARCHAR},
+			</if>
+			<if test="fileSize != null">
+				file_size = #{fileSize,jdbcType=INTEGER},
+			</if>
+			<if test="adminId != null">
+				admin_id = #{adminId,jdbcType=NUMERIC},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=NUMERIC},
+			</if>
+		</set>
+		where id = #{id,jdbcType=NUMERIC}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hos.po.model.project.ProjectAttach">
+		update project_attach
+		set p_id = #{pId,jdbcType=NUMERIC},
+		attach_type = #{attachType,jdbcType=VARCHAR},
+		file_name = #{fileName,jdbcType=VARCHAR},
+		file_type = #{fileType,jdbcType=VARCHAR},
+		file_size = #{fileSize,jdbcType=INTEGER},
+		admin_id = #{adminId,jdbcType=NUMERIC},
+		add_time = #{addTime,jdbcType=NUMERIC}
+		where id = #{id,jdbcType=NUMERIC}
+	</update>
+</mapper>

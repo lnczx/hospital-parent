@@ -254,6 +254,35 @@ INSERT INTO `dicts` VALUES (1,'area','110000','北京','0',0,'',1481730492,14817
 UNLOCK TABLES;
 
 --
+-- Table structure for table `project_attach`
+--
+
+DROP TABLE IF EXISTS `project_attach`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `project_attach` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `p_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '项目ID',
+  `attach_type` varchar(20) NOT NULL COMMENT '附件类型',
+  `file_name` varchar(64) NOT NULL COMMENT '文件名',
+  `file_type` varchar(20) NOT NULL COMMENT '文件扩展名',
+  `file_size` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '文件大小',
+  `admin_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '操作人',
+  `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='项目附件表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project_attach`
+--
+
+LOCK TABLES `project_attach` WRITE;
+/*!40000 ALTER TABLE `project_attach` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_attach` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `project_course`
 --
 
@@ -272,6 +301,7 @@ CREATE TABLE `project_course` (
   `title_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '职称',
   `org_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '所属单位',
   `course_type` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '课程类型',
+  `admin_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '操作人',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间戳',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间戳',
   PRIMARY KEY (`course_id`)
@@ -305,6 +335,7 @@ CREATE TABLE `project_student` (
   `org_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '单位ID',
   `title_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '职称ID',
   `addr` varchar(255) NOT NULL COMMENT '地址',
+  `admin_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '操作人',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间戳',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间戳',
   PRIMARY KEY (`id`)
@@ -342,6 +373,7 @@ CREATE TABLE `projects` (
   `num_term` smallint(4) unsigned NOT NULL DEFAULT '0' COMMENT '项目期数',
   `status` smallint(4) unsigned NOT NULL COMMENT '项目状态',
   `file_name` varchar(255) NOT NULL COMMENT '导入文件路径',
+  `admin_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '操作人',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间戳',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间戳',
   PRIMARY KEY (`p_id`)
@@ -397,4 +429,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-27  0:57:47
+-- Dump completed on 2016-12-27  1:33:59

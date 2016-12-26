@@ -11,14 +11,14 @@ import com.github.pagehelper.PageInfo;
 import com.hos.po.dao.project.ProjectCourseMapper;
 import com.hos.po.model.project.ProjectCourse;
 import com.hos.service.dict.DictService;
-import com.hos.service.project.ProjectSCourseService;
+import com.hos.service.project.ProjectCourseService;
 import com.hos.vo.project.ProjectSearchVo;
 import com.meijia.utils.DateUtil;
 import com.meijia.utils.TimeStampUtil;
 
 
 @Service
-public class ProjectCourseServiceImpl implements ProjectSCourseService {
+public class ProjectCourseServiceImpl implements ProjectCourseService {
 
 	@Autowired
 	private ProjectCourseMapper projectCourseMapper;
@@ -58,6 +58,7 @@ public class ProjectCourseServiceImpl implements ProjectSCourseService {
 		record.setTitleId(0L);
 		record.setOrgId(0L);
 		record.setCourseType(0L);
+		record.setAdminId(0L);
 		record.setAddTime(TimeStampUtil.getNowSecond());
 		record.setUpdateTime(TimeStampUtil.getNowSecond());
 

@@ -1,7 +1,5 @@
 package com.hos.po.model.project;
 
-import java.util.Date;
-
 public class Projects {
     private Long pId;
 
@@ -30,6 +28,8 @@ public class Projects {
     private Short status;
     
     private String fileName;
+    
+    private Long adminId;
 
     private Long addTime;
 
@@ -161,5 +161,13 @@ public class Projects {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public Long getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Long adminId) {
+		this.adminId = adminId;
 	}
 }

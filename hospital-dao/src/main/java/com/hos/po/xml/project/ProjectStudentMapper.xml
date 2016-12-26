@@ -12,11 +12,12 @@
 		<result column="org_id" property="orgId" jdbcType="NUMERIC" />
 		<result column="title_id" property="titleId" jdbcType="NUMERIC" />
 		<result column="addr" property="addr" jdbcType="VARCHAR" />
+		<result column="admin_id" property="adminId" jdbcType="NUMERIC" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
 		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, p_id, stu_id, mobile, sex, email, city_id, org_id, title_id, addr, add_time,
+		id, p_id, stu_id, mobile, sex, email, city_id, org_id, title_id, addr, admin_id, add_time,
 		update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -76,13 +77,13 @@
 		</selectKey>
 		insert into project_student (p_id, stu_id, mobile,
 		sex, email, city_id,
-		org_id, title_id, addr,
+		org_id, title_id, addr, admin_id,
 		add_time, update_time)
 		values (#{pId,jdbcType=NUMERIC},
 		#{stuId,jdbcType=NUMERIC}, #{mobile,jdbcType=CHAR},
 		#{sex,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{cityId,jdbcType=NUMERIC},
 		#{orgId,jdbcType=NUMERIC},
-		#{titleId,jdbcType=NUMERIC}, #{addr,jdbcType=VARCHAR},
+		#{titleId,jdbcType=NUMERIC}, #{addr,jdbcType=VARCHAR}, #{adminId,jdbcType=NUMERIC},
 		#{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC})
 	</insert>
 	<insert id="insertSelective" parameterType="com.hos.po.model.project.ProjectStudent">
@@ -118,6 +119,9 @@
 			<if test="addr != null">
 				addr,
 			</if>
+			<if test="adminId != null">
+				admin_id,
+			</if>
 			<if test="addTime != null">
 				add_time,
 			</if>
@@ -152,6 +156,9 @@
 			</if>
 			<if test="addr != null">
 				#{addr,jdbcType=VARCHAR},
+			</if>
+			<if test="adminId != null">
+				#{adminId,jdbcType=NUMERIC},
 			</if>
 			<if test="addTime != null">
 				#{addTime,jdbcType=NUMERIC},
@@ -191,6 +198,9 @@
 			<if test="addr != null">
 				addr = #{addr,jdbcType=VARCHAR},
 			</if>
+			<if test="adminId != null">
+				admin_id = #{adminId,jdbcType=NUMERIC},
+			</if>
 			<if test="addTime != null">
 				add_time = #{addTime,jdbcType=NUMERIC},
 			</if>
@@ -213,6 +223,7 @@
 		#{orgId,jdbcType=NUMERIC},
 		title_id = #{titleId,jdbcType=NUMERIC},
 		addr = #{addr,jdbcType=VARCHAR},
+		admin_id = #{adminId,jdbcType=NUMERIC},
 		add_time = #{addTime,jdbcType=NUMERIC},
 		update_time =
 		#{updateTime,jdbcType=NUMERIC}

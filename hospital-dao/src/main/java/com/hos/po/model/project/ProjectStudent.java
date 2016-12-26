@@ -20,6 +20,8 @@ public class ProjectStudent {
     private Long titleId;
 
     private String addr;
+    
+    private Long adminId;
 
     private Long addTime;
 
@@ -120,4 +122,12 @@ public class ProjectStudent {
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
     }
+
+	public Long getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Long adminId) {
+		this.adminId = adminId;
+	}
 }

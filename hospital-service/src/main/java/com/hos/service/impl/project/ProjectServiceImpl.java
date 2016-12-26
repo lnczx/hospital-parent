@@ -17,6 +17,8 @@ import com.hos.service.dict.DictOrgService;
 import com.hos.service.dict.DictService;
 import com.hos.service.project.ProjectService;
 import com.hos.vo.project.ProjectSearchVo;
+import com.hos.vo.project.ProjectVo;
+import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.DateUtil;
 import com.meijia.utils.RegexUtil;
 import com.meijia.utils.StringUtil;
@@ -69,6 +71,7 @@ public class ProjectServiceImpl implements ProjectService {
 		record.setNumTerm((short) 0);
 		record.setStatus((short) 0);		
 		record.setFileName("");
+		record.setAdminId(0L);
 		record.setAddTime(TimeStampUtil.getNowSecond());
 		record.setUpdateTime(TimeStampUtil.getNowSecond());
 
@@ -92,6 +95,18 @@ public class ProjectServiceImpl implements ProjectService {
 		List<Projects> list = projectsMapper.selectByListPage(searchVo);
 		PageInfo info = new PageInfo(list);
 		return info;
+	}
+	
+	@Override
+	public ProjectVo getVo(Projects item) {
+		ProjectVo vo = new ProjectVo();
+		BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
+		
+		//得到起止时间.
+		String dateRange = "";
+		
+		vo.setDateRange(dateRange);
+		return vo;
 	}
 	
 	
@@ -279,7 +294,7 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public AppResultData<Object> doProjectImport(List<Object> datas, String fileName) throws Exception {
+	public AppResultData<Object> doProjectImport(List<Object> datas, String fileName, Long adminId) throws Exception {
 
 		AppResultData<Object> result = new AppResultData<Object>( Constants.SUCCESS_0, ConstantMsg.SUCCESS_0_MSG, new String());
 		
@@ -288,7 +303,7 @@ public class ProjectServiceImpl implements ProjectService {
 		for (int i = 1; i < datas.size(); i++) {
 			List<String> item = (List<String>) datas.get(i);
 			String pNo = item.get(0).toString().trim();
-			int pYear = Integer.valueOf(pNo.substring(0, 3)).intValue();
+			int pYear = Integer.valueOf(pNo.substring(0, 4)).intValue();
 			String name = item.get(1).toString().trim();
 			String orgName = item.get(2).toString().trim();
 			
@@ -331,7 +346,7 @@ public class ProjectServiceImpl implements ProjectService {
 			record.setNumRecruit(numRecruit);
 			record.setNumTerm(numTerm);
 			record.setFileName(fileName);
-			
+			record.setAdminId(adminId);
 			if (record.getpId().equals(0L)) {
 				this.insertSelective(record);
 			} else {

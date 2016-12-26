@@ -25,6 +25,8 @@ public class ProjectCourse {
     private Long orgId;
 
     private Long courseType;
+    
+    private Long adminId;
 
     private Long addTime;
 
@@ -133,4 +135,12 @@ public class ProjectCourse {
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
     }
+
+	public Long getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Long adminId) {
+		this.adminId = adminId;
+	}
 }

@@ -1,7 +1,5 @@
 package com.hos.vo.project;
 
-import java.util.Date;
-
 public class ProjectSearchVo {
 	private Long pId;
 	
@@ -14,6 +12,8 @@ public class ProjectSearchVo {
 	private Short numTerm;
 	
 	private Long orgId;
+	
+	private String attachType;
 
 	public String getpNo() {
 		return pNo;
@@ -61,6 +61,14 @@ public class ProjectSearchVo {
 
 	public void setNumTerm(Short numTerm) {
 		this.numTerm = numTerm;
+	}
+
+	public String getAttachType() {
+		return attachType;
+	}
+
+	public void setAttachType(String attachType) {
+		this.attachType = attachType;
 	}
 	
 }

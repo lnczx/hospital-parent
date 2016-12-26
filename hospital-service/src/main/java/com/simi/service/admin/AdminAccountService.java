@@ -1,7 +1,6 @@
 package com.simi.service.admin;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;

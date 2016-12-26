@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 import com.hos.po.model.project.Projects;
 import com.hos.vo.project.ProjectSearchVo;
+import com.hos.vo.project.ProjectVo;
 import com.simi.vo.AppResultData;
 
 
@@ -29,6 +30,8 @@ public interface ProjectService {
 
 	List<Object> checkDuplication(List<Object> excelDatas) throws Exception;
 
-	AppResultData<Object> doProjectImport(List<Object> datas, String fileName) throws Exception;
+	ProjectVo getVo(Projects item);
+
+	AppResultData<Object> doProjectImport(List<Object> datas, String fileName, Long adminId) throws Exception;
 
 }
