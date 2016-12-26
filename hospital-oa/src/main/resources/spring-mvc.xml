@@ -32,9 +32,8 @@
     <mvc:view-controller path="/" view-name="forward:/home/index"/>
     <!-- 静态资源映射 -->
     <mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
-
     <mvc:resources mapping="/lib/**" location="/WEB-INF/lib/" />
- 	
+ 	<mvc:resources mapping="/attach/**" location="/WEB-INF/attach/" />
 
 
 

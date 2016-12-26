@@ -13,10 +13,11 @@ function btn_add_blank(path) {
 	window.open(appRootUrl + path, "_blank");
 }
 
-// 修改按钮事件
-function btn_update(path) {
+//按钮时间
+function btn_link(path) {
 	// location.href = appRootUrl + "account/register?id=" + id;
-	location.href = appRootUrl + path;
+	alert(appRootUrl + path);
+	 window.location.replace(appRootUrl + path);
 }
 
 function btn_add_pop(title,url,w,h){

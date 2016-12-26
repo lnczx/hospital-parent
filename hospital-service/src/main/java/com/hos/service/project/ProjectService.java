@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 import com.hos.po.model.project.Projects;
 import com.hos.vo.project.ProjectSearchVo;
+import com.simi.vo.AppResultData;
 
 
 
@@ -23,5 +24,11 @@ public interface ProjectService {
 	List<Projects> selectBySearchVo(ProjectSearchVo searchVo);
 
 	PageInfo selectByListPage(ProjectSearchVo searchVo, int pageNum, int pageSize);
+
+	AppResultData<Object> validateProjectImport(List<Object> excelDatas) throws Exception;
+
+	List<Object> checkDuplication(List<Object> excelDatas) throws Exception;
+
+	AppResultData<Object> doProjectImport(List<Object> datas, String fileName) throws Exception;
 
 }

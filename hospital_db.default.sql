@@ -40,7 +40,7 @@ CREATE TABLE `admin_account` (
   UNIQUE KEY `username` (`username`),
   KEY `role_id` (`role_id`),
   KEY `organization_id` (`org_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ CREATE TABLE `admin_account` (
 
 LOCK TABLES `admin_account` WRITE;
 /*!40000 ALTER TABLE `admin_account` DISABLE KEYS */;
-INSERT INTO `admin_account` VALUES (1,1,1,'超级管理员','','leon@zhirunjia.com','admin','a66abb5684c45962d887564f08346e8d','2014-04-02 23:26:40',1,0,'',''),(2,0,1,'二级管理员','','rita@meijialife.com','user1','a66abb5684c45962d887564f08346e8d','2015-11-03 11:28:35',2,0,'',''),(3,0,0,'项目管理员','','charles_ma@126.com','user2','a66abb5684c45962d887564f08346e8d','2015-11-03 11:29:11',3,0,'','');
+INSERT INTO `admin_account` VALUES (1,1,1,'超级管理员','','admin@hospital.com','admin','a66abb5684c45962d887564f08346e8d','2014-04-02 23:26:40',1,0,'','');
 /*!40000 ALTER TABLE `admin_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,7 +329,7 @@ DROP TABLE IF EXISTS `projects`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `projects` (
   `p_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `p_year` year(4) NOT NULL COMMENT '年份',
+  `p_year` smallint(4) NOT NULL COMMENT '年份',
   `p_no` varchar(255) NOT NULL COMMENT '项目编号',
   `name` varchar(64) NOT NULL COMMENT '项目名称',
   `org_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '申办单位',
@@ -341,6 +341,7 @@ CREATE TABLE `projects` (
   `num_recruit` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '拟招人数',
   `num_term` smallint(4) unsigned NOT NULL DEFAULT '0' COMMENT '项目期数',
   `status` smallint(4) unsigned NOT NULL COMMENT '项目状态',
+  `file_name` varchar(255) NOT NULL COMMENT '导入文件路径',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间戳',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间戳',
   PRIMARY KEY (`p_id`)
@@ -396,4 +397,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-25 18:45:27
+-- Dump completed on 2016-12-27  0:57:47

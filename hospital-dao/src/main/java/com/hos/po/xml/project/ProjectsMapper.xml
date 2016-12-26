@@ -3,7 +3,7 @@
 <mapper namespace="com.hos.po.dao.project.ProjectsMapper">
 	<resultMap id="BaseResultMap" type="com.hos.po.model.project.Projects">
 		<id column="p_id" property="pId" jdbcType="NUMERIC" />
-		<result column="p_year" property="pYear" jdbcType="DATE" />
+		<result column="p_year" property="pYear" jdbcType="NUMERIC" />
 		<result column="p_no" property="pNo" jdbcType="VARCHAR" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="org_id" property="orgId" jdbcType="NUMERIC" />
@@ -15,12 +15,13 @@
 		<result column="num_recruit" property="numRecruit" jdbcType="INTEGER" />
 		<result column="num_term" property="numTerm" jdbcType="SMALLINT" />
 		<result column="status" property="status" jdbcType="SMALLINT" />
+		<result column="file_name" property="fileName" jdbcType="VARCHAR" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
 		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		p_id, p_year, p_no, name, org_id, org_name, p_header, p_header_tel, addr, credit,
-		num_recruit, num_term, status, add_time, update_time
+		num_recruit, num_term, status, file_name, add_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
@@ -54,7 +55,7 @@
 		</if>
 		
 	    <if test="pYear != null">
-			and p_year = #{pYear,jdbcType=DATE}
+			and p_year = #{pYear,jdbcType=NUMERIC}
 		</if>
 		
 	    <if test="pNo != null">
@@ -63,6 +64,10 @@
 		
 	    <if test="name != null">
 			and name = #{name,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="numTerm != null">
+			and num_term = #{numTerm,jdbcType=SMALLINT}
 		</if>
 	</sql>
 	
@@ -77,12 +82,13 @@
 		insert into projects (p_year, p_no, name,
 		org_id, org_name, p_header,
 		p_header_tel, addr, credit,
-		num_recruit, num_term, status,
+		num_recruit, num_term, status, file_name,
 		add_time, update_time)
-		values (#{pYear,jdbcType=DATE}, #{pNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		values (#{pYear,jdbcType=NUMERIC}, #{pNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
 		#{orgId,jdbcType=NUMERIC}, #{orgName,jdbcType=VARCHAR}, #{pHeader,jdbcType=VARCHAR},
 		#{pHeaderTel,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{credit,jdbcType=SMALLINT},
 		#{numRecruit,jdbcType=INTEGER}, #{numTerm,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT},
+		#{fileName,jdbcType=VARCHAR},
 		#{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC})
 	</insert>
 	<insert id="insertSelective" parameterType="com.hos.po.model.project.Projects">
@@ -127,6 +133,9 @@
 			<if test="status != null">
 				status,
 			</if>
+			<if test="fileName != null">
+				file_name,
+			</if>
 			<if test="addTime != null">
 				add_time,
 			</if>
@@ -136,7 +145,7 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="pYear != null">
-				#{pYear,jdbcType=DATE},
+				#{pYear,jdbcType=NUMERIC},
 			</if>
 			<if test="pNo != null">
 				#{pNo,jdbcType=VARCHAR},
@@ -171,6 +180,9 @@
 			<if test="status != null">
 				#{status,jdbcType=SMALLINT},
 			</if>
+			<if test="fileName != null">
+				#{fileName,jdbcType=VARCHAR},
+			</if>
 			<if test="addTime != null">
 				#{addTime,jdbcType=NUMERIC},
 			</if>
@@ -183,7 +195,7 @@
 		update projects
 		<set>
 			<if test="pYear != null">
-				p_year = #{pYear,jdbcType=DATE},
+				p_year = #{pYear,jdbcType=NUMERIC},
 			</if>
 			<if test="pNo != null">
 				p_no = #{pNo,jdbcType=VARCHAR},
@@ -218,6 +230,9 @@
 			<if test="status != null">
 				status = #{status,jdbcType=SMALLINT},
 			</if>
+			<if test="fileName != null">
+				file_name = #{fileName,jdbcType=VARCHAR},
+			</if>
 			<if test="addTime != null">
 				add_time = #{addTime,jdbcType=NUMERIC},
 			</if>
@@ -229,7 +244,7 @@
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.hos.po.model.project.Projects">
 		update projects
-		set p_year = #{pYear,jdbcType=DATE},
+		set p_year = #{pYear,jdbcType=NUMERIC},
 		p_no = #{pNo,jdbcType=VARCHAR},
 		name = #{name,jdbcType=VARCHAR},
 		org_id = #{orgId,jdbcType=NUMERIC},
@@ -241,6 +256,7 @@
 		num_recruit = #{numRecruit,jdbcType=INTEGER},
 		num_term = #{numTerm,jdbcType=SMALLINT},
 		status = #{status,jdbcType=SMALLINT},
+		file_name = #{fileName,jdbcType=VARCHAR},
 		add_time = #{addTime,jdbcType=NUMERIC},
 		update_time = #{updateTime,jdbcType=NUMERIC}
 		where p_id = #{pId,jdbcType=NUMERIC}

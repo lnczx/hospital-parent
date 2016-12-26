@@ -5,7 +5,7 @@ import java.util.Date;
 public class Projects {
     private Long pId;
 
-    private Date pYear;
+    private Integer pYear;
 
     private String pNo;
 
@@ -28,6 +28,8 @@ public class Projects {
     private Short numTerm;
 
     private Short status;
+    
+    private String fileName;
 
     private Long addTime;
 
@@ -41,11 +43,11 @@ public class Projects {
         this.pId = pId;
     }
 
-    public Date getpYear() {
+    public Integer getpYear() {
         return pYear;
     }
 
-    public void setpYear(Date pYear) {
+    public void setpYear(Integer pYear) {
         this.pYear = pYear;
     }
 
@@ -152,4 +154,12 @@ public class Projects {
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
     }
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 }

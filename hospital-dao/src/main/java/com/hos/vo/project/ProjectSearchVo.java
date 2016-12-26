@@ -5,11 +5,13 @@ import java.util.Date;
 public class ProjectSearchVo {
 	private Long pId;
 	
-	private Date pYear;
+	private Integer pYear;
 	
 	private String pNo;
 	
 	private String name;
+	
+	private Short numTerm;
 	
 	private Long orgId;
 
@@ -37,11 +39,11 @@ public class ProjectSearchVo {
 		this.orgId = orgId;
 	}
 
-	public Date getpYear() {
+	public Integer getpYear() {
 		return pYear;
 	}
 
-	public void setpYear(Date pYear) {
+	public void setpYear(Integer pYear) {
 		this.pYear = pYear;
 	}
 
@@ -51,6 +53,14 @@ public class ProjectSearchVo {
 
 	public void setpId(Long pId) {
 		this.pId = pId;
+	}
+
+	public Short getNumTerm() {
+		return numTerm;
+	}
+
+	public void setNumTerm(Short numTerm) {
+		this.numTerm = numTerm;
 	}
 	
 }
