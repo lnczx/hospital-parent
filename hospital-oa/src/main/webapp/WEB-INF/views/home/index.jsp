@@ -19,7 +19,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="我的项目一览" data-href="/project/list">我的项目一览</span>
+					<span title="我的项目一览" data-href="/project/list?linkType=project">我的项目一览</span>
 					<em></em>
 				</li>
 			</ul>

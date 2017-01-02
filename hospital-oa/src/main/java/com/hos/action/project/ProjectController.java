@@ -13,18 +13,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.github.pagehelper.PageInfo;
+import com.hos.common.ConstantMsg;
 import com.hos.common.Constants;
+import com.hos.po.model.dict.DictOrgs;
+import com.hos.po.model.project.ProjectCourse;
 import com.hos.po.model.project.Projects;
+import com.hos.service.dict.DictOrgService;
 import com.hos.service.project.ProjectService;
+import com.hos.vo.project.ProjectCourseSearchVo;
 import com.hos.vo.project.ProjectSearchVo;
 import com.hos.vo.project.ProjectVo;
+import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.ExcelUtil;
 import com.meijia.utils.RandomUtil;
 import com.meijia.utils.StringUtil;
@@ -39,8 +47,12 @@ import com.simi.vo.AppResultData;
 @Controller
 @RequestMapping(value = "/project")
 public class ProjectController extends BaseController {
+	
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private DictOrgService dictOrgService;
 	
 	/**
 	 * 
@@ -93,7 +105,69 @@ public class ProjectController extends BaseController {
 		model.addAttribute("linkType", linkType);
 		return "project/projectList";
 	}
+	
+	@AuthPassport
+	@RequestMapping(value = "/project-view", method = { RequestMethod.GET })
+	public String projectView(HttpServletRequest request, Model model, Long pId) {
+		
+		Projects record = projectService.initProject();
+		if (pId > 0L) {
+			record = projectService.selectByPrimaryKey(pId);
+		}
+		
+		ProjectVo vo = projectService.getVo(record);
+		
+		model.addAttribute("formData", vo);
+		return "project/projectView";
+	}
 
+	@AuthPassport
+	@RequestMapping(value = "/project-form", method = { RequestMethod.GET })
+	public String projectForm(HttpServletRequest request, Model model, Long pId) {
+		
+		Projects record = projectService.initProject();
+		if (pId > 0L) {
+			record = projectService.selectByPrimaryKey(pId);
+		}
+		model.addAttribute("formData", record);
+		return "project/projectForm";
+	}
+	
+	@AuthPassport
+	@RequestMapping(value = "/project-form", method = { RequestMethod.POST })
+	public String doProjectForm(HttpServletRequest request, Model model, @ModelAttribute("formData") Projects formData) {
+		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
+		Long adminId = accountAuth.getId();
+		
+		Long pId = Long.valueOf(request.getParameter("pId"));
+		Projects record = projectService.initProject();
+		
+		if (pId > 0L) {
+			record = projectService.selectByPrimaryKey(pId);
+		}
+		
+		BeanUtilsExp.copyPropertiesIgnoreNull(formData, record);
+		
+		record.setAdminId(adminId);
+		
+		//单位
+		Long orgId = record.getOrgId();
+		DictOrgs org = dictOrgService.findById(orgId);
+		record.setOrgName(org.getName());
+		
+		
+		if (pId > 0L) {
+			record.setUpdateTime(TimeStampUtil.getNowSecond());
+			projectService.updateByPrimaryKeySelective(record);
+		} else {
+			projectService.insertSelective(record);
+		}
+		
+		model.addAttribute("formData", record);
+		
+		return "redirect:list";
+
+	}	
 
 	@AuthPassport
 	@RequestMapping(value = "/project-import", method = { RequestMethod.GET })
@@ -222,6 +296,37 @@ public class ProjectController extends BaseController {
 		model.addAttribute("totalUpdate", totalUpdate);
 		
 		return "/project/projectImportOk";
+	}
+	
+	
+	@RequestMapping(value = "/checkDupName", method = RequestMethod.GET)
+	public AppResultData<Object> checkDupName(
+			@RequestParam("pId") Long pId,
+			@RequestParam("pNo") String pNo, 
+			@RequestParam("numTerm") Short numTerm
+			) {
+
+		AppResultData<Object> result = new AppResultData<Object>(Constants.SUCCESS_0, ConstantMsg.SUCCESS_0_MSG, "");
+		
+		ProjectSearchVo searchVo = new ProjectSearchVo();
+		
+		searchVo.setpNo(pNo);
+		
+		List<Projects> list = projectService.selectBySearchVo(searchVo);
+		
+		if (!list.isEmpty() && pId.equals(0L)) {
+			result.setStatus(Constants.ERROR_999);
+			result.setMsg("项目重复，请检查项目编号和期数是否已经录入过.");
+		}
+		
+		for (Projects item: list) {
+			if (!item.getpId().equals(pId)) {
+				result.setStatus(Constants.ERROR_999);
+				result.setMsg("项目重复，请检查项目编号和期数是否已经录入过.");
+			}
+		}
+		
+		return result;
 	}
 
 

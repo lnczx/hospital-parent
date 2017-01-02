@@ -15,6 +15,7 @@
 		<result column="num_recruit" property="numRecruit" jdbcType="INTEGER" />
 		<result column="num_term" property="numTerm" jdbcType="SMALLINT" />
 		<result column="status" property="status" jdbcType="SMALLINT" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="file_name" property="fileName" jdbcType="VARCHAR" />
 		<result column="admin_id" property="adminId" jdbcType="NUMERIC" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
@@ -22,7 +23,7 @@
 	</resultMap>
 	<sql id="Base_Column_List">
 		p_id, p_year, p_no, name, org_id, org_name, p_header, p_header_tel, addr, credit,
-		num_recruit, num_term, status, file_name, admin_id, add_time, update_time
+		num_recruit, num_term, status, remarks, file_name, admin_id, add_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
@@ -83,13 +84,13 @@
 		insert into projects (p_year, p_no, name,
 		org_id, org_name, p_header,
 		p_header_tel, addr, credit,
-		num_recruit, num_term, status, file_name, admin_id,
+		num_recruit, num_term, status, remarks, file_name, admin_id,
 		add_time, update_time)
 		values (#{pYear,jdbcType=NUMERIC}, #{pNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
 		#{orgId,jdbcType=NUMERIC}, #{orgName,jdbcType=VARCHAR}, #{pHeader,jdbcType=VARCHAR},
 		#{pHeaderTel,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{credit,jdbcType=SMALLINT},
 		#{numRecruit,jdbcType=INTEGER}, #{numTerm,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT},
-		#{fileName,jdbcType=VARCHAR}, #{adminId,jdbcType=NUMERIC},
+		#{remarks,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{adminId,jdbcType=NUMERIC},
 		#{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC})
 	</insert>
 	<insert id="insertSelective" parameterType="com.hos.po.model.project.Projects">
@@ -133,6 +134,9 @@
 			</if>
 			<if test="status != null">
 				status,
+			</if>
+			<if test="remarks != null">
+				remarks,
 			</if>
 			<if test="fileName != null">
 				file_name,
@@ -183,6 +187,9 @@
 			</if>
 			<if test="status != null">
 				#{status,jdbcType=SMALLINT},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
 			</if>
 			<if test="fileName != null">
 				#{fileName,jdbcType=VARCHAR},
@@ -237,6 +244,9 @@
 			<if test="status != null">
 				status = #{status,jdbcType=SMALLINT},
 			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
 			<if test="fileName != null">
 				file_name = #{fileName,jdbcType=VARCHAR},
 			</if>
@@ -266,6 +276,7 @@
 		num_recruit = #{numRecruit,jdbcType=INTEGER},
 		num_term = #{numTerm,jdbcType=SMALLINT},
 		status = #{status,jdbcType=SMALLINT},
+		remarks = #{remarks,jdbcType=VARCHAR},
 		file_name = #{fileName,jdbcType=VARCHAR},
 		admin_id = #{adminId,jdbcType=NUMERIC},
 		add_time = #{addTime,jdbcType=NUMERIC},

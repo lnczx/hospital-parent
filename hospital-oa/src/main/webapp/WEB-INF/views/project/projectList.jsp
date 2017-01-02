@@ -47,20 +47,23 @@
 							<th width="30">人数</th>
 							<th width="20">期数</th>
 							<th width="120">起止时间</th>
-							<th width="160">操作</th>
+							<th width="180">操作</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${contentModel.list}" var="item">
 							<tr class="text-c">
 								<td>${ item.pNo }</td>
-								<td>${ item.name }</td>
+								<td><a href="javascript:;" onclick="btn_show_layer('查看项目','project/project-view?pId=${item.pId}','10001')" >${ item.name }</a></td>
 								<td>${ item.pHeader }</td>
 								<td>${ item.credit }</td>
 								<td>${ item.numRecruit }</td>
 								<td>${item.numTerm }</td>
-								<td>${item.dateRange }</td>
+								<td>${item.startDate } -- ${item.endDate }</td>
 								<td class="td-manage">
+								
+									<a href="javascript:;" onclick="btn_add('project/project-form?pId=${item.pId}')"  class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
+								
 									<c:if test="${linkType == 'project'}">
 										<a href="javascript:;" onclick="" class="btn btn-primary-outline size-S radius">招生简章</a>&nbsp; 
 										<a href="javascript:;" onclick="btn_show_layer('查看课表','project/course/course-list?pId=${item.pId}','10001')"  class="btn btn-primary-outline size-S radius">课表</a> &nbsp; 

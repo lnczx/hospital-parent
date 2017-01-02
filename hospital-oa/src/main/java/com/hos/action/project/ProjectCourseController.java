@@ -271,6 +271,42 @@ public class ProjectCourseController extends BaseController {
 		
 		return "/project/courseImportOk";
 	}
+	
+	@RequestMapping(value = "/checkDupName", method = RequestMethod.GET)
+	public AppResultData<Object> checkDupName(
+			@RequestParam("pId") Long pId,
+			@RequestParam("courseId") Long courseId, 
+			@RequestParam("content") String content,
+			@RequestParam("courseDate") String courseDate,
+			@RequestParam("startTime") String startTime,
+			@RequestParam("endTime") String endTime
+			) {
+
+		AppResultData<Object> result = new AppResultData<Object>(Constants.SUCCESS_0, ConstantMsg.SUCCESS_0_MSG, "");
+		
+		
+		
+		ProjectCourseSearchVo searchVo = new ProjectCourseSearchVo();
+		searchVo.setpId(pId);
+		searchVo.setContent(content);
+		searchVo.setCourseDate(courseDate);
+		searchVo.setStartTime(startTime);
+		searchVo.setEndTime(endTime);
+		List<ProjectCourse> list = projectCourseService.selectBySearchVo(searchVo);
+		
+		if (courseId.equals(0L) && !list.isEmpty()) {
+			result.setStatus(Constants.ERROR_999);
+			result.setMsg("重复的课程，请检查课程内容和时间是否已经录入过.");
+		}
+		for (ProjectCourse item: list) {
+			if (!item.getCourseId().equals(courseId)) {
+				result.setStatus(Constants.ERROR_999);
+				result.setMsg("重复的课程，请检查课程内容和时间是否已经录入过.");
+			}
+		}
+		
+		return result;
+	}
 
 	@RequestMapping(value = "/checkCredit", method = RequestMethod.GET)
 	public AppResultData<Object> checkUserName(

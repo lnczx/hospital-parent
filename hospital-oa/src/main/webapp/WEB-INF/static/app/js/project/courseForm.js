@@ -43,6 +43,45 @@ $(function() {
 			
 			endTime : {
 				required : true,
+				remote : {
+					url : appRootUrl + "/project/course/checkDupName.json",
+					type : "get",
+					dataType : "json",
+					data : {
+						pId : function() {
+							return $("#pId").val();
+						},
+						courseId : function() {
+							return $("#courseId").val();
+						},
+						courseDate : function() {
+							return $("#courseDate").val();
+						},
+						startTime : function() {
+							return $("#startTime").val();
+						},
+						endTime : function() {
+							return $("#endTime").val();
+						},
+						content : function() {
+							return $("#content").val();
+						},
+						
+					},
+					dataFilter : function(data, type) {
+						var jsonStr = jQuery.parseJSON(data);
+						var status = jsonStr.status;
+						if (status == "0") {
+							return true;
+						}
+						if (status == "999") {
+							alert(jsonStr.msg);
+							return false;
+						}
+						
+					}
+				
+				}
 			},
 			
 			content : {
@@ -103,10 +142,15 @@ $(function() {
 		},
 		
 		messages : {
-			username : {
+			credit : {
 				required : "请输入学分",
 				remote : "学分超额."
-			}
+			},
+			
+			endTime : {
+				required : "请选择结束时间",
+				remote : "重复的课程，请检查课程内容和时间是否已经录入过."
+			},
 		},
 				
 		onkeyup : false,

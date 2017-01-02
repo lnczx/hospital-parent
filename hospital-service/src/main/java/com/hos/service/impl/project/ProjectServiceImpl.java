@@ -75,6 +75,7 @@ public class ProjectServiceImpl implements ProjectService {
 		record.setNumRecruit(0);
 		record.setNumTerm((short) 0);
 		record.setStatus((short) 0);		
+		record.setRemarks("");
 		record.setFileName("");
 		record.setAdminId(0L);
 		record.setAddTime(TimeStampUtil.getNowSecond());
@@ -108,21 +109,22 @@ public class ProjectServiceImpl implements ProjectService {
 		BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
 		
 		//得到起止时间.
-		String dateRange = "";
-		
+		String startDate = "";
+		String endDate = "";
 		Map<String, String> dataRanges = projectCourseService.selectByDateRange(item.getpId());
 		
 		if (dataRanges != null) {
 			if ( dataRanges.get("minDate") != null) {
-				dateRange+= dataRanges.get("minDate");
+				startDate = dataRanges.get("minDate");
 			}
 			
 			if ( dataRanges.get("maxDate") != null) {
-				dateRange+= "至" + dataRanges.get("maxDate");
+				endDate = dataRanges.get("maxDate");
 			}
 		}
 		
-		vo.setDateRange(dateRange);
+		vo.setStartDate(startDate);
+		vo.setEndDate(endDate);
 		return vo;
 	}
 	

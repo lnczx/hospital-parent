@@ -27,6 +27,8 @@ public class Projects {
 
     private Short status;
     
+    private String remarks;
+    
     private String fileName;
     
     private Long adminId;
@@ -169,5 +171,13 @@ public class Projects {
 
 	public void setAdminId(Long adminId) {
 		this.adminId = adminId;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 }
