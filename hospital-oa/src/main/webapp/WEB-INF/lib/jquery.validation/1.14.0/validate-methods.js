@@ -181,6 +181,16 @@ $(function(){
          var reg = RegExp(/[(\ )(\`)(\~)(\!)(\@)(\#)(\$)(\%)(\^)(\&)(\*)(\()(\))(\+)(\=)(\|)(\{)(\})(\')(\:)(\;)(\')(',)(\[)(\])(\.)(\<)(\>)(\/)(\?)(\~)(\！)(\@)(\#)(\￥)(\%)(\…)(\&)(\*)(\（)(\）)(\—)(\+)(\|)(\{)(\})(\【)(\】)(\‘)(\；)(\：)(\”)(\“)(\’)(\。)(\，)(\、)(\？)]+/);   
          return this.optional(element) || !reg.test(value);       
     }, "含有中英文特殊字符");
+    
+    jQuery.validator.addMethod("checkFileSize", function(value,element) {
+        var fileSize=element.files[0].size;
+        var maxSize = 32*1024*1024;
+        if(fileSize > maxSize){
+            return false;
+        }else{
+            return true;
+        }
+    }, "请上传大小在32M以下的文件."); 
 });
 //身份证号码的验证规则
 function isIdCardNo(num){ 

@@ -62,16 +62,17 @@
 								<td>${item.startDate } -- ${item.endDate }</td>
 								<td class="td-manage">
 								
-									<a href="javascript:;" onclick="btn_add('project/project-form?pId=${item.pId}')"  class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
+									
 								
 									<c:if test="${linkType == 'project'}">
-										<a href="javascript:;" onclick="" class="btn btn-primary-outline size-S radius">招生简章</a>&nbsp; 
+										<a href="javascript:;" onclick="btn_add('project/project-form?pId=${item.pId}')"  class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
+										<a href="javascript:;" onclick="btn_add('project/list?linkType=attach')" class="btn btn-primary-outline size-S radius">招生简章</a>&nbsp; 
 										<a href="javascript:;" onclick="btn_show_layer('查看课表','project/course/course-list?pId=${item.pId}','10001')"  class="btn btn-primary-outline size-S radius">课表</a> &nbsp; 
 										<a href="javascript:;" onclick="btn_show_layer('查看学员列表','project/student/student-list?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">学员</a>
 									</c:if>
 									<c:if test="${linkType == 'attach' }">
-										<a href="javascript:;" onclick="btn_show_layer('导入招生简章','briefing-import.html','10001')" class="btn btn-primary-outline size-S radius">导入招生简章</a> &nbsp;
-										<a href="javascript:;" onclick="" class="btn btn-primary-outline size-S radius">查看招生简章</a>
+										<a href="javascript:;" onclick="btn_show_layer('导入招生简章','project/attach-import?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">导入招生简章</a> &nbsp;
+										<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')" class="btn btn-primary-outline size-S radius">查看招生简章</a>
 									</c:if>
 									
 									<c:if test="${linkType == 'course' }">

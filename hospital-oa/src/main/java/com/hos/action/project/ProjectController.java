@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +26,18 @@ import com.github.pagehelper.PageInfo;
 import com.hos.common.ConstantMsg;
 import com.hos.common.Constants;
 import com.hos.po.model.dict.DictOrgs;
+import com.hos.po.model.project.ProjectAttach;
 import com.hos.po.model.project.ProjectCourse;
 import com.hos.po.model.project.Projects;
 import com.hos.service.dict.DictOrgService;
+import com.hos.service.project.ProjectAttachService;
 import com.hos.service.project.ProjectService;
 import com.hos.vo.project.ProjectCourseSearchVo;
 import com.hos.vo.project.ProjectSearchVo;
 import com.hos.vo.project.ProjectVo;
 import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.ExcelUtil;
+import com.meijia.utils.FileUtil;
 import com.meijia.utils.RandomUtil;
 import com.meijia.utils.StringUtil;
 import com.meijia.utils.TimeStampUtil;
@@ -53,6 +57,9 @@ public class ProjectController extends BaseController {
 	
 	@Autowired
 	private DictOrgService dictOrgService;
+	
+	@Autowired
+	private ProjectAttachService projectAttachService;
 	
 	/**
 	 * 
@@ -328,7 +335,110 @@ public class ProjectController extends BaseController {
 		
 		return result;
 	}
+	
+	
+	@AuthPassport
+	@RequestMapping(value = "/attach-import", method = { RequestMethod.GET })
+	public String projectAttach(HttpServletRequest request, Model model) {
+		
+		Long pId = Long.valueOf(request.getParameter("pId"));
+		
+		model.addAttribute("pId", pId);
+		
+		return "project/attachImport";
+	}		
+	
+	@AuthPassport
+	@RequestMapping(value = "/attach-import", method = { RequestMethod.POST })
+	public String doAttach(HttpServletRequest request, Model model) throws Exception {
+
+		// 获取登录的用户
+		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
+		Long adminId = accountAuth.getId();
+		Long pId = Long.valueOf(request.getParameter("pId"));
+		
+		model.addAttribute("pId", pId);
+		
+		// 创建一个通用的多部分解析器.
+		String path = Constants.IMPORT_PATH;
+		String fileToken = TimeStampUtil.getNowSecond().toString() + RandomUtil.randomNumber(6);
+		String newFileName = "";
+		Long fileSize = 0L;
+		String fileType = "";
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+
+		if (multipartResolver.isMultipart(request)) {
+			// 判断 request 是否有文件上传,即多部分请求...
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) (request);
+
+			MultipartFile file = multiRequest.getFile("attachFile");
+			if (file != null && !file.isEmpty()) {
+				// 存储的临时文件名 = 获取时间戳+随机六位数+"."图片扩展名
+				String fileName = file.getOriginalFilename();
+				fileType = fileName.substring(fileName.lastIndexOf(".") + 1);
+				fileSize = file.getSize();
+				newFileName = "project-attach-" + fileToken + "." + fileType;
+				FileUtils.copyInputStreamToFile(file.getInputStream(), new File(path, newFileName));
+			}
+		}
+		
+		if (StringUtil.isEmpty(newFileName)) {
+			model.addAttribute("errors", "上传文件为空.");
+			return "project/attachImportError";
+		}
+		
+		if (fileSize > 33554432L) {
+			model.addAttribute("errors", "上传文件超出32M.");
+			return "project/attachImportError";
+		}
+		
+		ProjectSearchVo searchVo = new ProjectSearchVo();
+		searchVo.setpId(pId);
+		searchVo.setAttachType("briefing");
+		List<ProjectAttach> list = projectAttachService.selectBySearchVo(searchVo);
+		ProjectAttach record = projectAttachService.initProjectAttach();
+		
+		if (!list.isEmpty()) {
+			record = list.get(0);
+		}
+		
+		record.setpId(pId);
+		record.setAttachType("briefing");
+		record.setFileName(newFileName);
+		record.setFileType(fileType);
+		record.setFileSize(fileSize);
+		record.setAdminId(adminId);
+		
+		if (record.getId() > 0L) {
+			projectAttachService.updateByPrimaryKeySelective(record);
+		} else {
+			projectAttachService.insertSelective(record);
+		}
+		
+		
+		return "project/attachImportOk";
+	}
 
 
+	@AuthPassport
+	@RequestMapping(value = "/attach-download", method = { RequestMethod.GET }) 
+	public String attachDownload(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		Long pId = Long.valueOf(request.getParameter("pId"));
+		
+		ProjectSearchVo searchVo = new ProjectSearchVo();
+		searchVo.setpId(pId);
+		searchVo.setAttachType("briefing");
+		List<ProjectAttach> list = projectAttachService.selectBySearchVo(searchVo);
+		
+		if (!list.isEmpty()) {
+			ProjectAttach item = list.get(0);
+			String fileName = item.getFileName();
+			String filePath = Constants.IMPORT_PATH;
+			FileUtil.fileDownload(response, fileName, filePath);
+		}
+		
+		
+		return null;
+	}
 
 }

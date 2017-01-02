@@ -362,7 +362,7 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 			record.setAddr(addr);
 			record.setMobile(mobile);
 			record.setEmail(email);
-			
+			record.setFileName(fileName);
 			if (record.getId().equals(0L)) {
 				this.insertSelective(record);
 			} else {

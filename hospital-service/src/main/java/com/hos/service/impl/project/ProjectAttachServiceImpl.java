@@ -47,7 +47,7 @@ public class ProjectAttachServiceImpl implements ProjectAttachService {
 		record.setAttachType("");
 		record.setFileName("");
 		record.setFileType("");
-		record.setFileSize(0);
+		record.setFileSize(0L);
 		record.setAdminId(0L);
 		record.setAddTime(TimeStampUtil.getNowSecond());
 

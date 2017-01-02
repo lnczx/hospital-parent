@@ -11,7 +11,7 @@ public class ProjectAttach {
 
     private String fileType;
 
-    private Integer fileSize;
+    private Long fileSize;
 
     private Long adminId;
 
@@ -57,11 +57,11 @@ public class ProjectAttach {
         this.fileType = fileType == null ? null : fileType.trim();
     }
 
-    public Integer getFileSize() {
+    public Long getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(Integer fileSize) {
+    public void setFileSize(Long fileSize) {
         this.fileSize = fileSize;
     }
 
