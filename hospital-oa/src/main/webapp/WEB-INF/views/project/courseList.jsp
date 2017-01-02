@@ -63,7 +63,7 @@
 								
 									<a href="javascript:;" onclick="btn_add('project/course/course-form?pId=${pId}&courseId=${item.courseId }')"  class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
 									
-									<a href="javascript:;" onclick="btn_add('project/course/course-view?pId=${pId}&courseId=${item.courseId }')"  class="btn btn-primary-outline size-S radius">删除</a> &nbsp; 
+									<a href="javascript:;" onclick="btn_del('project/course/course-del?pId=${pId}&courseId=${item.courseId }')"  class="btn btn-primary-outline size-S radius">删除</a> &nbsp; 
 								</td>
 							</tr>
 						</c:forEach>

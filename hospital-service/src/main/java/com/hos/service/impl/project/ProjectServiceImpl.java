@@ -2,6 +2,7 @@ package com.hos.service.impl.project;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import com.hos.po.model.dict.DictOrgs;
 import com.hos.po.model.project.Projects;
 import com.hos.service.dict.DictOrgService;
 import com.hos.service.dict.DictService;
+import com.hos.service.project.ProjectCourseService;
 import com.hos.service.project.ProjectService;
 import com.hos.vo.project.ProjectSearchVo;
 import com.hos.vo.project.ProjectVo;
@@ -30,6 +32,9 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Autowired
 	private ProjectsMapper projectsMapper;
+	
+	@Autowired
+	private ProjectCourseService projectCourseService;
 
 	@Autowired
 	private DictService dictService;
@@ -104,6 +109,18 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		//得到起止时间.
 		String dateRange = "";
+		
+		Map<String, String> dataRanges = projectCourseService.selectByDateRange(item.getpId());
+		
+		if (dataRanges != null) {
+			if ( dataRanges.get("minDate") != null) {
+				dateRange+= dataRanges.get("minDate");
+			}
+			
+			if ( dataRanges.get("maxDate") != null) {
+				dateRange+= "至" + dataRanges.get("maxDate");
+			}
+		}
 		
 		vo.setDateRange(dateRange);
 		return vo;

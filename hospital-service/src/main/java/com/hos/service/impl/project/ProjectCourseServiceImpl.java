@@ -3,6 +3,7 @@ package com.hos.service.impl.project;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,6 +84,11 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 	@Override
 	public List<ProjectCourse> selectBySearchVo(ProjectCourseSearchVo searchVo) {
 		return projectCourseMapper.selectBySearchVo(searchVo);
+	}
+	
+	@Override
+	public Map<String, String> selectByDateRange(Long pId) {
+		return projectCourseMapper.selectByDateRange(pId);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

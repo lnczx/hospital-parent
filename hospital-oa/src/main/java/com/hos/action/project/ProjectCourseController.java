@@ -127,6 +127,21 @@ public class ProjectCourseController extends BaseController {
 		return "redirect:course-list?pId="+pId;
 
 	}		
+	
+	@AuthPassport
+	@RequestMapping(value = "/course-del", method = { RequestMethod.GET })
+	public String courseDel(HttpServletRequest request, Model model) {
+		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
+		Long roleId = accountAuth.getAccountRole().getId();
+		Long courseId = Long.valueOf(request.getParameter("courseId"));
+		Long pId = Long.valueOf(request.getParameter("pId"));
+		if (!roleId.equals(2L) && courseId > 0L) {
+			projectCourseService.deleteByPrimaryKey(courseId);
+		}
+
+		return "redirect:course-list?pId="+pId;
+
+	}	
 
 
 	@AuthPassport

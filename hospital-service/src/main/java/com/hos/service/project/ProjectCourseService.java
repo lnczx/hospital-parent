@@ -1,6 +1,7 @@
 package com.hos.service.project;
 
 import java.util.List;
+import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
 import com.hos.po.model.project.ProjectCourse;
@@ -30,5 +31,7 @@ public interface ProjectCourseService {
 	List<Object> checkDuplication(Long pId, List<Object> excelDatas) throws Exception;
 
 	AppResultData<Object> doProjectCousreImport(Long pId, List<Object> datas, String fileName, Long adminId) throws Exception;
+
+	Map<String, String> selectByDateRange(Long pId);
 
 }

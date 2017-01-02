@@ -73,6 +73,15 @@
 		</if>
 
 	</sql>
+	
+	<select id="selectByDateRange" resultType="java.util.HashMap"  parameterType="java.lang.Long">
+		select
+		min(course_date) as minDate, max(course_date) as maxDate
+		from project_course
+		where p_id = #{pId,jdbcType=NUMERIC}
+	</select>
+	
+	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		delete from project_course
 		where course_id = #{courseId,jdbcType=NUMERIC}

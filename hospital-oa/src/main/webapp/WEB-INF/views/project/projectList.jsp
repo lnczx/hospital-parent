@@ -41,12 +41,12 @@
 					<thead>
 						<tr class="text-c">
 							<th width="100">项目编号</th>
-							<th width="260">项目名称</th>
+							<th width="160">项目名称</th>
 							<th width="35">负责人</th>
 							<th width="20">学分</th>
 							<th width="30">人数</th>
 							<th width="20">期数</th>
-							<th width="50">起止时间</th>
+							<th width="120">起止时间</th>
 							<th width="160">操作</th>
 						</tr>
 					</thead>
@@ -61,7 +61,7 @@
 								<td>${item.numTerm }</td>
 								<td>${item.dateRange }</td>
 								<td class="td-manage">
-									<c:if test="${linkType =='' || linkType == 'project' }">
+									<c:if test="${linkType == 'project'}">
 										<a href="javascript:;" onclick="" class="btn btn-primary-outline size-S radius">招生简章</a>&nbsp; 
 										<a href="javascript:;" onclick="btn_show_layer('查看课表','project/course/course-list?pId=${item.pId}','10001')"  class="btn btn-primary-outline size-S radius">课表</a> &nbsp; 
 										<a href="javascript:;" onclick="btn_show_layer('查看学员列表','student-list.html','10001')" class="btn btn-primary-outline size-S radius">学员</a>
