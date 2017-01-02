@@ -35,6 +35,12 @@ public interface DictService {
 
 	Dicts findCourseTypeByName(String name);
 
+	List<Dicts> LoadNationData();
+
+	List<Dicts> LoadEduData();
+
+	List<Dicts> LoadDegreeData();
+
 
 
 }

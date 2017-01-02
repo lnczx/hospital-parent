@@ -44,46 +44,9 @@
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 
-		<!--项目课程表 -->
-		<table schema="hospital" tableName="projct_course"
-			enableInsert="true"
-			enableSelectByPrimaryKey="true"
-			enableUpdateByPrimaryKey="true"
-			selectByExampleQueryId="false"
-			enableUpdateByExample="false"
-			enableDeleteByExample="false"
-			enableSelectByExample="false"
-			enableCountByExample="false">
-			<generatedKey column="course_id" sqlStatement="mysql" identity="true" />
-			<columnOverride  column="course_id" property="courseId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="p_id" property="pId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="course_datetime" property="courseDatetime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="title_id" property="titleId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="org_id" property="orgId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="course_type" property="courseType" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="add_time" property="addTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="update_time" property="updateTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-		</table>
-		
-		<!--项目表 -->
-		<table schema="hospital" tableName="projects"
-			enableInsert="true"
-			enableSelectByPrimaryKey="true"
-			enableUpdateByPrimaryKey="true"
-			selectByExampleQueryId="false"
-			enableUpdateByExample="false"
-			enableDeleteByExample="false"
-			enableSelectByExample="false"
-			enableCountByExample="false">
-			<generatedKey column="p_id" sqlStatement="mysql" identity="true" />
-			<columnOverride  column="p_id" property="pId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="org_id" property="orgId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="add_time" property="addTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="update_time" property="updateTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-		</table>
 		
 		<!--项目学生表 -->
-		<table schema="hospital" tableName="project_student"
+		<table schema="hospital_db" tableName="project_student"
 			enableInsert="true"
 			enableSelectByPrimaryKey="true"
 			enableUpdateByPrimaryKey="true"
@@ -98,28 +61,12 @@
 			<columnOverride  column="stu_id" property="stuId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
 			<columnOverride  column="city_id" property="cityId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
 			<columnOverride  column="org_id" property="orgId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="id_type" property="idType" javaType="java.lang.Long" jdbcType="NUMERIC"/>
 			<columnOverride  column="title_id" property="titleId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="agree_id" property="agreeId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
+			<columnOverride  column="edu_id" property="eduId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
 			<columnOverride  column="add_time" property="addTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
 			<columnOverride  column="update_time" property="updateTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
 		</table>
-
-		<!--项目附件表 -->
-		<table schema="hospital" tableName="project_attach"
-			enableInsert="true"
-			enableSelectByPrimaryKey="true"
-			enableUpdateByPrimaryKey="true"
-			selectByExampleQueryId="false"
-			enableUpdateByExample="false"
-			enableDeleteByExample="false"
-			enableSelectByExample="false"
-			enableCountByExample="false">
-			<generatedKey column="id" sqlStatement="mysql" identity="true" />
-			<columnOverride  column="id" property="id" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="p_id" property="pId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="add_time" property="addTime" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-			<columnOverride  column="admin_id" property="adminId" javaType="java.lang.Long" jdbcType="NUMERIC"/>
-		</table>
-		
-
 	</context>
 </generatorConfiguration>

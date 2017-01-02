@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.hos.po.model.student.Students;
+import com.hos.vo.project.ProjectStudentSearchVo;
 import com.hos.vo.student.StudentSearchVo;
 
 
@@ -14,14 +15,14 @@ public interface StudentService {
 
 	int deleteByPrimaryKey(Long id);
 
-	int updateByPrimaryKeySelective(com.hos.po.model.student.Students record);
+	int updateByPrimaryKeySelective(Students record);
 
 	Students initStudents();
 
 	Students selectByPrimaryKey(Long id);
 
-	List<Students> selectBySearchVo(StudentSearchVo searchVo);
+	List<Students> selectBySearchVo(ProjectStudentSearchVo searchVo);
 
-	PageInfo selectByListPage(StudentSearchVo searchVo, int pageNum, int pageSize);
+	PageInfo selectByListPage(ProjectStudentSearchVo searchVo, int pageNum, int pageSize);
 
 }

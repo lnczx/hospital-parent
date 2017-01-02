@@ -5,6 +5,8 @@ import java.util.List;
 import com.github.pagehelper.PageInfo;
 import com.hos.po.model.project.ProjectStudent;
 import com.hos.vo.project.ProjectSearchVo;
+import com.hos.vo.project.ProjectStudentSearchVo;
+import com.simi.vo.AppResultData;
 
 
 
@@ -20,8 +22,16 @@ public interface ProjectStudentService {
 
 	ProjectStudent selectByPrimaryKey(Long id);
 
-	List<ProjectStudent> selectBySearchVo(ProjectSearchVo searchVo);
+	List<ProjectStudent> selectBySearchVo(ProjectStudentSearchVo searchVo);
 
-	PageInfo selectByListPage(ProjectSearchVo searchVo, int pageNum, int pageSize);
+	PageInfo selectByListPage(ProjectStudentSearchVo searchVo, int pageNum, int pageSize);
+
+	AppResultData<Object> validateProjectStudentImport(List<Object> excelDatas) throws Exception;
+
+	List<Object> checkDuplication(Long pId, List<Object> excelDatas) throws Exception;
+
+	AppResultData<Object> doProjectStudentImport(Long pId, List<Object> datas, String fileName, Long adminId) throws Exception;
+
+	
 
 }

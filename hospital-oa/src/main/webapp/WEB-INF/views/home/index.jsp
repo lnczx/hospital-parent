@@ -36,7 +36,7 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display: none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="${sessionScope.accountAuth.appName}/project/list"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="${sessionScope.accountAuth.appName}/project/list?linkType=project"></iframe>
 		</div>
 	</div>
 	</section>

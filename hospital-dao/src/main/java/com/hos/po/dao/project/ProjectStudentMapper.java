@@ -3,7 +3,7 @@ package com.hos.po.dao.project;
 import java.util.List;
 
 import com.hos.po.model.project.ProjectStudent;
-import com.hos.vo.project.ProjectSearchVo;
+import com.hos.vo.project.ProjectStudentSearchVo;
 
 public interface ProjectStudentMapper {
     int deleteByPrimaryKey(Long id);
@@ -18,7 +18,7 @@ public interface ProjectStudentMapper {
 
     int updateByPrimaryKey(ProjectStudent record);
     
-    List<ProjectStudent> selectByListPage(ProjectSearchVo searchVo);
+    List<ProjectStudent> selectBySearchVo(ProjectStudentSearchVo searchVo);
     
-    List<ProjectStudent> selectBySearchVo(ProjectSearchVo searchVo);
+    List<ProjectStudent> selectByListPage(ProjectStudentSearchVo searchVo);
 }

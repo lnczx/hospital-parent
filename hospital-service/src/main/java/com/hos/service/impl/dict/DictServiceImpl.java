@@ -40,6 +40,12 @@ public class DictServiceImpl implements DictService {
 		this.LoadSubjectData();
 		
 		this.LoadCourseTypeData();
+		
+		this.LoadNationData();
+
+		this.LoadEduData();
+		
+		this.LoadDegreeData();
 
 		this.LoadOrgData();
 		
@@ -103,6 +109,54 @@ public class DictServiceImpl implements DictService {
 			memDictMap.put("listCourseType", listCourseType);
 		}
 		return listCourseType;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Dicts> LoadNationData() {
+
+		//城市表
+		DictSearchVo searchVo = new DictSearchVo();
+		searchVo.setType(Constants.DICT_NATION);
+		List<Dicts> list = memDictMap.get("listNation");
+		if (list == null || list.isEmpty()) {
+			list = dictMapper.selectBySearchVo(searchVo);
+			memDictMap.put("listNation", list);
+		}
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Dicts> LoadEduData() {
+
+		//城市表
+		DictSearchVo searchVo = new DictSearchVo();
+		searchVo.setType(Constants.DICT_EDU);
+		List<Dicts> list = memDictMap.get("listEdu");
+		if (list == null || list.isEmpty()) {
+			list = dictMapper.selectBySearchVo(searchVo);
+			memDictMap.put("listEdu", list);
+		}
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Dicts> LoadDegreeData() {
+
+		//城市表
+		DictSearchVo searchVo = new DictSearchVo();
+		searchVo.setType(Constants.DICT_DEGREE);
+		List<Dicts> list = memDictMap.get("listDegree");
+		if (list == null || list.isEmpty()) {
+			list = dictMapper.selectBySearchVo(searchVo);
+			memDictMap.put("listDegree", list);
+		}
+		
+		return list;
 	}
 	
 	

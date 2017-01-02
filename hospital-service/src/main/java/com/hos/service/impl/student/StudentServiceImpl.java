@@ -11,7 +11,7 @@ import com.hos.po.dao.student.StudentsMapper;
 import com.hos.po.model.student.Students;
 import com.hos.service.dict.DictService;
 import com.hos.service.student.StudentService;
-import com.hos.vo.student.StudentSearchVo;
+import com.hos.vo.project.ProjectStudentSearchVo;
 import com.meijia.utils.TimeStampUtil;
 
 
@@ -44,13 +44,26 @@ public class StudentServiceImpl implements StudentService {
 		Students record = new Students();
 		
 		record.setStuId(0L);
+		record.setName("");
 		record.setMobile("");
 		record.setSex("");
+		record.setNationId(0L);
+		record.setBirthDate("");
 		record.setEmail("");
-		record.setCityId(0L);
-		record.setOrgId(0L);
+		record.setIdType(0L);
+		record.setIdCard("");
 		record.setTitleId(0L);
-		record.setAddr("");			
+		record.setTitleStr("");
+		record.setOrgId(0L);
+		record.setOrgName("");
+		record.setCityId(0L);
+		record.setCityName("");
+		record.setDutyName("");
+		record.setDegreeId(0L);
+		record.setEduId(0L);
+		record.setAddr("");		
+		record.setZipCode("");
+		record.setAdminId(0L);
 		record.setAddTime(TimeStampUtil.getNowSecond());
 		record.setUpdateTime(TimeStampUtil.getNowSecond());
 
@@ -63,13 +76,13 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	@Override
-	public List<Students> selectBySearchVo(StudentSearchVo searchVo) {
+	public List<Students> selectBySearchVo(ProjectStudentSearchVo searchVo) {
 		return studentMapper.selectBySearchVo(searchVo);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-	public PageInfo selectByListPage(StudentSearchVo searchVo, int pageNum, int pageSize) {
+	public PageInfo selectByListPage(ProjectStudentSearchVo searchVo, int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<Students> list = studentMapper.selectByListPage(searchVo);
 		PageInfo info = new PageInfo(list);

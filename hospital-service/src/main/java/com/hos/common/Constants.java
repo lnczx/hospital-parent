@@ -19,6 +19,9 @@ public class Constants {
 	public static String DICT_TITLE = "title"; //职称
 	public static String DICT_SUBJECT = "subject"; //学科表
 	public static String DICT_COURSE_TYPE = "course-type"; //课程类型
+	public static String DICT_NATION = "nation"; //民族
+	public static String DICT_EDU = "edu"; //学历
+	public static String DICT_DEGREE = "degree"; //学位
 	
 	//导入的文件夹
 	public static String IMPORT_PATH = "/data/hospital-oa/import/";

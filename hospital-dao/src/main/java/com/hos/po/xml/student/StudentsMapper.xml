@@ -3,18 +3,33 @@
 <mapper namespace="com.hos.po.dao.student.StudentsMapper">
 	<resultMap id="BaseResultMap" type="com.hos.po.model.student.Students">
 		<id column="stu_id" property="stuId" jdbcType="NUMERIC" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="mobile" property="mobile" jdbcType="CHAR" />
 		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="nation_id" property="nationId" jdbcType="NUMERIC" />
+		<result column="birth_date" property="birthDate" jdbcType="VARCHAR" />
+		<result column="id_type" property="idType" jdbcType="NUMERIC" />
+		<result column="id_card" property="idCard" jdbcType="VARCHAR" />
 		<result column="email" property="email" jdbcType="VARCHAR" />
 		<result column="city_id" property="cityId" jdbcType="NUMERIC" />
+		<result column="city_name" property="cityName" jdbcType="VARCHAR" />
 		<result column="org_id" property="orgId" jdbcType="NUMERIC" />
+		<result column="org_name" property="orgName" jdbcType="VARCHAR" />
 		<result column="title_id" property="titleId" jdbcType="NUMERIC" />
+		<result column="title_str" property="titleStr" jdbcType="VARCHAR" />
+		<result column="duty_name" property="dutyName" jdbcType="VARCHAR" />
+		<result column="degree_id" property="degreeId" jdbcType="NUMERIC" />
+		<result column="edu_id" property="eduId" jdbcType="NUMERIC" />
 		<result column="addr" property="addr" jdbcType="VARCHAR" />
+		<result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
+		<result column="admin_id" property="adminId" jdbcType="INTEGER" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
 		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		stu_id, mobile, sex, email, city_id, org_id, title_id, addr, add_time, update_time
+		stu_id, name, mobile, sex, nation_id, birth_date, id_type, id_card, email, city_id, city_name,
+		org_id, org_name, title_id, title_str, duty_name, degree_id, edu_id, addr, zip_code,
+		admin_id, add_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
@@ -23,14 +38,14 @@
 		where stu_id = #{stuId,jdbcType=NUMERIC}
 	</select>
 	
-	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.hos.vo.student.StudentSearchVo">
+	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectStudentSearchVo">
 		select
 		<include refid="Base_Column_List" />
 		from students
 		<include refid="bySearchVo" />
 	</select>
 
-	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.hos.vo.student.StudentSearchVo">
+	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectStudentSearchVo">
 		select
 		<include refid="Base_Column_List" />
 		from students
@@ -39,34 +54,24 @@
 
 	<sql id="bySearchVo">
 		where 1 = 1
-		<if test="stuId != null">
-			and stu_id = #{stuId,jdbcType=NUMERIC}
-		</if>
-		
+
 		<if test="name != null">
 			and name = #{name,jdbcType=VARCHAR}
 		</if>
-		
+
 		<if test="mobile != null">
 			and mobile = #{mobile,jdbcType=VARCHAR}
+		</if>
+
+		<if test="idCard != null">
+			and idCard = #{idCard,jdbcType=VARCHAR}
 		</if>
 
 		<if test="orgId != null">
 			and org_id = #{orgId,jdbcType=NUMERIC}
 		</if>
 
-		<if test="cityId != null">
-			and city_id = #{cityId,jdbcType=NUMERIC}
-		</if>
-		
 
-		<if test="name != null">
-			and name = #{name,jdbcType=VARCHAR}
-		</if>
-
-		<if test="level != null">
-			and level = #{level,jdbcType=VARCHAR}
-		</if>
 	</sql>
 	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -77,13 +82,21 @@
 		<selectKey resultType="java.lang.Long" keyProperty="stuId" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		insert into students (mobile, sex, email,
-		city_id, org_id, title_id,
-		addr, add_time, update_time
+		insert into students (name, mobile, sex, nation_id,
+		birth_date, id_type, id_card,
+		email, city_id, city_name,
+		org_id, org_name, title_id,
+		title_str, duty_name, degree_id,
+		edu_id, addr, zip_code,
+		admin_id, add_time, update_time
 		)
-		values (#{mobile,jdbcType=CHAR}, #{sex,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
-		#{cityId,jdbcType=NUMERIC}, #{orgId,jdbcType=NUMERIC}, #{titleId,jdbcType=NUMERIC},
-		#{addr,jdbcType=VARCHAR}, #{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC}
+		values (#{name,jdbcType=VARCHAR}, #{mobile,jdbcType=CHAR}, #{sex,jdbcType=VARCHAR}, #{nationId,jdbcType=NUMERIC}, 
+		#{birthDate,jdbcType=VARCHAR}, #{idType,jdbcType=NUMERIC}, #{idCard,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{cityId,jdbcType=NUMERIC}, #{cityName,jdbcType=VARCHAR},
+		#{orgId,jdbcType=NUMERIC}, #{orgName,jdbcType=VARCHAR}, #{titleId,jdbcType=NUMERIC},
+		#{titleStr,jdbcType=VARCHAR}, #{dutyName,jdbcType=VARCHAR}, #{degreeId,jdbcType=NUMERIC},
+		#{eduId,jdbcType=NUMERIC}, #{addr,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR},
+		#{adminId,jdbcType=INTEGER}, #{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.hos.po.model.student.Students">
@@ -92,11 +105,26 @@
 		</selectKey>
 		insert into students
 		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
 			<if test="mobile != null">
 				mobile,
 			</if>
 			<if test="sex != null">
 				sex,
+			</if>
+			<if test="nationId != null">
+				nation_id,
+			</if>
+			<if test="birthDate != null">
+				birth_date,
+			</if>
+			<if test="idType != null">
+				id_type,
+			</if>
+			<if test="idCard != null">
+				id_card,
 			</if>
 			<if test="email != null">
 				email,
@@ -104,14 +132,38 @@
 			<if test="cityId != null">
 				city_id,
 			</if>
+			<if test="cityName != null">
+				city_name,
+			</if>
 			<if test="orgId != null">
 				org_id,
+			</if>
+			<if test="orgName != null">
+				org_name,
 			</if>
 			<if test="titleId != null">
 				title_id,
 			</if>
+			<if test="titleStr != null">
+				title_str,
+			</if>
+			<if test="dutyName != null">
+				duty_name,
+			</if>
+			<if test="degreeId != null">
+				degree_id,
+			</if>
+			<if test="eduId != null">
+				edu_id,
+			</if>
 			<if test="addr != null">
 				addr,
+			</if>
+			<if test="zipCode != null">
+				zip_code,
+			</if>
+			<if test="adminId != null">
+				admin_id,
 			</if>
 			<if test="addTime != null">
 				add_time,
@@ -121,11 +173,26 @@
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
 			<if test="mobile != null">
 				#{mobile,jdbcType=CHAR},
 			</if>
 			<if test="sex != null">
 				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="nationId != null">
+				#{nationId,jdbcType=NUMERIC},
+			</if>
+			<if test="birthDate != null">
+				#{birthDate,jdbcType=VARCHAR},
+			</if>
+			<if test="idType != null">
+				#{idType,jdbcType=NUMERIC},
+			</if>
+			<if test="idCard != null">
+				#{idCard,jdbcType=VARCHAR},
 			</if>
 			<if test="email != null">
 				#{email,jdbcType=VARCHAR},
@@ -133,14 +200,38 @@
 			<if test="cityId != null">
 				#{cityId,jdbcType=NUMERIC},
 			</if>
+			<if test="cityName != null">
+				#{cityName,jdbcType=VARCHAR},
+			</if>
 			<if test="orgId != null">
 				#{orgId,jdbcType=NUMERIC},
+			</if>
+			<if test="orgName != null">
+				#{orgName,jdbcType=VARCHAR},
 			</if>
 			<if test="titleId != null">
 				#{titleId,jdbcType=NUMERIC},
 			</if>
+			<if test="titleStr != null">
+				#{titleStr,jdbcType=VARCHAR},
+			</if>
+			<if test="dutyName != null">
+				#{dutyName,jdbcType=VARCHAR},
+			</if>
+			<if test="degreeId != null">
+				#{degreeId,jdbcType=NUMERIC},
+			</if>
+			<if test="eduId != null">
+				#{eduId,jdbcType=NUMERIC},
+			</if>
 			<if test="addr != null">
 				#{addr,jdbcType=VARCHAR},
+			</if>
+			<if test="zipCode != null">
+				#{zipCode,jdbcType=VARCHAR},
+			</if>
+			<if test="adminId != null">
+				#{adminId,jdbcType=INTEGER},
 			</if>
 			<if test="addTime != null">
 				#{addTime,jdbcType=NUMERIC},
@@ -153,11 +244,26 @@
 	<update id="updateByPrimaryKeySelective" parameterType="com.hos.po.model.student.Students">
 		update students
 		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
 			<if test="mobile != null">
 				mobile = #{mobile,jdbcType=CHAR},
 			</if>
 			<if test="sex != null">
 				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="nationId != null">
+				nation_id = #{nationId,jdbcType=NUMERIC},
+			</if>
+			<if test="birthDate != null">
+				birth_date = #{birthDate,jdbcType=VARCHAR},
+			</if>
+			<if test="idType != null">
+				id_type = #{idType,jdbcType=NUMERIC},
+			</if>
+			<if test="idCard != null">
+				id_card = #{idCard,jdbcType=VARCHAR},
 			</if>
 			<if test="email != null">
 				email = #{email,jdbcType=VARCHAR},
@@ -165,14 +271,38 @@
 			<if test="cityId != null">
 				city_id = #{cityId,jdbcType=NUMERIC},
 			</if>
+			<if test="cityName != null">
+				city_name = #{cityName,jdbcType=VARCHAR},
+			</if>
 			<if test="orgId != null">
 				org_id = #{orgId,jdbcType=NUMERIC},
+			</if>
+			<if test="orgName != null">
+				org_name = #{orgName,jdbcType=VARCHAR},
 			</if>
 			<if test="titleId != null">
 				title_id = #{titleId,jdbcType=NUMERIC},
 			</if>
+			<if test="titleStr != null">
+				title_str = #{titleStr,jdbcType=VARCHAR},
+			</if>
+			<if test="dutyName != null">
+				duty_name = #{dutyName,jdbcType=VARCHAR},
+			</if>
+			<if test="degreeId != null">
+				degree_id = #{degreeId,jdbcType=NUMERIC},
+			</if>
+			<if test="eduId != null">
+				edu_id = #{eduId,jdbcType=NUMERIC},
+			</if>
 			<if test="addr != null">
 				addr = #{addr,jdbcType=VARCHAR},
+			</if>
+			<if test="zipCode != null">
+				zip_code = #{zipCode,jdbcType=VARCHAR},
+			</if>
+			<if test="adminId != null">
+				admin_id = #{adminId,jdbcType=INTEGER},
 			</if>
 			<if test="addTime != null">
 				add_time = #{addTime,jdbcType=NUMERIC},
@@ -185,13 +315,26 @@
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.hos.po.model.student.Students">
 		update students
-		set mobile = #{mobile,jdbcType=CHAR},
+		set name = #{name,jdbcType=VARCHAR},
+		mobile = #{mobile,jdbcType=CHAR},
 		sex = #{sex,jdbcType=VARCHAR},
+		nation_id = #{nationId,jdbcType=NUMERIC},
+		birth_date = #{birthDate,jdbcType=VARCHAR},
+		id_type = #{idType,jdbcType=NUMERIC},
+		id_card = #{idCard,jdbcType=VARCHAR},
 		email = #{email,jdbcType=VARCHAR},
 		city_id = #{cityId,jdbcType=NUMERIC},
+		city_name = #{cityName,jdbcType=VARCHAR},
 		org_id = #{orgId,jdbcType=NUMERIC},
+		org_name = #{orgName,jdbcType=VARCHAR},
 		title_id = #{titleId,jdbcType=NUMERIC},
+		title_str = #{titleStr,jdbcType=VARCHAR},
+		duty_name = #{dutyName,jdbcType=VARCHAR},
+		degree_id = #{degreeId,jdbcType=NUMERIC},
+		edu_id = #{eduId,jdbcType=NUMERIC},
 		addr = #{addr,jdbcType=VARCHAR},
+		zip_code = #{zipCode,jdbcType=VARCHAR},
+		admin_id = #{adminId,jdbcType=INTEGER},
 		add_time = #{addTime,jdbcType=NUMERIC},
 		update_time = #{updateTime,jdbcType=NUMERIC}
 		where stu_id = #{stuId,jdbcType=NUMERIC}

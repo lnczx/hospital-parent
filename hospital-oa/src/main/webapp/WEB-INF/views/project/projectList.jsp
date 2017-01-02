@@ -80,8 +80,8 @@
 									</c:if>
 									
 									<c:if test="${linkType == 'student' }">
-										<a href="javascript:;" onclick="btn_show_layer('导入学员','student-import.html','10001')" class="btn btn-primary-outline size-S radius">导入学员</a> &nbsp;
-										<a href="javascript:;" onclick="btn_show_layer('查看学员','student-list.html','10001')" class="btn btn-primary-outline size-S radius">查看学员</a>
+										<a href="javascript:;" onclick="btn_show_layer('导入学员','project/student/student-import?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">导入学员</a> &nbsp;
+										<a href="javascript:;" onclick="btn_show_layer('查看学员','project/student/student-list?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">查看学员</a>
 									</c:if>
 								</td>
 							</tr>
