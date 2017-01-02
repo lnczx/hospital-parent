@@ -24,9 +24,15 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.github.pagehelper.PageInfo;
 import com.hos.common.ConstantMsg;
 import com.hos.common.Constants;
+import com.hos.po.model.dict.DictOrgs;
+import com.hos.po.model.dict.Dicts;
 import com.hos.po.model.project.ProjectStudent;
+import com.hos.po.model.student.Students;
+import com.hos.service.dict.DictOrgService;
+import com.hos.service.dict.DictService;
 import com.hos.service.project.ProjectStudentService;
 import com.hos.service.project.ProjectService;
+import com.hos.service.student.StudentService;
 import com.hos.vo.project.ProjectStudentSearchVo;
 import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.ExcelUtil;
@@ -48,6 +54,15 @@ public class ProjectStudentController extends BaseController {
 	
 	@Autowired
 	private ProjectStudentService projectStudentService;
+	
+	@Autowired
+	private StudentService studentService;
+	
+	@Autowired
+	private DictService dictService;
+		
+	@Autowired
+	private DictOrgService dictOrgService;
 	
 	@AuthPassport
 	@RequestMapping(value = "/student-list", method = { RequestMethod.GET })
@@ -100,6 +115,42 @@ public class ProjectStudentController extends BaseController {
 		
 		Long id = Long.valueOf(request.getParameter("id"));
 		Long pId = Long.valueOf(request.getParameter("pId"));
+		
+		Long orgId = formData.getOrgId();
+		if (orgId > 0L) {
+			DictOrgs org = dictOrgService.findById(orgId);
+			if (org != null) formData.setOrgName(org.getName());
+		}
+		
+		Long titleId = formData.getTitleId();
+		if (titleId > 0L) {
+			Dicts titleObj = dictService.findTitleById(titleId);
+			if (titleObj != null) formData.setTitleStr(titleObj.getName());
+		}
+		
+		
+		//检测student表，是否需要插入此表。
+		ProjectStudentSearchVo searchVo = new ProjectStudentSearchVo();
+		searchVo.setName(formData.getName().trim());
+		searchVo.setMobile(formData.getMobile().trim());
+		
+		Students student = studentService.initStudents();
+		List<Students> list = studentService.selectBySearchVo(searchVo);
+
+		if (!list.isEmpty()) {
+			student = list.get(0);
+		}
+		BeanUtilsExp.copyPropertiesIgnoreNull(formData, student);
+		student.setAdminId(adminId);
+		if (student.getStuId().equals(0L)) {
+			studentService.insertSelective(student);
+		} else {
+			student.setUpdateTime(TimeStampUtil.getNowSecond());
+			studentService.updateByPrimaryKeySelective(student);
+		}
+		
+		Long stuId = student.getStuId();
+				
 		ProjectStudent record = projectStudentService.initProjectStudent();
 		
 		if (id > 0L) {
@@ -107,7 +158,7 @@ public class ProjectStudentController extends BaseController {
 		}
 		
 		BeanUtilsExp.copyPropertiesIgnoreNull(formData, record);
-		
+		record.setStuId(stuId);
 		record.setAdminId(adminId);
 		if (id > 0L) {
 			record.setUpdateTime(TimeStampUtil.getNowSecond());
@@ -115,7 +166,7 @@ public class ProjectStudentController extends BaseController {
 		} else {
 			projectStudentService.insertSelective(record);
 		}
-		
+
 		model.addAttribute("formData", record);
 		
 		return "redirect:student-list?pId="+pId;

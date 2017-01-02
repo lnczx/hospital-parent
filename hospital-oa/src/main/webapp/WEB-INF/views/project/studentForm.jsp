@@ -8,6 +8,7 @@
 <%@ taglib prefix="selectNationTag" uri="/WEB-INF/views/tags/selectNation.tld"%>
 <%@ taglib prefix="selectEduTag" uri="/WEB-INF/views/tags/selectEdu.tld"%>
 <%@ taglib prefix="selectDegreeTag" uri="/WEB-INF/views/tags/selectDegree.tld"%>
+<%@ taglib prefix="selectIdTypeTag" uri="/WEB-INF/views/tags/selectIdType.tld"%>
 <html>
 <head>
 <!--common css for all pages-->
@@ -28,9 +29,22 @@
 			<div class="formControls col-xs-4 col-sm-4">
 				<form:input path="name" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
 			</div>
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>民族：</label>
+			
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>手机号：</label>
 			<div class="formControls col-xs-4 col-sm-4">
-				<selectNationTag:select selectedId="${formData.nationId }"  />
+				<form:input path="mobile" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
+			</div>
+			
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>证件类型：</label>
+			<div class="formControls col-xs-4 col-sm-4">
+				<selectIdTypeTag:select selectedId="${formData.idType }"  />
+			</div>
+		
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>证件号码：</label>
+			<div class="formControls col-xs-4 col-sm-4">
+				<form:input path="idCard" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
 			</div>
 		</div>
 		<div class="row cl">
@@ -85,9 +99,9 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>手机号：</label>
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>民族：</label>
 			<div class="formControls col-xs-4 col-sm-4">
-				<form:input path="mobile" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
+				<selectNationTag:select selectedId="${formData.nationId }"  />
 			</div>
 		
 			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>电子邮箱：</label>

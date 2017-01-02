@@ -41,6 +41,8 @@ public interface DictService {
 
 	List<Dicts> LoadDegreeData();
 
+	List<Dicts> LoadIdTypeData();
+
 
 
 }

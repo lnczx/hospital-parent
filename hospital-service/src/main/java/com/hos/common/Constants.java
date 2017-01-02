@@ -22,6 +22,7 @@ public class Constants {
 	public static String DICT_NATION = "nation"; //民族
 	public static String DICT_EDU = "edu"; //学历
 	public static String DICT_DEGREE = "degree"; //学位
+	public static String DICT_ID_TYPE = "id_type"; //证件类型
 	
 	//导入的文件夹
 	public static String IMPORT_PATH = "/data/hospital-oa/import/";

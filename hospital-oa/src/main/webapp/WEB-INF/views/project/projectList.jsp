@@ -67,7 +67,7 @@
 									<c:if test="${linkType == 'project'}">
 										<a href="javascript:;" onclick="" class="btn btn-primary-outline size-S radius">招生简章</a>&nbsp; 
 										<a href="javascript:;" onclick="btn_show_layer('查看课表','project/course/course-list?pId=${item.pId}','10001')"  class="btn btn-primary-outline size-S radius">课表</a> &nbsp; 
-										<a href="javascript:;" onclick="btn_show_layer('查看学员列表','student-list.html','10001')" class="btn btn-primary-outline size-S radius">学员</a>
+										<a href="javascript:;" onclick="btn_show_layer('查看学员列表','project/student/student-list?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">学员</a>
 									</c:if>
 									<c:if test="${linkType == 'attach' }">
 										<a href="javascript:;" onclick="btn_show_layer('导入招生简章','briefing-import.html','10001')" class="btn btn-primary-outline size-S radius">导入招生简章</a> &nbsp;

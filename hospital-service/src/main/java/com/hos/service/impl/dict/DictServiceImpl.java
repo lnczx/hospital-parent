@@ -46,6 +46,8 @@ public class DictServiceImpl implements DictService {
 		this.LoadEduData();
 		
 		this.LoadDegreeData();
+		
+		this.LoadIdTypeData();
 
 		this.LoadOrgData();
 		
@@ -154,6 +156,22 @@ public class DictServiceImpl implements DictService {
 		if (list == null || list.isEmpty()) {
 			list = dictMapper.selectBySearchVo(searchVo);
 			memDictMap.put("listDegree", list);
+		}
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Dicts> LoadIdTypeData() {
+
+		//城市表
+		DictSearchVo searchVo = new DictSearchVo();
+		searchVo.setType(Constants.DICT_ID_TYPE);
+		List<Dicts> list = memDictMap.get("listIdType");
+		if (list == null || list.isEmpty()) {
+			list = dictMapper.selectBySearchVo(searchVo);
+			memDictMap.put("listIdType", list);
 		}
 		
 		return list;
