@@ -35,7 +35,7 @@
 								<i class="Hui-iconfont">&#xe642;</i>
 								选择 项目Excel文件
 							</a>
-							<input type="file" multiple name="project-file" class="input-file" data-rule-required="true">
+							<input type="file" multiple name="project-file" class="input-file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"  data-rule-required="true">
 						</span>
 						<button type="submit" class="btn btn-success" id="" name="" onClick="">
 							<i class="Hui-iconfont">&#xe600;</i>

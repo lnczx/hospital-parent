@@ -42,9 +42,28 @@ public class ProjectController extends BaseController {
 	@Autowired
 	private ProjectService projectService;
 	
+	/**
+	 * 
+	 * @param request
+	 * @param model
+	 * @param searchVo
+	 * @param linkType   根据不同的linkType展现不同的按钮
+	 *        linkType == 'project' or ''    
+	 *           招生简章  课表   学员
+	 *        linkType == 'courseType'
+	 *           导入课表  查看课表
+	 *        linkType == 'attach'
+	 *           导入招生简章  查看招生简章
+	 *        linkType == 'student'
+	 *           导入学员  查看学员
+	 *         
+	 *          
+	 *        
+	 * @return
+	 */
 	@AuthPassport
 	@RequestMapping(value = "/list", method = { RequestMethod.GET })
-	public String list(HttpServletRequest request, Model model, ProjectSearchVo searchVo) {
+	public String list(HttpServletRequest request, Model model, ProjectSearchVo searchVo, String linkType) {
 
 		model.addAttribute("requestUrl", request.getServletPath());
 		model.addAttribute("requestQuery", request.getQueryString());
@@ -71,7 +90,7 @@ public class ProjectController extends BaseController {
 		pageInfo = new PageInfo(list);
 		
 		model.addAttribute("contentModel", pageInfo);
-
+		model.addAttribute("linkType", linkType);
 		return "project/projectList";
 	}
 

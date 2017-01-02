@@ -8,23 +8,29 @@ public class ProjectCourse {
 
     private Long pId;
 
-    private Date courseDate;
+    private String courseDate;
 
-    private Date startTime;
+    private String startTime;
 
-    private Date endTime;
-
-    private Long courseDatetime;
+    private String endTime;
 
     private String content;
 
     private String teacher;
+    
+    private String titleStr;
 
     private Long titleId;
+    
+    private String orgName;
 
     private Long orgId;
 
-    private Long courseType;
+    private String courseType;
+    
+    private Short credit;
+    
+    private String fileName;
     
     private Long adminId;
 
@@ -48,36 +54,28 @@ public class ProjectCourse {
         this.pId = pId;
     }
 
-    public Date getCourseDate() {
+    public String getCourseDate() {
         return courseDate;
     }
 
-    public void setCourseDate(Date courseDate) {
+    public void setCourseDate(String courseDate) {
         this.courseDate = courseDate;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
-    }
-
-    public Long getCourseDatetime() {
-        return courseDatetime;
-    }
-
-    public void setCourseDatetime(Long courseDatetime) {
-        this.courseDatetime = courseDatetime;
     }
 
     public String getContent() {
@@ -112,11 +110,11 @@ public class ProjectCourse {
         this.orgId = orgId;
     }
 
-    public Long getCourseType() {
+    public String getCourseType() {
         return courseType;
     }
 
-    public void setCourseType(Long courseType) {
+    public void setCourseType(String courseType) {
         this.courseType = courseType;
     }
 
@@ -142,5 +140,37 @@ public class ProjectCourse {
 
 	public void setAdminId(Long adminId) {
 		this.adminId = adminId;
+	}
+
+	public String getTitleStr() {
+		return titleStr;
+	}
+
+	public void setTitleStr(String titleStr) {
+		this.titleStr = titleStr;
+	}
+
+	public Short getCredit() {
+		return credit;
+	}
+
+	public void setCredit(Short credit) {
+		this.credit = credit;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
 	}
 }

@@ -1,6 +1,8 @@
 $(function(){
 	var table = $('.table-sort').dataTable({
 		"lengthChange": false,
+		"searching" : false,
+		"ordering" : false
 //		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
 //		"bStateSave": true,//状态保存
 //		"aoColumnDefs": [

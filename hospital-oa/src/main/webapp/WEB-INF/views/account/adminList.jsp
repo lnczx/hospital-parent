@@ -78,7 +78,7 @@
 										<i class="Hui-iconfont f-18">&#xe60c;</i>
 									</a> |
 									<a style="text-decoration: none" class="ml-5"
-										onClick="btn_add_pop('修改密码','/account/adminPasswordForm?id=${item.id}','600','270')" href="javascript:;" title="修改密码">
+										onClick="btn_show_pop('修改密码','/account/adminPasswordForm?id=${item.id}','600','270')" href="javascript:;" title="修改密码">
 										<i class="Hui-iconfont f-18">&#xe63f;</i>
 									</a> 
 									

@@ -18,7 +18,7 @@
 	</a></nav>
 	<div class="page-container">
 		<div class="text-c">
-			<form:form modelAttribute="searchModel" id="searchForm" action="/hospital-oa/account/list" method="GET">
+			<form:form modelAttribute="searchModel" id="searchForm" action="/hospital-oa/project/list" method="GET">
 			搜索条件：
 			
 			<span class="select-box inline">
@@ -60,10 +60,26 @@
 								<td>${ item.numRecruit }</td>
 								<td>${item.numTerm }</td>
 								<td>${item.dateRange }</td>
-								<td class="td-manage"><a href="javascript:;" onclick="" class="btn btn-primary-outline size-S radius">招生简章</a>
-									&nbsp; <a href="javascript:;" onclick="project_show('查看课表','schedule-list.html','10001')"
-										class="btn btn-primary-outline size-S radius">课表</a> &nbsp; <a href="javascript:;"
-										onclick="project_show('查看学员列表','student-list.html','10001')" class="btn btn-primary-outline size-S radius">学员</a>
+								<td class="td-manage">
+									<c:if test="${linkType =='' || linkType == 'project' }">
+										<a href="javascript:;" onclick="" class="btn btn-primary-outline size-S radius">招生简章</a>&nbsp; 
+										<a href="javascript:;" onclick="btn_show_layer('查看课表','project/course/course-list?pId=${item.pId}','10001')"  class="btn btn-primary-outline size-S radius">课表</a> &nbsp; 
+										<a href="javascript:;" onclick="btn_show_layer('查看学员列表','student-list.html','10001')" class="btn btn-primary-outline size-S radius">学员</a>
+									</c:if>
+									<c:if test="${linkType == 'attach' }">
+										<a href="javascript:;" onclick="btn_show_layer('导入招生简章','briefing-import.html','10001')" class="btn btn-primary-outline size-S radius">导入招生简章</a> &nbsp;
+										<a href="javascript:;" onclick="" class="btn btn-primary-outline size-S radius">查看招生简章</a>
+									</c:if>
+									
+									<c:if test="${linkType == 'course' }">
+										<a href="javascript:;" onclick="btn_show_layer('导入课表','project/course/course-import?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">导入课表</a> &nbsp;
+										<a href="javascript:;" onclick="btn_show_layer('查看课表','project/course/course-list?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">查看课表</a>
+									</c:if>
+									
+									<c:if test="${linkType == 'student' }">
+										<a href="javascript:;" onclick="btn_show_layer('导入学员','student-import.html','10001')" class="btn btn-primary-outline size-S radius">导入学员</a> &nbsp;
+										<a href="javascript:;" onclick="btn_show_layer('查看学员','student-list.html','10001')" class="btn btn-primary-outline size-S radius">查看学员</a>
+									</c:if>
 								</td>
 							</tr>
 						</c:forEach>

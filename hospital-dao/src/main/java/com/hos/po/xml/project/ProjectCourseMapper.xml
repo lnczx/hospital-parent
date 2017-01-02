@@ -4,41 +4,46 @@
 	<resultMap id="BaseResultMap" type="com.hos.po.model.project.ProjectCourse">
 		<id column="course_id" property="courseId" jdbcType="NUMERIC" />
 		<result column="p_id" property="pId" jdbcType="NUMERIC" />
-		<result column="course_date" property="courseDate" jdbcType="DATE" />
-		<result column="start_time" property="startTime" jdbcType="TIME" />
-		<result column="end_time" property="endTime" jdbcType="TIME" />
-		<result column="course_datetime" property="courseDatetime" jdbcType="NUMERIC" />
+		<result column="course_date" property="courseDate" jdbcType="VARCHAR" />
+		<result column="start_time" property="startTime" jdbcType="VARCHAR" />
+		<result column="end_time" property="endTime" jdbcType="VARCHAR" />
 		<result column="content" property="content" jdbcType="VARCHAR" />
 		<result column="teacher" property="teacher" jdbcType="VARCHAR" />
+		<result column="title_str" property="titleStr" jdbcType="VARCHAR" />
 		<result column="title_id" property="titleId" jdbcType="NUMERIC" />
+		<result column="org_name" property="orgName" jdbcType="VARCHAR" />
 		<result column="org_id" property="orgId" jdbcType="NUMERIC" />
-		<result column="course_type" property="courseType" jdbcType="NUMERIC" />
+		<result column="course_type" property="courseType" jdbcType="VARCHAR" />
+		<result column="credit" property="credit" jdbcType="SMALLINT" />
+		<result column="file_name" property="fileName" jdbcType="VARCHAR" />
 		<result column="admin_id" property="adminId" jdbcType="NUMERIC" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
-		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
+		<result column="upVARCHAR_time" property="updateTime" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		course_id, p_id, course_date, start_time, end_time, course_datetime, content, teacher,
-		title_id, org_id, course_type, admin_id, add_time, update_time
+		course_id, p_id, course_date, start_time, end_time, content, teacher, title_str,
+		title_id, org_name, org_id, course_type, credit, file_name, admin_id, add_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
 		<include refid="Base_Column_List" />
-		from projct_course
+		from project_course
 		where course_id = #{courseId,jdbcType=NUMERIC}
 	</select>
-	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectSearchVo">
+	<select id="selectBySearchVo" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectCourseSearchVo">
 		select
 		<include refid="Base_Column_List" />
-		from projct_course
+		from project_course
 		<include refid="bySearchVo" />
+		order by course_date, start_time asc
 	</select>
 
-	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectSearchVo">
+	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectCourseSearchVo">
 		select
 		<include refid="Base_Column_List" />
-		from projct_course
+		from project_course
 		<include refid="bySearchVo" />
+		order by course_date, start_time asc
 	</select>
 
 	<sql id="bySearchVo">
@@ -47,44 +52,48 @@
 			and p_id = #{pId,jdbcType=NUMERIC}
 		</if>
 
-		<if test="orgId != null">
-			and org_id = #{orgId,jdbcType=NUMERIC}
+		<if test="courseDate != null">
+			and course_date = #{courseDate,jdbcType=VARCHAR}
 		</if>
 
-		<if test="pYear != null">
-			and p_year = #{pYear,jdbcType=DATE}
+		<if test="startTime != null">
+			and start_time = #{startTime,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="endTime != null">
+			and end_time = #{endTime,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="content !=null and content !='' ">
+			and content like  CONCAT('%',#{content},'%')
+		</if>
+		
+		<if test="teacher !=null and teacher !='' ">
+			and teacher like  CONCAT('%',#{teacher},'%')
 		</if>
 
-		<if test="pNo != null">
-			and p_no = #{pNo,jdbcType=VARCHAR}
-		</if>
-
-		<if test="name != null">
-			and name = #{name,jdbcType=VARCHAR}
-		</if>
-
-		<if test="level != null">
-			and level = #{level,jdbcType=VARCHAR}
-		</if>
 	</sql>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from projct_course
+		delete from project_course
 		where course_id = #{courseId,jdbcType=NUMERIC}
 	</delete>
 	<insert id="insert" parameterType="com.hos.po.model.project.ProjectCourse">
 		<selectKey resultType="java.lang.Long" keyProperty="courseId" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		insert into projct_course (p_id, course_date, start_time,
-		end_time, course_datetime, content,
-		teacher, title_id, org_id,
-		course_type, admin_id, add_time, update_time
+		insert into project_course (p_id, course_date, start_time,
+		end_time, content,
+		teacher, title_str, title_id, org_name, org_id,
+		course_type, credit, file_name, admin_id, add_time, update_time
 		)
-		values (#{pId,jdbcType=NUMERIC}, #{courseDate,jdbcType=DATE}, #{startTime,jdbcType=TIME},
-		#{endTime,jdbcType=TIME}, #{courseDatetime,jdbcType=NUMERIC},
+		values (#{pId,jdbcType=NUMERIC}, #{courseDate,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR},
+		#{endTime,jdbcType=VARCHAR}, 
 		#{content,jdbcType=VARCHAR},
-		#{teacher,jdbcType=VARCHAR}, #{titleId,jdbcType=NUMERIC}, #{orgId,jdbcType=NUMERIC},
-		#{courseType,jdbcType=NUMERIC}, #{adminId,jdbcType=NUMERIC}, 
+		#{teacher,jdbcType=VARCHAR}, 
+		#{titleStr,jdbcType=VARCHAR}, #{titleId,jdbcType=NUMERIC}, 
+		#{orgName,jdbcType=VARCHAR}, #{orgId,jdbcType=NUMERIC},
+		#{courseType,jdbcType=VARCHAR},  #{credit,jdbcType=NUMERIC}, 
+		#{fileName,jdbcType=VARCHAR},  #{adminId,jdbcType=NUMERIC}, 
 		#{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC}
 		)
 	</insert>
@@ -92,7 +101,7 @@
 		<selectKey resultType="java.lang.Long" keyProperty="courseId" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		insert into projct_course
+		insert into project_course
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="pId != null">
 				p_id,
@@ -106,23 +115,32 @@
 			<if test="endTime != null">
 				end_time,
 			</if>
-			<if test="courseDatetime != null">
-				course_datetime,
-			</if>
 			<if test="content != null">
 				content,
 			</if>
 			<if test="teacher != null">
 				teacher,
 			</if>
+			<if test="titleStr != null">
+				title_str,
+			</if>
 			<if test="titleId != null">
 				title_id,
+			</if>
+			<if test="orgName != null">
+				org_name,
 			</if>
 			<if test="orgId != null">
 				org_id,
 			</if>
 			<if test="courseType != null">
 				course_type,
+			</if>
+			<if test="credit != null">
+				credit,
+			</if>
+			<if test="fileName != null">
+				file_name,
 			</if>
 			<if test="adminId != null">
 				admin_id,
@@ -139,16 +157,13 @@
 				#{pId,jdbcType=NUMERIC},
 			</if>
 			<if test="courseDate != null">
-				#{courseDate,jdbcType=DATE},
+				#{courseDate,jdbcType=VARCHAR},
 			</if>
 			<if test="startTime != null">
-				#{startTime,jdbcType=TIME},
+				#{startTime,jdbcType=VARCHAR},
 			</if>
 			<if test="endTime != null">
-				#{endTime,jdbcType=TIME},
-			</if>
-			<if test="courseDatetime != null">
-				#{courseDatetime,jdbcType=NUMERIC},
+				#{endTime,jdbcType=VARCHAR},
 			</if>
 			<if test="content != null">
 				#{content,jdbcType=VARCHAR},
@@ -156,14 +171,26 @@
 			<if test="teacher != null">
 				#{teacher,jdbcType=VARCHAR},
 			</if>
+			<if test="titleStr != null">
+				#{titleStr,jdbcType=VARCHAR},
+			</if>
 			<if test="titleId != null">
 				#{titleId,jdbcType=NUMERIC},
+			</if>
+			<if test="orgName != null">
+				#{orgName,jdbcType=VARCHAR},
 			</if>
 			<if test="orgId != null">
 				#{orgId,jdbcType=NUMERIC},
 			</if>
 			<if test="courseType != null">
-				#{courseType,jdbcType=NUMERIC},
+				#{courseType,jdbcType=VARCHAR},
+			</if>
+			<if test="credit != null">
+				#{credit,jdbcType=NUMERIC},
+			</if>
+			<if test="fileName != null">
+				#{fileName,jdbcType=VARCHAR},
 			</if>
 			<if test="adminId != null">
 				#{adminId,jdbcType=NUMERIC},
@@ -177,22 +204,19 @@
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.hos.po.model.project.ProjectCourse">
-		update projct_course
+		update project_course
 		<set>
 			<if test="pId != null">
 				p_id = #{pId,jdbcType=NUMERIC},
 			</if>
 			<if test="courseDate != null">
-				course_date = #{courseDate,jdbcType=DATE},
+				course_date = #{courseDate,jdbcType=VARCHAR},
 			</if>
 			<if test="startTime != null">
-				start_time = #{startTime,jdbcType=TIME},
+				start_time = #{startTime,jdbcType=VARCHAR},
 			</if>
 			<if test="endTime != null">
-				end_time = #{endTime,jdbcType=TIME},
-			</if>
-			<if test="courseDatetime != null">
-				course_datetime = #{courseDatetime,jdbcType=NUMERIC},
+				end_time = #{endTime,jdbcType=VARCHAR},
 			</if>
 			<if test="content != null">
 				content = #{content,jdbcType=VARCHAR},
@@ -200,14 +224,26 @@
 			<if test="teacher != null">
 				teacher = #{teacher,jdbcType=VARCHAR},
 			</if>
+			<if test="titleStr != null">
+				title_str = #{titleStr,jdbcType=VARCHAR},
+			</if>
 			<if test="titleId != null">
 				title_id = #{titleId,jdbcType=NUMERIC},
+			</if>
+			<if test="orgName != null">
+				org_name = #{orgName,jdbcType=VARCHAR},
 			</if>
 			<if test="orgId != null">
 				org_id = #{orgId,jdbcType=NUMERIC},
 			</if>
 			<if test="courseType != null">
-				course_type = #{courseType,jdbcType=NUMERIC},
+				course_type = #{courseType,jdbcType=VARCHAR},
+			</if>
+			<if test="credit != null">
+				credit = #{credit,jdbcType=NUMERIC},
+			</if>
+			<if test="fileName != null">
+				file_name = #{fileName,jdbcType=VARCHAR},
 			</if>
 			<if test="adminId != null">
 				admin_id = #{adminId,jdbcType=NUMERIC},
@@ -222,19 +258,22 @@
 		where course_id = #{courseId,jdbcType=NUMERIC}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.hos.po.model.project.ProjectCourse">
-		update projct_course
+		update project_course
 		set p_id = #{pId,jdbcType=NUMERIC},
-		course_date = #{courseDate,jdbcType=DATE},
-		start_time = #{startTime,jdbcType=TIME},
-		end_time = #{endTime,jdbcType=TIME},
-		course_datetime = #{courseDatetime,jdbcType=NUMERIC},
+		course_date = #{courseDate,jdbcType=VARCHAR},
+		start_time = #{startTime,jdbcType=VARCHAR},
+		end_time = #{endTime,jdbcType=VARCHAR},
 		content =
 		#{content,jdbcType=VARCHAR},
 		teacher = #{teacher,jdbcType=VARCHAR},
+		title_str = #{titleStr,jdbcType=VARCHAR},
 		title_id = #{titleId,jdbcType=NUMERIC},
+		org_name = #{orgName,jdbcType=VARCHAR},
 		org_id = #{orgId,jdbcType=NUMERIC},
 		course_type =
-		#{courseType,jdbcType=NUMERIC},
+		#{courseType,jdbcType=VARCHAR},
+		credit = #{credit,jdbcType=NUMERIC},
+		file_name = #{fileName,jdbcType=VARCHAR},
 		admin_id = #{adminId,jdbcType=NUMERIC},
 		add_time = #{addTime,jdbcType=NUMERIC},
 		update_time = #{updateTime,jdbcType=NUMERIC}

@@ -50,6 +50,15 @@ public class DateUtil {
 		return isDate(date, DEFAULT_PATTERN);
 	}
 	
+	/**
+	 * 判断字符串是否为日期
+	 * @param day:yyyy-MM-dd
+	 * @return
+	 */
+	public static boolean isDateFormat(String date, String pattern) {
+		return isDate(date, pattern);
+	}
+	
 
 	/**
 	 * 判断是否为日期
@@ -59,8 +68,10 @@ public class DateUtil {
 	 */
 	public static boolean isDate(String date, String pattern) {
 		DateFormat df = new SimpleDateFormat(pattern);
+		df.setLenient(false);
 		try {
-			df.parse(date);
+			java.util.Date d= df.parse(date);
+
 			return true;
 		} catch (ParseException e) {
 			return false;
@@ -670,11 +681,11 @@ public class DateUtil {
 //		String dateStr = "11-五月-2015";
 //		System.out.println(DateUtil.isDate(dateStr));
 		
-		System.out.println(DateUtil.getDateSpace("2016-01-27", "2016-01-26"));
+//		System.out.println(DateUtil.getDateSpace("2016-01-27", "2016-01-26"));
 //		timeStampToDate(0L);
 		
 //		System.out.println(java.sql.Date.valueOf("2016-6-8"));
-		System.out.println(DateUtil.getAllDaysOfMonth(2016, 1));
+//		System.out.println(DateUtil.getAllDaysOfMonth(2016, 1));
 //		System.out.println(DateUtil.getAllDaysOfMonth(2016, 2));
 //		System.out.println(DateUtil.getAllDaysOfMonth(2016, 3));
 //		System.out.println(DateUtil.getAllDaysOfMonth(2016, 4));
@@ -687,15 +698,19 @@ public class DateUtil {
 //		System.out.println(DateUtil.getAllDaysOfMonth(2016, 11));
 //		System.out.println(DateUtil.getAllDaysOfMonth(2016, 12));
 		
-		System.out.println(DateUtil.getYear());
+//		System.out.println(DateUtil.getYear());
+//		
+//		int day = Integer.valueOf("2016-01-02".substring(8));
+//		System.out.println(String.valueOf(day));
+//		
+//		String w = "星期三";
+//		System.out.println(w.substring(2));
+//		
+//		System.out.println(DateUtil.compare("2016-08-09", "2016-08-08"));
 		
-		int day = Integer.valueOf("2016-01-02".substring(8));
-		System.out.println(String.valueOf(day));
-		
-		String w = "星期三";
-		System.out.println(w.substring(2));
-		
-		System.out.println(DateUtil.compare("2016-08-09", "2016-08-08"));
+		System.out.println(DateUtil.isDate("11111:1", "HH:mm"));
+//		String startTime = "11:00";
+//		System.out.println(DateUtil.parse(startTime));
 		
 	}
 }

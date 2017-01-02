@@ -1,6 +1,6 @@
 //Global host+url
 var host = window.location.host;
-var appName = "/hospital-oa";
+var appName = "hospital-oa";
 
 var appRootUrl = "http://" + host + "/" + appName + "/";
 
@@ -16,33 +16,17 @@ function btn_add_blank(path) {
 //按钮时间
 function btn_link(path) {
 	// location.href = appRootUrl + "account/register?id=" + id;
-	alert(appRootUrl + path);
+//	alert(appRootUrl + path);
 	 window.location.replace(appRootUrl + path);
 }
 
-function btn_add_pop(title,url,w,h){
-	url = appRootUrl + url;
-	layer_show(title,url,w,h);
-}
-
-function btn_update_pop(title,url,w,h){
+function btn_show_pop(title,url,w,h){
 	url =appRootUrl + url;
 	layer_show(title,url,w,h);
 }
 
-//新增事件
-function btn_add_layer(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: appRootUrl + url
-	});
-	layer.full(index);
-}
-
-
-//修改按钮事件
-function btn_update_layer(title,url) {
+function btn_show_layer(title,url) {
+//	alert(appRootUrl + url);
 	var index = layer.open({
 		type: 2,
 		title: title,

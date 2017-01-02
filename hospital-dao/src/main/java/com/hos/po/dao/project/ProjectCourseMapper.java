@@ -3,6 +3,7 @@ package com.hos.po.dao.project;
 import java.util.List;
 
 import com.hos.po.model.project.ProjectCourse;
+import com.hos.vo.project.ProjectCourseSearchVo;
 import com.hos.vo.project.ProjectSearchVo;
 
 public interface ProjectCourseMapper {
@@ -19,7 +20,7 @@ public interface ProjectCourseMapper {
 
     int updateByPrimaryKey(ProjectCourse record);
     
-    List<ProjectCourse> selectByListPage(ProjectSearchVo searchVo);
+    List<ProjectCourse> selectByListPage(ProjectCourseSearchVo searchVo);
     
-    List<ProjectCourse> selectBySearchVo(ProjectSearchVo searchVo);
+    List<ProjectCourse> selectBySearchVo(ProjectCourseSearchVo searchVo);
 }

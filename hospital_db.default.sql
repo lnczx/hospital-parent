@@ -82,7 +82,7 @@ CREATE TABLE `admin_authority` (
 
 LOCK TABLES `admin_authority` WRITE;
 /*!40000 ALTER TABLE `admin_authority` DISABLE KEYS */;
-INSERT INTO `admin_authority` VALUES (1,3,0,'欢迎使用','1',1,'1','/home','/home','icon-home',0),(2,2,0,'首页','1,2',0,'1','/home/index','/home/index','',1),(3,2,0,'系统设置','3',2,'2','/setting','/setting','icon-cogs',0),(4,4,0,'用户管理','3,4',0,'1','/account/list','/account','',3),(7,1,0,'角色管理','3,7',0,'2','/role/list','/role','',3),(10,1,0,'权限管理','3,10',0,'3','/authority/chain','/authority','',3),(11,2,0,'项目管理','3',2,'2','/setting','/setting','icon-cogs',0),(12,0,0,'我的项目一览','11,12',0,'1','/project/list','/project','',11),(13,0,0,'计划项目导入','11,13',0,'2','/project/project-import','/project','',11),(14,0,0,'招生简章导入','11,14',0,'3','/project/','/project','',11),(15,0,0,'课表导入','11,15',0,'3','/project/course-list','/project','',11),(16,0,0,'学员导入','11,16',0,'3','/project/student-list','/project','',11);
+INSERT INTO `admin_authority` VALUES (1,3,0,'欢迎使用','1',1,'1','/home','/home','icon-home',0),(2,2,0,'首页','1,2',0,'1','/home/index','/home/index','',1),(3,2,0,'系统设置','3',2,'2','/setting','/setting','icon-cogs',0),(4,4,0,'用户管理','3,4',0,'1','/account/list','/account','',3),(7,1,0,'角色管理','3,7',0,'2','/role/list','/role','',3),(10,1,0,'权限管理','3,10',0,'3','/authority/chain','/authority','',3),(11,2,0,'项目管理','3',2,'2','/setting','/setting','icon-cogs',0),(12,0,0,'我的项目一览','11,12',0,'1','/project/list','/project','',11),(13,0,0,'计划项目导入','11,13',0,'2','/project/project-import','/project','',11),(14,0,0,'招生简章导入','11,14',0,'3','/project/list?linkType=briefing','/project','',11),(15,0,0,'课表导入','11,15',0,'3','/project/list?linkType=course','/project','',11),(16,0,0,'学员导入','11,16',0,'3','/project/list?linkType=student','/project','',11);
 /*!40000 ALTER TABLE `admin_authority` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,14 +293,14 @@ CREATE TABLE `project_course` (
   `course_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `p_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '项目ID',
   `course_date` date NOT NULL COMMENT '日期',
-  `start_time` time NOT NULL COMMENT '开始时间',
-  `end_time` time NOT NULL COMMENT '结束时间',
-  `course_datetime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '课程时间戳',
+  `start_time` varchar(20) NOT NULL COMMENT '开始时间',
+  `end_time` varchar(20) NOT NULL COMMENT '结束时间',
   `content` varchar(255) NOT NULL COMMENT '内容',
   `teacher` varchar(20) NOT NULL COMMENT '教师',
+  `title_str` varchar(64) NOT NULL COMMENT '学科',
   `title_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '职称',
   `org_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '所属单位',
-  `course_type` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '课程类型',
+  `course_type` varchar(20) NOT NULL COMMENT '课程类型',
   `admin_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '操作人',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间戳',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间戳',
@@ -377,7 +377,7 @@ CREATE TABLE `projects` (
   `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间戳',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间戳',
   PRIMARY KEY (`p_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='项目表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='项目表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,6 +386,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
+INSERT INTO `projects` VALUES (1,2017,'2017-05-02-022 (国)','测试项目xxx1',17,'北京协和医学院出版社','张三','010-82265671','北京市支出利大厦',5,200,1,0,'project-import-1482773804441079.xls',1,1482773806,1482773806);
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -429,4 +430,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-27  1:33:59
+-- Dump completed on 2016-12-31 16:03:21
