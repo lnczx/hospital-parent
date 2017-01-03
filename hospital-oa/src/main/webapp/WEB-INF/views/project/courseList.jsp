@@ -25,10 +25,12 @@
 		</div>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
 			<span class="l">
+				<c:if test="${accountAuth.accountRole.id != 2}">
 				<a href="javascript:;" onclick="btn_add('project/course/course-form?pId=${pId}&courseId=0')" class="btn btn-primary radius">
 					<i class="Hui-iconfont">&#xe600;</i>
 					逐条添加课程
 				</a>
+				</c:if>
 		</div>
 		<div class="mt-20">
 			<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
@@ -60,10 +62,11 @@
 								<td>${ item.courseType }</td>
 								<td>${ item.credit }</td>
 								<td class="td-manage">
-								
+									<c:if test="${accountAuth.accountRole.id != 2}">
 									<a href="javascript:;" onclick="btn_add('project/course/course-form?pId=${pId}&courseId=${item.courseId }')"  class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
 									
 									<a href="javascript:;" onclick="btn_del('project/course/course-del?pId=${pId}&courseId=${item.courseId }')"  class="btn btn-primary-outline size-S radius">删除</a> &nbsp; 
+									</c:if>
 								</td>
 							</tr>
 						</c:forEach>
