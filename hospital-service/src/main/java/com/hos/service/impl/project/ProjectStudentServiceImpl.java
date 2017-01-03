@@ -155,8 +155,8 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 			List<String> item = (List<String>) excelDatas.get(i);
 
 			int s = item.size();
-			item.add(s, String.valueOf(i + 1));
-			item.add(s + 1, "<font color='green'>新增</font>");
+			item.add(8, String.valueOf(i + 1));
+			item.add(9, "<font color='green'>新增</font>");
 			String name = item.get(0).trim();
 			String mobile = item.get(6).trim();
 			ProjectStudentSearchVo searchVo = new ProjectStudentSearchVo();
@@ -166,7 +166,7 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 			List<ProjectStudent> list = this.selectBySearchVo(searchVo);
 
 			if (!list.isEmpty()) {
-				item.set(s + 1, "<font color='red'>修改</font>");
+				item.set(9, "<font color='red'>修改</font>");
 			}
 			result.add(item);
 		}

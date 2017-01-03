@@ -146,8 +146,8 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			List<String> item = (List<String>) excelDatas.get(i);
 
 			int s = item.size();
-			item.add(s, String.valueOf(i + 1));
-			item.add(s + 1, "<font color='green'>新增</font>");
+			item.add(8, String.valueOf(i + 1));
+			item.add(9, "<font color='green'>新增</font>");
 			String courseDateStr = item.get(0).trim();
 			Date courseDateObj = DateUtil.parse(courseDateStr);
 			String courseDate = DateUtil.format(courseDateObj, "yyyy-MM-dd");
@@ -162,7 +162,7 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			List<ProjectCourse> list = this.selectBySearchVo(searchVo);
 
 			if (!list.isEmpty()) {
-				item.set(s + 1, "<font color='red'>修改</font>");
+				item.set(9, "<font color='red'>修改</font>");
 			}
 			result.add(item);
 		}
