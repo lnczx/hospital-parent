@@ -21,7 +21,7 @@
 			<ol>
 				<li>本地共导入<font color="red">${totals}</font>个项目，其中新增<font color="red">${totalNews}</font>个项目, 更新<font color="red">${totalUpdate}</font>个项目.</li>
 				<li>
-					<a href="/hospital-oa/project/list" class="btn btn-success">查看项目</a>
+					<a href="/hospital-oa/project/list?linkType=project" class="btn btn-success">查看项目</a>
 				</li>
 			</ol>
 			</form>
