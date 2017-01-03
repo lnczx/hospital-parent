@@ -73,21 +73,21 @@
 										<a href="javascript:;" onclick="btn_show_layer('查看学员列表','project/student/student-list?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">学员</a>
 									</c:if>
 									<c:if test="${linkType == 'attach' }">
-										<c:if test="${accountAuth.accountRole.id != 3}">
+										<c:if test="${accountAuth.accountRole.id != 2}">
 											<a href="javascript:;" onclick="btn_show_layer('导入招生简章','project/attach-import?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">导入招生简章</a> &nbsp;
 										</c:if>
 										<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')" class="btn btn-primary-outline size-S radius">查看招生简章</a>
 									</c:if>
 									
 									<c:if test="${linkType == 'course' }">
-										<c:if test="${accountAuth.accountRole.id != 3}">
+										<c:if test="${accountAuth.accountRole.id != 2}">
 											<a href="javascript:;" onclick="btn_show_layer('导入课表','project/course/course-import?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">导入课表</a> &nbsp;
 										</c:if>
 										<a href="javascript:;" onclick="btn_show_layer('查看课表','project/course/course-list?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">查看课表</a>
 									</c:if>
 									
 									<c:if test="${linkType == 'student' }">
-										<c:if test="${accountAuth.accountRole.id != 3}">
+										<c:if test="${accountAuth.accountRole.id != 2}">
 											<a href="javascript:;" onclick="btn_show_layer('导入学员','project/student/student-import?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">导入学员</a> &nbsp;
 										</c:if>
 										<a href="javascript:;" onclick="btn_show_layer('查看学员','project/student/student-list?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">查看学员</a>
