@@ -34,6 +34,7 @@ import com.hos.service.project.ProjectStudentService;
 import com.hos.service.project.ProjectService;
 import com.hos.service.student.StudentService;
 import com.hos.vo.project.ProjectStudentSearchVo;
+import com.hos.vo.project.ProjectStudentVo;
 import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.ExcelUtil;
 import com.meijia.utils.RandomUtil;
@@ -88,6 +89,19 @@ public class ProjectStudentController extends BaseController {
 	}
 	
 	@AuthPassport
+	@RequestMapping(value = "/student-view", method = { RequestMethod.GET })
+	public String courseForm(HttpServletRequest request, Model model, Long id) {
+		
+		ProjectStudent record = projectStudentService.selectByPrimaryKey(id);
+		ProjectStudentVo vo = projectStudentService.getVo(record);
+		
+		model.addAttribute("formData", vo);
+		
+		return "project/studentForm";
+
+	}		
+	
+	@AuthPassport
 	@RequestMapping(value = "/student-form", method = { RequestMethod.GET })
 	public String courseForm(HttpServletRequest request, Model model, Long pId, Long id) {
 		
@@ -125,7 +139,7 @@ public class ProjectStudentController extends BaseController {
 		
 		Long titleId = formData.getTitleId();
 		if (titleId != null && titleId > 0L) {
-			Dicts titleObj = dictService.findTitleById(titleId);
+			Dicts titleObj = dictService.findById(titleId, Constants.DICT_TITLE);
 			if (titleObj != null) formData.setTitleStr(titleObj.getName());
 		}
 		

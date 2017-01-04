@@ -20,6 +20,8 @@ import com.hos.service.dict.DictService;
 import com.hos.service.project.ProjectStudentService;
 import com.hos.service.student.StudentService;
 import com.hos.vo.project.ProjectStudentSearchVo;
+import com.hos.vo.project.ProjectStudentVo;
+import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.RegexUtil;
 import com.meijia.utils.StringUtil;
 import com.meijia.utils.TimeStampUtil;
@@ -98,6 +100,42 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 	@Override
 	public List<ProjectStudent> selectBySearchVo(ProjectStudentSearchVo searchVo) {
 		return projectStudentMapper.selectBySearchVo(searchVo);
+	}
+	
+	@Override
+	public ProjectStudentVo getVo(ProjectStudent item) {
+		ProjectStudentVo vo = new ProjectStudentVo();
+		BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
+		
+		String idTypeName = "";
+		if (vo.getIdType() != null && vo.getIdType() > 0L) {
+			Dicts dict = dictService.findById(vo.getIdType(), Constants.DICT_ID_TYPE);
+			if (dict == null) idTypeName = dict.getName();
+		}
+		vo.setIdTypeName(idTypeName);
+		
+		String eduName = "";
+		if (vo.getEduId() != null && vo.getEduId() > 0L) {
+			Dicts dict = dictService.findById(vo.getIdType(), Constants.DICT_EDU);
+			if (dict == null) eduName = dict.getName();
+		}
+		vo.setEduName(eduName);
+		
+		String degreeName = "";
+		if (vo.getDegreeId() != null && vo.getDegreeId() > 0L) {
+			Dicts dict = dictService.findById(vo.getIdType(), Constants.DICT_DEGREE);
+			if (dict == null) degreeName = dict.getName();
+		}
+		vo.setDegreeName(degreeName);
+		
+		String cityName = "";
+		if (vo.getDegreeId() != null && vo.getDegreeId() > 0L) {
+			Dicts dict = dictService.findById(vo.getIdType(), Constants.DICT_AREA);
+			if (dict == null) cityName = dict.getName();
+		}
+		vo.setCityName(cityName);
+		
+		return vo;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -287,7 +325,7 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 			String sex = item.get(1).trim();
 			String cityName = item.get(2).trim();
 			Long cityId = 0L;
-			Dicts dictCity = dictService.findCityByName(cityName);
+			Dicts dictCity = dictService.findByName(cityName, Constants.DICT_AREA);
 			if (dictCity != null) cityId = dictCity.getId();
 			
 			String orgName = item.get(3).trim();
@@ -297,7 +335,7 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 			
 			String titleStr = item.get(4).trim();
 			Long titleId = 0L;
-			Dicts dictTitle = dictService.findTitleByName(titleStr);
+			Dicts dictTitle = dictService.findByName(titleStr, Constants.DICT_TITLE);
 			if (dictTitle != null) titleId = dictTitle.getId();
 			
 			String addr = item.get(5).trim();

@@ -13,9 +13,11 @@ import com.hos.common.ConstantMsg;
 import com.hos.common.Constants;
 import com.hos.po.dao.project.ProjectsMapper;
 import com.hos.po.model.dict.DictOrgs;
+import com.hos.po.model.project.ProjectAttach;
 import com.hos.po.model.project.Projects;
 import com.hos.service.dict.DictOrgService;
 import com.hos.service.dict.DictService;
+import com.hos.service.project.ProjectAttachService;
 import com.hos.service.project.ProjectCourseService;
 import com.hos.service.project.ProjectService;
 import com.hos.vo.project.ProjectSearchVo;
@@ -35,6 +37,9 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Autowired
 	private ProjectCourseService projectCourseService;
+	
+	@Autowired
+	private ProjectAttachService projectAttachService;
 
 	@Autowired
 	private DictService dictService;
@@ -108,6 +113,7 @@ public class ProjectServiceImpl implements ProjectService {
 		ProjectVo vo = new ProjectVo();
 		BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
 		
+		String dateRange = "";
 		//得到起止时间.
 		String startDate = "";
 		String endDate = "";
@@ -123,8 +129,26 @@ public class ProjectServiceImpl implements ProjectService {
 			}
 		}
 		
+		if (StringUtil.isEmpty(startDate) ) startDate = item.getpYear() + "-01-01";
+		dateRange = startDate;
+		if (!StringUtil.isEmpty(endDate)) {
+			dateRange+= "--" + endDate;
+		}
 		vo.setStartDate(startDate);
 		vo.setEndDate(endDate);
+		vo.setDateRange(dateRange);
+		
+		//招生简章
+		String briefingFilePath = "";
+		ProjectSearchVo searchVo = new ProjectSearchVo();
+		searchVo.setpId(vo.getpId());
+		searchVo.setAttachType("briefing");
+		List<ProjectAttach> list = projectAttachService.selectBySearchVo(searchVo);
+		if (!list.isEmpty()) {
+			ProjectAttach pa = list.get(0);
+			briefingFilePath = pa.getFileName();
+		}
+		vo.setBriefingFilePath(briefingFilePath);
 		return vo;
 	}
 	

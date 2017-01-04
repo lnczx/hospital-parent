@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.hos.po.model.project.ProjectStudent;
 import com.hos.vo.project.ProjectSearchVo;
 import com.hos.vo.project.ProjectStudentSearchVo;
+import com.hos.vo.project.ProjectStudentVo;
 import com.simi.vo.AppResultData;
 
 
@@ -31,6 +32,8 @@ public interface ProjectStudentService {
 	List<Object> checkDuplication(Long pId, List<Object> excelDatas) throws Exception;
 
 	AppResultData<Object> doProjectStudentImport(Long pId, List<Object> datas, String fileName, Long adminId) throws Exception;
+
+	ProjectStudentVo getVo(ProjectStudent record);
 
 	
 

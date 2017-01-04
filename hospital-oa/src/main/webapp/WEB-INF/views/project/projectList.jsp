@@ -59,7 +59,7 @@
 								<td>${ item.credit }</td>
 								<td>${ item.numRecruit }</td>
 								<td>${item.numTerm }</td>
-								<td>${item.startDate } -- ${item.endDate }</td>
+								<td>${item.dateRange }</td>
 								<td class="td-manage">
 								
 									
@@ -68,7 +68,15 @@
 										
 										<a href="javascript:;" onclick="btn_add('project/project-form?pId=${item.pId}')"  class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
 										
-										<a href="javascript:;" onclick="btn_add('project/list?linkType=attach')" class="btn btn-primary-outline size-S radius">招生简章</a>&nbsp; 
+										<c:if test="${item.briefingFilePath != '' }">
+											<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')" class="btn btn-primary-outline size-S radius">招生简章</a>
+										</c:if>
+										
+										<c:if test="${item.briefingFilePath == '' }">
+											<a href="javascript:;" onclick="alert('项目管理员还未上传本项目的招生简章')" class="btn btn-primary-outline size-S radius">招生简章</a>&nbsp; 
+										</c:if>
+										
+										
 										<a href="javascript:;" onclick="btn_show_layer('查看课表','project/course/course-list?pId=${item.pId}','10001')"  class="btn btn-primary-outline size-S radius">课表</a> &nbsp; 
 										<a href="javascript:;" onclick="btn_show_layer('查看学员列表','project/student/student-list?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">学员</a>
 									</c:if>

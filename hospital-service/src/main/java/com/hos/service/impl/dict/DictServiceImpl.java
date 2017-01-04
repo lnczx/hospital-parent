@@ -1,5 +1,6 @@
 package com.hos.service.impl.dict;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -192,8 +193,17 @@ public class DictServiceImpl implements DictService {
 	}
 	
 	@Override
-	public Dicts findCityById(Long id) {
-		List<Dicts> list = this.LoadCityData();
+	public Dicts findById(Long id, String dictType) {
+		
+		List<Dicts> list = new ArrayList<Dicts>();
+		if (dictType.equals(Constants.DICT_AREA)) list = this.LoadCityData();
+		if (dictType.equals(Constants.DICT_COURSE_TYPE)) list = this.LoadCourseTypeData();
+		if (dictType.equals(Constants.DICT_DEGREE)) list = this.LoadDegreeData();
+		if (dictType.equals(Constants.DICT_EDU)) list = this.LoadEduData();
+		if (dictType.equals(Constants.DICT_ID_TYPE)) list = this.LoadIdTypeData();
+		if (dictType.equals(Constants.DICT_NATION)) list = this.LoadNationData();
+		if (dictType.equals(Constants.DICT_SUBJECT)) list = this.LoadSubjectData();
+		if (dictType.equals(Constants.DICT_TITLE)) list = this.LoadTitleData();
 		
 		for(Dicts item : list) {
 			if (item.getId().equals(id)) {
@@ -204,83 +214,21 @@ public class DictServiceImpl implements DictService {
 	}
 	
 	@Override
-	public Dicts findCityByName(String name) {
-		List<Dicts> listCity = this.LoadCityData();
-		for(Dicts item : listCity) {
-			if (item.getName().trim().equals(name.trim())) {
-				return item;
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public Dicts findTitleById(Long id) {
-		List<Dicts> list= this.LoadTitleData();
-		
+	public Dicts findByName(String name, String dictType) {
+		List<Dicts> list = new ArrayList<Dicts>();
+		if (dictType.equals(Constants.DICT_AREA)) list = this.LoadCityData();
+		if (dictType.equals(Constants.DICT_COURSE_TYPE)) list = this.LoadCourseTypeData();
+		if (dictType.equals(Constants.DICT_DEGREE)) list = this.LoadDegreeData();
+		if (dictType.equals(Constants.DICT_EDU)) list = this.LoadEduData();
+		if (dictType.equals(Constants.DICT_ID_TYPE)) list = this.LoadIdTypeData();
+		if (dictType.equals(Constants.DICT_NATION)) list = this.LoadNationData();
+		if (dictType.equals(Constants.DICT_SUBJECT)) list = this.LoadSubjectData();
+		if (dictType.equals(Constants.DICT_TITLE)) list = this.LoadTitleData();
 		for(Dicts item : list) {
-			if (item.getId().equals(id)) {
-				return item;
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public Dicts findTitleByName(String name) {
-		List<Dicts> listCity = this.LoadTitleData();
-		for(Dicts item : listCity) {
 			if (item.getName().trim().equals(name.trim())) {
 				return item;
 			}
 		}
 		return null;
 	}
-	
-	@Override
-	public Dicts findSubjectById(Long id) {
-		List<Dicts> list= this.LoadSubjectData();
-		
-		for(Dicts item : list) {
-			if (item.getId().equals(id)) {
-				return item;
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public Dicts findSubjectByName(String name) {
-		List<Dicts> listCity = this.LoadSubjectData();
-		for(Dicts item : listCity) {
-			if (item.getName().trim().equals(name.trim())) {
-				return item;
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public Dicts findCourseTypeById(Long id) {
-		List<Dicts> list= this.LoadCourseTypeData();
-		
-		for(Dicts item : list) {
-			if (item.getId().equals(id)) {
-				return item;
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public Dicts findCourseTypeByName(String name) {
-		List<Dicts> listCity = this.LoadCourseTypeData();
-		for(Dicts item : listCity) {
-			if (item.getName().trim().equals(name.trim())) {
-				return item;
-			}
-		}
-		return null;
-	}
-
 }

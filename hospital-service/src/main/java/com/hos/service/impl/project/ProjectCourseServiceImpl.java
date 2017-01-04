@@ -295,7 +295,7 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			String teacher = item.get(4).trim();
 			String titleStr = item.get(5).trim();
 			Long titleId = 0L;
-			Dicts dictTitle = dictService.findTitleByName(titleStr);
+			Dicts dictTitle = dictService.findByName(titleStr, Constants.DICT_TITLE);
 			if (dictTitle != null) titleId = dictTitle.getId();
 			
 			String orgName = item.get(6).trim();

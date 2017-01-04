@@ -11,8 +11,6 @@ public interface DictService {
 
 	List<DictOrgs> LoadOrgData();
 
-	Dicts findCityById(Long cityId);
-
 	List<Dicts> LoadCityData();
 
 	List<Dicts> LoadTitleData();
@@ -21,20 +19,6 @@ public interface DictService {
 
 	List<Dicts> LoadCourseTypeData();
 
-	Dicts findCityByName(String name);
-
-	Dicts findTitleById(Long titleId);
-
-	Dicts findTitleByName(String name);
-
-	Dicts findSubjectById(Long id);
-
-	Dicts findSubjectByName(String name);
-
-	Dicts findCourseTypeById(Long id);
-
-	Dicts findCourseTypeByName(String name);
-
 	List<Dicts> LoadNationData();
 
 	List<Dicts> LoadEduData();
@@ -42,6 +26,10 @@ public interface DictService {
 	List<Dicts> LoadDegreeData();
 
 	List<Dicts> LoadIdTypeData();
+
+	Dicts findById(Long id, String dictType);
+
+	Dicts findByName(String name, String dictType);
 
 
 
