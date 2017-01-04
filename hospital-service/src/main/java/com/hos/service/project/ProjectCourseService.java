@@ -26,12 +26,13 @@ public interface ProjectCourseService {
 
 	PageInfo selectByListPage(ProjectCourseSearchVo searchVo, int pageNum, int pageSize);
 
-	AppResultData<Object> validateProjectCourseImport(List<Object> excelDatas) throws Exception;
 
 	List<Object> checkDuplication(Long pId, List<Object> excelDatas) throws Exception;
 
 	AppResultData<Object> doProjectCousreImport(Long pId, List<Object> datas, String fileName, Long adminId) throws Exception;
 
 	Map<String, String> selectByDateRange(Long pId);
+
+	AppResultData<Object> validateProjectCourseImport(Long pId, List<Object> excelDatas) throws Exception;
 
 }

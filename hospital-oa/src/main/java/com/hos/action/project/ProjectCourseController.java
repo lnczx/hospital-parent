@@ -200,7 +200,7 @@ public class ProjectCourseController extends BaseController {
 			return "project/courseImportError";
 		}
 		// 校验表格是否正确.
-		AppResultData<Object> validateResult = projectCourseService.validateProjectCourseImport(excelDatas);
+		AppResultData<Object> validateResult = projectCourseService.validateProjectCourseImport(pId, excelDatas);
 		if (validateResult.getStatus() != Constants.SUCCESS_0) {
 			model.addAttribute("errors", validateResult.getMsg());
 			model.addAttribute("tableDatas", validateResult.getData());

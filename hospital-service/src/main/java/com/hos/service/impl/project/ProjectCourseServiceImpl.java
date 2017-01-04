@@ -16,11 +16,14 @@ import com.hos.po.dao.project.ProjectCourseMapper;
 import com.hos.po.model.dict.DictOrgs;
 import com.hos.po.model.dict.Dicts;
 import com.hos.po.model.project.ProjectCourse;
+import com.hos.po.model.project.Projects;
 import com.hos.service.dict.DictOrgService;
 import com.hos.service.dict.DictService;
 import com.hos.service.project.ProjectCourseService;
+import com.hos.service.project.ProjectService;
 import com.hos.vo.project.ProjectCourseSearchVo;
 import com.meijia.utils.DateUtil;
+import com.meijia.utils.RegexUtil;
 import com.meijia.utils.StringUtil;
 import com.meijia.utils.TimeStampUtil;
 import com.simi.vo.AppResultData;
@@ -30,6 +33,9 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 
 	@Autowired
 	private ProjectCourseMapper projectCourseMapper;
+	
+	@Autowired
+	private ProjectService projectService;
 
 	@Autowired
 	private DictService dictService;
@@ -104,7 +110,7 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 	//
 	@SuppressWarnings("unchecked")
 	@Override
-	public AppResultData<Object> validateProjectCourseImport(List<Object> excelDatas) throws Exception {
+	public AppResultData<Object> validateProjectCourseImport(Long pId, List<Object> excelDatas) throws Exception {
 		AppResultData<Object> result = new AppResultData<Object>(Constants.SUCCESS_0, ConstantMsg.SUCCESS_0_MSG, new String());
 
 		// 1. 检测数据是否为空
@@ -124,7 +130,7 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 		}
 
 		// 3. 检测表格数据是否正确.
-		List<Object> validateDatas = this.validateDatas(excelDatas);
+		List<Object> validateDatas = this.validateDatas(pId, excelDatas);
 		if (!validateDatas.isEmpty() && validateDatas.size() > 0) {
 			result.setStatus(Constants.ERROR_999);
 			result.setMsg("表格数据填写有误，请查看");
@@ -146,8 +152,8 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			List<String> item = (List<String>) excelDatas.get(i);
 
 			int s = item.size();
-			item.add(8, String.valueOf(i + 1));
-			item.add(9, "<font color='green'>新增</font>");
+			item.add(9, String.valueOf(i + 1));
+			item.add(10, "<font color='green'>新增</font>");
 			String courseDateStr = item.get(0).trim();
 			Date courseDateObj = DateUtil.parse(courseDateStr);
 			String courseDate = DateUtil.format(courseDateObj, "yyyy-MM-dd");
@@ -162,20 +168,19 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			List<ProjectCourse> list = this.selectBySearchVo(searchVo);
 
 			if (!list.isEmpty()) {
-				item.set(9, "<font color='red'>修改</font>");
+				item.set(10, "<font color='red'>修改</font>");
 			}
 			result.add(item);
 		}
-
 		return result;
 	}
 
 	// 校验是否为空或者是否为正确的格式。
 	@SuppressWarnings("unchecked")
-	private List<Object> validateDatas(List<Object> datas) {
+	private List<Object> validateDatas(Long pId, List<Object> datas) {
 		List<Object> result = new ArrayList<Object>();
 
-		// int totalNum = 0;
+		int totalCredit = 0;
 		for (int i = 1; i < datas.size(); i++) {
 			List<String> item = (List<String>) datas.get(i);
 			int errorNum = 0;
@@ -224,12 +229,43 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 				item.set(7, "<font color='red'>类型为必填项</font>");
 				errorNum++;
 			}
-
+			if (StringUtil.isEmpty(item.get(8).trim())) {
+				item.set(8, "<font color='red'>学分为必填项</font>");
+				errorNum++;
+			} else {
+				String creditStr = item.get(8).trim();
+				if (!RegexUtil.isDigits(creditStr)) {
+					item.set(8, "<font color='red'>学分必须为数字</font>");
+					errorNum++;
+				} else {
+					int credit = Integer.valueOf(item.get(8).trim());
+					totalCredit = totalCredit + credit;
+				}
+			}
+			
 			if (errorNum > 0) {
-				item.add(8, String.valueOf(i + 1));
+				item.add(9, String.valueOf(i + 1));
 				result.add(item);
 			}
 
+		}
+		
+		Projects project = projectService.selectByPrimaryKey(pId);
+		int pCredit = project.getCredit();
+		if (totalCredit > pCredit) {
+			if (result.isEmpty()) {
+				for (int i = 1; i < datas.size(); i++) {
+					List<String> item = (List<String>) datas.get(i);
+					result.add(item);
+				}
+			}
+			List<String> itemx = new ArrayList<String>();
+			for (int j = 0; j <= 9; j++) {
+				itemx.add(j, "");
+			}
+			
+			itemx.set(8, "<font color='red'>学分总和"+totalCredit+"大于项目学分"+ pCredit + "</font>");
+			result.add(itemx);
 		}
 
 		return result;
@@ -240,7 +276,7 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 
 		Boolean tableHeaderFalg = true;
 
-		if (datas.isEmpty() || datas.size() < 7) {
+		if (datas.isEmpty() || datas.size() < 8) {
 			tableHeaderFalg = false;
 			// System.out.println("表格表头不对，请按照模板的格式填写.");
 			error = "表格表头不对，请按照模板的格式填写.";
@@ -263,6 +299,9 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			tableHeaderFalg = false;
 		if (!datas.get(7).equals("类型(必填)"))
 			tableHeaderFalg = false;
+		if (!datas.get(8).equals("学分(必填)"))
+			tableHeaderFalg = false;
+		
 
 
 		if (!tableHeaderFalg) {
@@ -304,7 +343,10 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			if (org != null) orgId = org.getOrgId();
 			
 			String courseType = item.get(7).trim();
-
+			String creditStr = item.get(8).trim();
+			int credit = Integer.valueOf(creditStr);
+			
+			
 			ProjectCourseSearchVo searchVo = new ProjectCourseSearchVo();
 			searchVo.setpId(pId);
 			searchVo.setCourseDate(courseDate);
@@ -328,6 +370,7 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			record.setTitleId(titleId);
 			record.setOrgName(orgName);
 			record.setOrgId(orgId);
+			record.setCredit((short) credit);
 			record.setCourseType(courseType);
 			record.setFileName(fileName);
 			record.setAdminId(adminId);
