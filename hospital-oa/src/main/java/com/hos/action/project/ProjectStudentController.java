@@ -116,11 +116,12 @@ public class ProjectStudentController extends BaseController {
 		Long id = Long.valueOf(request.getParameter("id"));
 		Long pId = Long.valueOf(request.getParameter("pId"));
 		
-		Long orgId = formData.getOrgId();
-		if (orgId != null && orgId > 0L) {
-			DictOrgs org = dictOrgService.findById(orgId);
-			if (org != null) formData.setOrgName(org.getName());
+		String orgName = formData.getOrgName();
+		if (!StringUtil.isEmpty(orgName)) {
+			DictOrgs org = dictOrgService.findByName(orgName);
+			if (org != null) formData.setOrgId(org.getOrgId());;
 		}
+
 		
 		Long titleId = formData.getTitleId();
 		if (titleId != null && titleId > 0L) {

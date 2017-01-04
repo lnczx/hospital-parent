@@ -82,9 +82,7 @@
 		
 			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>所在单位：</label>
 			<div class="formControls col-xs-4 col-sm-4">
-				<span class="select-box">
-					<selectOrgTag:select selectedId="${formData.orgId }"  />
-				</span>
+				<form:input path="orgName" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
 			</div>
 		</div>
 		<div class="row cl">

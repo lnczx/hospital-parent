@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.simi.oa.auth.AccountAuth;
 import com.simi.oa.auth.AuthHelper;
+import com.simi.oa.auth.AuthPassport;
 import com.simi.oa.common.ConstantOa;
 import com.simi.oa.common.ValidatException;
 import com.simi.oa.vo.account.AccountRegisterVo;
@@ -31,6 +32,7 @@ import com.simi.vo.admin.AccountSearchVo;
 import com.github.pagehelper.PageInfo;
 import com.hos.common.ConstantMsg;
 import com.hos.common.Constants;
+import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.StringUtil;
 import com.meijia.utils.vo.AppResultData;
 
@@ -47,6 +49,7 @@ public class AdminAccountController extends AdminController {
 	@Autowired
 	private AdminAuthorityService adminAuthorityService;
 
+	@AuthPassport
 	@RequestMapping(value = "/adminForm", method = { RequestMethod.GET })
 	public String register(HttpServletRequest request, Model model) {
 		Long ids = Long.valueOf(request.getParameter("id"));
@@ -69,6 +72,7 @@ public class AdminAccountController extends AdminController {
 		return "account/adminForm";
 	}
 
+	@AuthPassport
 	@RequestMapping(value = "/adminForm", method = { RequestMethod.POST })
 	public String register(HttpServletRequest request, Model model, @Valid @ModelAttribute("adminAccount") AccountRegisterVo accountRegisterVo,
 			BindingResult result) throws ValidatException, NoSuchAlgorithmException {
@@ -105,6 +109,9 @@ public class AdminAccountController extends AdminController {
 		return "redirect:/account/list";
 	}
 	
+
+	
+	@AuthPassport
 	@RequestMapping(value = "/adminPasswordForm", method = { RequestMethod.GET })
 	public String adminPassWordForm(HttpServletRequest request, Model model) {
 		Long ids = Long.valueOf(request.getParameter("id"));
@@ -117,6 +124,7 @@ public class AdminAccountController extends AdminController {
 		return "account/adminPasswordForm";
 	}
 	
+	@AuthPassport
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public AppResultData<Object> changePassword(@RequestParam("id") Long id, @RequestParam("password") String password) throws NoSuchAlgorithmException {
 
@@ -129,11 +137,8 @@ public class AdminAccountController extends AdminController {
 		adminAccountService.updateByPrimaryKey(account);
 		return result;
 	}
-	
-	
-	
-	
 
+	@AuthPassport
 	@RequestMapping(value = "/list", method = { RequestMethod.GET })
 	public String list(HttpServletRequest request, Model model, AccountSearchVo searchVo) {
 		model.addAttribute("requestUrl", request.getServletPath());
@@ -157,7 +162,7 @@ public class AdminAccountController extends AdminController {
 	 * @param id
 	 * @return
 	 */
-	// @AuthPassport
+	@AuthPassport
 	@RequestMapping(value = "/authorize/{id}", method = { RequestMethod.GET })
 	public String authorize(HttpServletRequest request, Model model, @PathVariable(value = "id") String id) {
 		Long ids = Long.valueOf(id.trim());
@@ -179,7 +184,7 @@ public class AdminAccountController extends AdminController {
 	 * @param result
 	 * @return
 	 */
-	// @AuthPassport
+	@AuthPassport
 	@RequestMapping(value = "/authorize/{id}", method = { RequestMethod.POST })
 	public String authorize(HttpServletRequest request, Model model, @Valid @ModelAttribute("contentModel") AdminAccount adminAccount,
 			@PathVariable(value = "id") String id, BindingResult result) {
@@ -198,7 +203,7 @@ public class AdminAccountController extends AdminController {
 	/*
 	 * 根据id将该用户置为可用，跳转到用户的list页面
 	 */
-	// @AuthPassport
+	@AuthPassport
 	@RequestMapping(value = "/enable/{id}", method = { RequestMethod.GET })
 	public String enableAdminRole(Model model, @PathVariable(value = "id") String id, HttpServletRequest response) {
 		Long ids = Long.valueOf(id.trim());
@@ -213,7 +218,7 @@ public class AdminAccountController extends AdminController {
 	/*
 	 * 根据id将该用户置为不可用，跳转到用户的list页面
 	 */
-	// @AuthPassport
+	@AuthPassport
 	@RequestMapping(value = "/disable", method = { RequestMethod.POST })
 	public AppResultData<Object> disabledAccount(HttpServletRequest request, @RequestParam("id") Long id) {
 		
@@ -246,7 +251,7 @@ public class AdminAccountController extends AdminController {
 	/*
 	 * 根据id删除选中的用户，跳转到用户的list页面
 	 */
-	// @AuthPassport
+	@AuthPassport
 	@RequestMapping(value = "/delete/{id}", method = { RequestMethod.GET })
 	public String deleterAdminRole(Model model, @PathVariable(value = "id") String id, HttpServletRequest response) {
 		Long ids = Long.valueOf(id.trim());
@@ -259,6 +264,7 @@ public class AdminAccountController extends AdminController {
 		}
 	}
 
+	@AuthPassport
 	@RequestMapping(value = "/checkUsername", method = RequestMethod.GET)
 	public AppResultData<Object> checkUserName(@RequestParam("id") Long id, @RequestParam("username") String username) {
 

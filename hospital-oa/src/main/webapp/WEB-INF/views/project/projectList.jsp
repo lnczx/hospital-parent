@@ -64,7 +64,7 @@
 								
 									
 								
-									<c:if test="${linkType == 'project'}">
+									<c:if test="${linkType == 'project' || linkType == '' || linkType == null}">
 										
 										<a href="javascript:;" onclick="btn_add('project/project-form?pId=${item.pId}')"  class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
 										

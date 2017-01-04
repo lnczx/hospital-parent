@@ -12,7 +12,7 @@
 </head>
 <body>
 	<article class="page-container"> 
-	<form:form modelAttribute="formData"  id="admin-form" action="/hospital-oa/account/adminForm"
+	<form:form modelAttribute="formData"  id="my-form" action=""
 		class="form form-horizontal" method="POST">
 		<form:hidden path="id" />
 		<div class="row cl">
@@ -21,14 +21,14 @@
 				用户名：
 			</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<form:input path="username" class="input-text" autocomplete="off" placeholder="用户名" />
+				${formData.username }
 			</div>
 		</div>
-		<c:if test="${formData.id == 0 }">
+		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">
 				<span class="c-red">*</span>
-				初始密码：
+				密码：
 			</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
@@ -43,7 +43,7 @@
 				<input type="password" class="input-text" autocomplete="off" placeholder="确认新密码" id="confirmPassword" name="confirmPassword">
 			</div>
 		</div>
-		</c:if>
+
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">
 				<span class="c-red">*</span>
@@ -87,15 +87,7 @@
 				<form:input path="email" class="input-text" autocomplete="off" placeholder="@" />
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">
-				<span class="c-red">状态*</span>
-			</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<form:radiobutton path="enable" value="1" label="正常" />
-				<form:radiobutton path="enable" value="0" label="停用" />
-			</div>
-		</div>
+		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
@@ -108,6 +100,6 @@
 	<script src="<c:url value='/lib/jquery.validation/1.14.0/jquery.validate.min.js'/>" type="text/javascript"></script>
 	<script src="<c:url value='/lib/jquery.validation/1.14.0/validate-methods.js'/>" type="text/javascript"></script>
 	<script src="<c:url value='/lib/jquery.validation/1.14.0/messages_zh.min.js'/>" type="text/javascript"></script>
-	<script src="<c:url value='/static/app/js/account/adminForm.js'/>" type="text/javascript"></script>
+	<script src="<c:url value='/static/app/js/admin/myForm.js'/>" type="text/javascript"></script>
 </body>
 </html>
