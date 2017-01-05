@@ -9,19 +9,17 @@
 </head>
 <body>
 	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span
-		class="c-gray en">&gt;</span> 计划项目导入 <a class="btn btn-success radius r" style="line-height: 1.6em; margin-top: 3px"
-		href="javascript:location.replace(location.href);" title="刷新">
-		<i class="Hui-iconfont">&#xe68f;</i>
-	</a></nav>
+		class="c-gray en">&gt;</span> 计划项目导入 
+	</nav>
 	<div class="page-container">
 		<div class="Huialert Huialert-success radius">
 			<form class="importOkForm" method="post" action="/hospital-oa/project/project-import-do" enctype="multipart/form-data">
 			
 			<h3>导入成功：</h3>
 			<ol>
-				<li>本地共导入<font color="red">${totals}</font>个项目，其中新增<font color="red">${totalNews}</font>个项目, 更新<font color="red">${totalUpdate}</font>个项目.</li>
+				<li>本次共导入<font color="red">${totals}</font>个项目，其中新增<font color="red">${totalNews}</font>个项目, 更新已存在的<font color="red">${totalUpdate}</font>个项目。</li>
 				<li>
-					<a href="/hospital-oa/project/list?linkType=project" class="btn btn-success">查看项目</a>
+					<a href="/hospital-oa/project/list?linkType=project" class="btn btn-success">我的项目一览</a>
 				</li>
 			</ol>
 			</form>

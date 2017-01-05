@@ -14,7 +14,7 @@
 	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span
 		class="c-gray en">&gt;</span> 我的项目一览 <a class="btn btn-success radius r" style="line-height: 1.6em; margin-top: 3px"
 		href="javascript:location.replace(location.href);" title="刷新">
-		<i class="Hui-iconfont">&#xe68f;</i>
+		<i class="Hui-iconfont">&#xe68f;刷新</i>
 	</a></nav>
 	<div class="page-container">
 		<div class="text-c">
@@ -73,7 +73,7 @@
 										</c:if>
 										
 										<c:if test="${item.briefingFilePath == '' }">
-											<a href="javascript:;" onclick="alert('项目管理员还未上传本项目的招生简章')" class="btn btn-primary-outline size-S radius">招生简章</a>&nbsp; 
+											<a href="javascript:;" onclick="alert('提示：项目管理员还未上传本项目的招生简章。')" class="btn btn-primary-outline size-S radius">招生简章</a>&nbsp; 
 										</c:if>
 										
 										

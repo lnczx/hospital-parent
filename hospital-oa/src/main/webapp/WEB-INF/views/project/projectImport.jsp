@@ -9,23 +9,23 @@
 </head>
 <body>
 	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span
-		class="c-gray en">&gt;</span> 计划项目导入 <a class="btn btn-success radius r" style="line-height: 1.6em; margin-top: 3px"
-		href="javascript:location.replace(location.href);" title="刷新">
-		<i class="Hui-iconfont">&#xe68f;</i>
-	</a></nav>
+		class="c-gray en">&gt;</span> 计划项目导入 
+	</nav>
 	<div class="page-container">
 		<form class="importForm" method="post" action="/hospital-oa/project/project-import" enctype="multipart/form-data">
 			<div class="Huialert Huialert-success radius">
-				<h3>1.下载模板：</h3>
+				<h3>使用提示：</h3>
 				<ol>
 					<li>
-						->
-						<a href="/hospital-oa/attach/项目导入Excel模板.xls">项目导入Excel模板.xls</a>
+						1.第一次使用时，请点击下载：
+						<a href="/hospital-oa/attach/项目导入Excel模板.xls">《项目导入Excel模板》</a>
+						文件。<br>
+						2.在《项目导入Excel模板》文件中填写信息时，请注意内容和格式的规范性，详情可点击：<a href="/hospital-oa/help.html">《导入Excel文件填写说明》</a>查看。
 					</li>
 				</ol>
 			</div>
 			<div class="Huialert Huialert Huialert-danger radius">
-				<h3>2.上传Excel</h3>
+				<h3>开始上传Excel进行导入操作</h3>
 				<ol>
 					<li>
 						<span class="btn-upload form-group">

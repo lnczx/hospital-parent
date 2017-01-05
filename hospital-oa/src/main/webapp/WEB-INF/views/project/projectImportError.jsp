@@ -9,17 +9,15 @@
 </head>
 <body>
 	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span
-		class="c-gray en">&gt;</span> 计划项目导入 <a class="btn btn-success radius r" style="line-height: 1.6em; margin-top: 3px"
-		href="javascript:location.replace(location.href);" title="刷新">
-		<i class="Hui-iconfont">&#xe68f;</i>
-	</a></nav>
+		class="c-gray en">&gt;</span> 计划项目导入 
+	</nav>
 	<div class="page-container">
 		<div class="Huialert Huialert-danger radius">
 			<h3>导入错误提示：</h3>
 			<ol>
 				<li>${errors }</li>
 				<li>
-					<a href="/hospital-oa/project/project-import" class="btn btn-success">返回</a>
+					<a href="/hospital-oa/project/project-import" class="btn btn-success">返回修改后重新导入</a>
 				</li>
 			</ol>
 		</div>
@@ -28,7 +26,7 @@
 				<table id="error-table" class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="20">行数</th>
+							<th width="20">Excel所在行数</th>
 							<th width="60">项目编号</th>
 							<th width="80">项目名称</th>
 							<th width="80">申办单位</th>

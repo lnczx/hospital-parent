@@ -9,10 +9,8 @@
 </head>
 <body>
 	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span
-		class="c-gray en">&gt;</span> 计划项目导入 <a class="btn btn-success radius r" style="line-height: 1.6em; margin-top: 3px"
-		href="javascript:location.replace(location.href);" title="刷新">
-		<i class="Hui-iconfont">&#xe68f;</i>
-	</a></nav>
+		class="c-gray en">&gt;</span> 计划项目导入 
+	</nav>
 	<div class="page-container">
 		<div class="Huialert Huialert-success radius">
 			<form class="importConfirmForm" method="post" action="/hospital-oa/project/project-import-do" enctype="multipart/form-data">
@@ -20,16 +18,16 @@
 			<input type="hidden" name="totals" value="${totals}"/>
 			<input type="hidden" name="totalNews" value="${totalNews}"/>
 			<input type="hidden" name="totalUpdate" value="${totalUpdate}"/>
-			<h3>导入确认：</h3>
+			<h3>请确认导入的信息：</h3>
 			<ol>
-				<li>本地预计导入<font color="red">${totals}</font>个项目，其中新增<font color="red">${totalNews}</font>个项目, 更新<font color="red">${totalUpdate}</font>个项目.</li>
+				<li>本次Excel预计导入<font color="red">${totals}</font>个项目，其中新增<font color="red">${totalNews}</font>个项目, 更新已存在的<font color="red">${totalUpdate}</font>个项目。</li>
 				<li>
 					<button type="submit" class="btn btn-primary" >
 						<i class="Hui-iconfont">&#xe600;</i>
 						确认导入
 					</button>
 					
-					<a href="/hospital-oa/project/project-import" class="btn btn-success">返回</a>
+					<a href="/hospital-oa/project/project-import" class="btn btn-success">返回重新导入</a>
 				</li>
 			</ol>
 			</form>
@@ -39,7 +37,7 @@
 				<table id="error-table" class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="20">行数</th>
+							<th width="20">Excel所在行数</th>
 							<th width="60">项目编号</th>
 							<th width="80">项目名称</th>
 							<th width="80">申办单位</th>
