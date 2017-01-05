@@ -19,7 +19,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="我的项目一览" data-href="/project/list?linkType=project">我的项目一览</span>
+					<span title="帮助说明" data-href="/home/help">帮助说明</span>
 					<em></em>
 				</li>
 			</ul>
@@ -36,7 +36,7 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display: none" class="loading"></div>
-			<iframe id="showIframe" name="showIframe" scrolling="yes" frameborder="0" src="${sessionScope.accountAuth.appName}/project/list?linkType=project"></iframe>
+			<iframe id="showIframe" name="showIframe" scrolling="yes" frameborder="0" src="${sessionScope.accountAuth.appName}/home/help"></iframe>
 		</div>
 	</div>
 	</section>

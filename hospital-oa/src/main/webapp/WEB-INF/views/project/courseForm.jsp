@@ -51,6 +51,12 @@
 			</div>
 		</div>
 		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"> 学时(分钟)： </label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<label id="courseMin">${formData.courseMin }</label>
+			</div>
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">
 				<span class="c-red">*</span>
 				课程内容：
@@ -98,14 +104,7 @@
 				</form:select>
 			</div>
 		</div>
-		
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"> 学时(分钟)： </label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<form:input path="credit" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
-			</div>
-		</div>
-		
+
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;保存并提交&nbsp;&nbsp;">

@@ -22,6 +22,8 @@ import com.hos.service.dict.DictService;
 import com.hos.service.project.ProjectCourseService;
 import com.hos.service.project.ProjectService;
 import com.hos.vo.project.ProjectCourseSearchVo;
+import com.hos.vo.project.ProjectCourseVo;
+import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.DateUtil;
 import com.meijia.utils.RegexUtil;
 import com.meijia.utils.StringUtil;
@@ -105,6 +107,27 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 		PageInfo info = new PageInfo(list);
 		return info;
 	}
+	
+	@Override
+	public ProjectCourseVo getVo(ProjectCourse item) {
+		ProjectCourseVo vo = new ProjectCourseVo();
+		BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
+		
+		int courseMin = 0;
+		String courseDate = vo.getCourseDate();
+		String startTimeStr = vo.getStartTime();
+		String endTimeStr = vo.getEndTime();
+		
+		String startDateTime = courseDate + " " + startTimeStr + ":00";
+		Long startTime = TimeStampUtil.getMillisOfDayFull(startDateTime) / 1000;
+		
+		String endDateTime = courseDate + " " + endTimeStr + ":00";
+ 		Long endTime = TimeStampUtil.getMillisOfDayFull(endDateTime) / 1000;
+ 		
+ 		courseMin = (int) ((endTime - startTime) /60);
+		vo.setCourseMin(courseMin);
+		return vo;
+	}
 
 	// 导入项目excel, 校验excel表格情况
 	//
@@ -152,8 +175,8 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			List<String> item = (List<String>) excelDatas.get(i);
 
 			int s = item.size();
-			item.add(9, String.valueOf(i + 1));
-			item.add(10, "<font color='green'>新增</font>");
+			item.add(8, String.valueOf(i + 1));
+			item.add(9, "<font color='green'>新增</font>");
 			String courseDateStr = item.get(0).trim();
 			Date courseDateObj = DateUtil.parse(courseDateStr);
 			String courseDate = DateUtil.format(courseDateObj, "yyyy-MM-dd");
@@ -168,7 +191,7 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			List<ProjectCourse> list = this.selectBySearchVo(searchVo);
 
 			if (!list.isEmpty()) {
-				item.set(10, "<font color='red'>修改</font>");
+				item.set(9, "<font color='red'>修改</font>");
 			}
 			result.add(item);
 		}
@@ -180,7 +203,7 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 	private List<Object> validateDatas(Long pId, List<Object> datas) {
 		List<Object> result = new ArrayList<Object>();
 
-		int totalCredit = 0;
+//		int totalCredit = 0;
 		for (int i = 1; i < datas.size(); i++) {
 			List<String> item = (List<String>) datas.get(i);
 			int errorNum = 0;
@@ -229,44 +252,44 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 				item.set(7, "<font color='red'>类型为必填项</font>");
 				errorNum++;
 			}
-			if (StringUtil.isEmpty(item.get(8).trim())) {
-				item.set(8, "<font color='red'>学分为必填项</font>");
-				errorNum++;
-			} else {
-				String creditStr = item.get(8).trim();
-				if (!RegexUtil.isDigits(creditStr)) {
-					item.set(8, "<font color='red'>学分必须为数字</font>");
-					errorNum++;
-				} else {
-					int credit = Integer.valueOf(item.get(8).trim());
-					totalCredit = totalCredit + credit;
-				}
-			}
+//			if (StringUtil.isEmpty(item.get(8).trim())) {
+//				item.set(8, "<font color='red'>学分为必填项</font>");
+//				errorNum++;
+//			} else {
+//				String creditStr = item.get(8).trim();
+//				if (!RegexUtil.isDigits(creditStr)) {
+//					item.set(8, "<font color='red'>学分必须为数字</font>");
+//					errorNum++;
+//				} else {
+//					int credit = Integer.valueOf(item.get(8).trim());
+//					totalCredit = totalCredit + credit;
+//				}
+//			}
 			
 			if (errorNum > 0) {
-				item.add(9, String.valueOf(i + 1));
+				item.add(8, String.valueOf(i + 1));
 				result.add(item);
 			}
 
 		}
 		
-		Projects project = projectService.selectByPrimaryKey(pId);
-		int pCredit = project.getCredit();
-		if (totalCredit > pCredit) {
-			if (result.isEmpty()) {
-				for (int i = 1; i < datas.size(); i++) {
-					List<String> item = (List<String>) datas.get(i);
-					result.add(item);
-				}
-			}
-			List<String> itemx = new ArrayList<String>();
-			for (int j = 0; j <= 9; j++) {
-				itemx.add(j, "");
-			}
-			
-			itemx.set(8, "<font color='red'>学分总和"+totalCredit+"大于项目学分"+ pCredit + "</font>");
-			result.add(itemx);
-		}
+//		Projects project = projectService.selectByPrimaryKey(pId);
+//		int pCredit = project.getCredit();
+//		if (totalCredit > pCredit) {
+//			if (result.isEmpty()) {
+//				for (int i = 1; i < datas.size(); i++) {
+//					List<String> item = (List<String>) datas.get(i);
+//					result.add(item);
+//				}
+//			}
+//			List<String> itemx = new ArrayList<String>();
+//			for (int j = 0; j <= 9; j++) {
+//				itemx.add(j, "");
+//			}
+//			
+//			itemx.set(8, "<font color='red'>学分总和"+totalCredit+"大于项目学分"+ pCredit + "</font>");
+//			result.add(itemx);
+//		}
 
 		return result;
 	}
@@ -276,7 +299,7 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 
 		Boolean tableHeaderFalg = true;
 
-		if (datas.isEmpty() || datas.size() < 8) {
+		if (datas.isEmpty() || datas.size() < 7) {
 			tableHeaderFalg = false;
 			// System.out.println("表格表头不对，请按照模板的格式填写.");
 			error = "表格表头不对，请按照模板的格式填写.";
@@ -299,8 +322,8 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			tableHeaderFalg = false;
 		if (!datas.get(7).equals("类型(必填)"))
 			tableHeaderFalg = false;
-		if (!datas.get(8).equals("学分(必填)"))
-			tableHeaderFalg = false;
+//		if (!datas.get(8).equals("学分(必填)"))
+//			tableHeaderFalg = false;
 		
 
 
@@ -343,8 +366,8 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			if (org != null) orgId = org.getOrgId();
 			
 			String courseType = item.get(7).trim();
-			String creditStr = item.get(8).trim();
-			int credit = Integer.valueOf(creditStr);
+//			String creditStr = item.get(8).trim();
+//			int credit = Integer.valueOf(creditStr);
 			
 			
 			ProjectCourseSearchVo searchVo = new ProjectCourseSearchVo();
@@ -370,7 +393,7 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			record.setTitleId(titleId);
 			record.setOrgName(orgName);
 			record.setOrgId(orgId);
-			record.setCredit((short) credit);
+//			record.setCredit((short) credit);
 			record.setCourseType(courseType);
 			record.setFileName(fileName);
 			record.setAdminId(adminId);

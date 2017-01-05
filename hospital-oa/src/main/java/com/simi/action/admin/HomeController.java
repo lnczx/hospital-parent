@@ -44,6 +44,13 @@ public class HomeController extends AdminController {
     	
         return "home/index";
     }
+    
+    @AuthPassport
+    @RequestMapping(value = "/help")
+    public String help(HttpServletRequest request, Model model) {
+    	
+        return "home/help";
+    }
 
     @RequestMapping(value = "/notfound")
     public ModelAndView notfound() {

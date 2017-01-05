@@ -29,6 +29,7 @@ import com.hos.po.model.project.Projects;
 import com.hos.service.project.ProjectCourseService;
 import com.hos.service.project.ProjectService;
 import com.hos.vo.project.ProjectCourseSearchVo;
+import com.hos.vo.project.ProjectCourseVo;
 import com.hos.vo.project.ProjectSearchVo;
 import com.hos.vo.project.ProjectVo;
 import com.meijia.utils.BeanUtilsExp;
@@ -68,7 +69,16 @@ public class ProjectCourseController extends BaseController {
 		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
 
 		@SuppressWarnings("rawtypes")
-		PageInfo pageInfo = projectCourseService.selectByListPage(searchVo, pageNo, pageSize);		
+		PageInfo pageInfo = projectCourseService.selectByListPage(searchVo, pageNo, pageSize);
+		
+		List<ProjectCourse> list = pageInfo.getList();
+		for (int i = 0 ; i < list.size(); i++) {
+			ProjectCourse item = list.get(i);
+			ProjectCourseVo vo = projectCourseService.getVo(item);
+			list.set(i, vo);
+		}
+		pageInfo = new PageInfo(list);
+		
 		model.addAttribute("contentModel", pageInfo);
 		
 		String pIdStr = request.getParameter("pId");
@@ -90,7 +100,10 @@ public class ProjectCourseController extends BaseController {
 			record = projectCourseService.selectByPrimaryKey(courseId);
 		}
 		record.setpId(pId);
-		model.addAttribute("formData", record);
+		
+		ProjectCourseVo vo = projectCourseService.getVo(record);
+		
+		model.addAttribute("formData", vo);
 		
 		return "project/courseForm";
 

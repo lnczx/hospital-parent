@@ -40,12 +40,12 @@
 							<th width="60">日期</th>
 							<th width="55">开始时间</th>
 							<th width="55">结束时间</th>
+							<th width="55">学时(分钟)</th>
 							<th width="200">课程内容</th>
 							<th width="40">教师</th>
 							<th width="30">职称</th>
 							<th width="150">单位</th>
 							<th width="30">类型</th>
-							<th width="30">学时(分钟)</th>
 							<th width="120">操作</th>
 						</tr>
 					</thead>
@@ -55,12 +55,13 @@
 								<td>${ item.courseDate }</td>
 								<td>${ item.startTime }</td>
 								<td>${ item.endTime }</td>
+								<td>${ item.courseMin }</td>
 								<td><strong>${ item.content }</strong></td>
 								<td>${ item.teacher }</td>
 								<td>${ item.titleStr }</td>
 								<td>${ item.orgName }</td>
 								<td>${ item.courseType }</td>
-								<td>${ item.credit }</td>
+								
 								<td class="td-manage">
 									<c:if test="${accountAuth.accountRole.id != 2}">
 									<a href="javascript:;" onclick="btn_add('project/course/course-form?pId=${pId}&courseId=${item.courseId }')"  class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 

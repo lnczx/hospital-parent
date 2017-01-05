@@ -6,8 +6,7 @@ $('#courseDate').datepicker({
 	todayBtn : true
 });
 var curFormDateTime = moment().format('YYYY-MM-DD');
-
-$('#startTime').datetimepicker({
+$('.form_datetime').datetimepicker({
 	language : 'zh-CN',
 	startView : 'day',
 	format : 'hh:ii',
@@ -18,16 +17,7 @@ $('#startTime').datetimepicker({
 	showButtonPanel : false,
 });
 
-$('#endTime').datetimepicker({
-	language : 'zh-CN',
-	startView : 'day',
-	format : 'hh:ii',
-	autoclose : true,
-	todayBtn : false,
-	startDate : curFormDateTime,
-	minuteStep : 10,
-	showButtonPanel : false,
-});
+
 
 $(function() {
 	$("#course-form").validate({
@@ -104,48 +94,48 @@ $(function() {
 				required : true
 			},
 			
-			credit : {
-				required : true,
-				isIntGteZero : true,
-				
-				remote : {
-					url : appRootUrl + "/project/course/checkCredit.json",
-					type : "get",
-					dataType : "json",
-					data : {
-						pId : function() {
-							return $("#pId").val();
-						},
-						courseId : function() {
-							return $("#courseId").val();
-						},
-						credit : function() {
-							return $("#credit").val();
-						},
-					},
-					dataFilter : function(data, type) {
-						var jsonStr = jQuery.parseJSON(data);
-						var status = jsonStr.status;
-						if (status == "0") {
-							return true;
-						}
-						if (status == "999") {
-							alert(jsonStr.msg);
-							return false;
-						}
-						
-					}
-				
-				}
-			},
+//			credit : {
+//				required : true,
+//				isIntGteZero : true,
+//				
+//				remote : {
+//					url : appRootUrl + "/project/course/checkCredit.json",
+//					type : "get",
+//					dataType : "json",
+//					data : {
+//						pId : function() {
+//							return $("#pId").val();
+//						},
+//						courseId : function() {
+//							return $("#courseId").val();
+//						},
+//						credit : function() {
+//							return $("#credit").val();
+//						},
+//					},
+//					dataFilter : function(data, type) {
+//						var jsonStr = jQuery.parseJSON(data);
+//						var status = jsonStr.status;
+//						if (status == "0") {
+//							return true;
+//						}
+//						if (status == "999") {
+//							alert(jsonStr.msg);
+//							return false;
+//						}
+//						
+//					}
+//				
+//				}
+//			},
 		
 		},
 		
 		messages : {
-			credit : {
-				required : "请输入学分",
-				remote : "学分超额."
-			},
+//			credit : {
+//				required : "请输入学分",
+//				remote : "学分超额."
+//			},
 			
 			endTime : {
 				required : "请选择结束时间",

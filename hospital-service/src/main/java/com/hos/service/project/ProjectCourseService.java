@@ -6,6 +6,7 @@ import java.util.Map;
 import com.github.pagehelper.PageInfo;
 import com.hos.po.model.project.ProjectCourse;
 import com.hos.vo.project.ProjectCourseSearchVo;
+import com.hos.vo.project.ProjectCourseVo;
 import com.simi.vo.AppResultData;
 
 
@@ -34,5 +35,7 @@ public interface ProjectCourseService {
 	Map<String, String> selectByDateRange(Long pId);
 
 	AppResultData<Object> validateProjectCourseImport(Long pId, List<Object> excelDatas) throws Exception;
+
+	ProjectCourseVo getVo(ProjectCourse item);
 
 }

@@ -44,14 +44,14 @@
 							<th width="60">职称</th>
 							<th width="30">单位</th>
 							<th width="30">类型</th>
-							<th width="30">学分</th>
+							<!-- <th width="30">学分</th> -->
 							<th width="30">状态</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${tableDatas}" var="item">
 						<tr>
-							<td>${item[9]}</td>
+							<td>${item[8]}</td>
 							<td>${item[0]}</td>
 							<td>${item[1]}</td>
 							<td>${item[2]}</td>
@@ -60,8 +60,7 @@
 							<td>${item[5]}</td>
 							<td>${item[6]}</td>
 							<td>${item[7]}</td>
-							<td>${item[8]}</td>
-							<td>${item[10]}</td>
+							<td>${item[9]}</td>
 						</tr>
 						</c:forEach>
 					</tbody>

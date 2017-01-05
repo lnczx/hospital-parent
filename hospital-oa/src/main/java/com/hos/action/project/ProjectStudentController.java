@@ -97,7 +97,7 @@ public class ProjectStudentController extends BaseController {
 		
 		model.addAttribute("formData", vo);
 		
-		return "project/studentForm";
+		return "project/studentView";
 
 	}		
 	
