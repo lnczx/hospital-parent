@@ -14,7 +14,7 @@
 			<ol>
 				<li>${errors }</li>
 				<li>
-					<a href="/hospital-oa/project/course/course-import?pId=${pId }" class="btn btn-success">返回</a>
+					<a href="/hospital-oa/project/course/course-import?pId=${pId }" class="btn btn-success">返回修改后重新导入</a>
 				</li>
 			</ol>
 		</div>
@@ -23,8 +23,8 @@
 				<table id="error-table" class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="20">行数</th>
-							<th width="60">日期</th>
+							<th width="50">Excel中行数</th>
+							<th width="30">日期</th>
 							<th width="80">开始时间</th>
 							<th width="80">结束时间</th>
 							<th width="40">内容</th>

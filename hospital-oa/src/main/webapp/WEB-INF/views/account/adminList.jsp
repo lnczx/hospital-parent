@@ -61,7 +61,7 @@
 						<c:forEach items="${contentModel.list}" var="item">
 							<tr class="text-c">
 								<td>${ item.id }</td>
-								<td>${ item.username }</td>
+								<td><strong>${ item.username }</strong></td>
 								<td>${ item.name }</td>
 								<td>${ item.orgName }</td>
 								<td>${ item.roleName }</td>

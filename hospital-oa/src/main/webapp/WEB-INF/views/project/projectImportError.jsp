@@ -26,8 +26,8 @@
 				<table id="error-table" class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="20">Excel所在行数</th>
-							<th width="60">项目编号</th>
+							<th width="50">Excel中行数</th>
+							<th width="50">项目编号</th>
 							<th width="80">项目名称</th>
 							<th width="80">申办单位</th>
 							<th width="40">项目负责人</th>

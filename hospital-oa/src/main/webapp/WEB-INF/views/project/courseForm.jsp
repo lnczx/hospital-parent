@@ -60,21 +60,30 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"> 教师： </label>
+			<label class="form-label col-xs-4 col-sm-3">
+				<span class="c-red">*</span>
+			 	教师： 
+			</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<form:input path="teacher" class="input-text" autocomplete="off" maxLength="255"  />
 			</div>
 		</div>
 		
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"> 职称： </label>
+			<label class="form-label col-xs-4 col-sm-3"> 
+				<span class="c-red">*</span>
+				职称： 
+			</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<form:input path="titleStr" class="input-text" autocomplete="off" maxLength="255"  />
 			</div>
 		</div>
 		
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"> 单位： </label>
+			<label class="form-label col-xs-4 col-sm-3"> 
+				<span class="c-red">*</span>
+				单位： 
+			</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<form:input path="orgName" class="input-text" autocomplete="off" maxLength="255"  />
 			</div>
@@ -91,7 +100,7 @@
 		</div>
 		
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"> 学分： </label>
+			<label class="form-label col-xs-4 col-sm-3"> 学时(分钟)： </label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<form:input path="credit" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
 			</div>
@@ -99,7 +108,7 @@
 		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;保存并提交&nbsp;&nbsp;">
 			</div>
 		</div>
 	</form:form> </article>

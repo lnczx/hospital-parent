@@ -14,7 +14,7 @@
 			<ol>
 				<li>${errors }</li>
 				<li>
-					<a href="/hospital-oa/project/student/student-import?pId=${pId }" class="btn btn-success">返回</a>
+					<a href="/hospital-oa/project/student/student-import?pId=${pId }" class="btn btn-success">返回修改后重新导入</a>
 				</li>
 			</ol>
 		</div>
@@ -23,7 +23,7 @@
 				<table id="error-table" class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="20">行数</th>
+							<th width="60">Excel中行数</th>
 							<th width="30">姓名</th>
 							<th width="30">性别</th>
 							<th width="60">所在省市</th>

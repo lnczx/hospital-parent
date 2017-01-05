@@ -45,7 +45,7 @@
 							<th width="30">职称</th>
 							<th width="150">单位</th>
 							<th width="30">类型</th>
-							<th width="30">学分</th>
+							<th width="30">学时(分钟)</th>
 							<th width="120">操作</th>
 						</tr>
 					</thead>
@@ -55,7 +55,7 @@
 								<td>${ item.courseDate }</td>
 								<td>${ item.startTime }</td>
 								<td>${ item.endTime }</td>
-								<td>${ item.content }</td>
+								<td><strong>${ item.content }</strong></td>
 								<td>${ item.teacher }</td>
 								<td>${ item.titleStr }</td>
 								<td>${ item.orgName }</td>

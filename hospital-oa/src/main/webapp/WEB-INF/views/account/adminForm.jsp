@@ -88,9 +88,7 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">
-				<span class="c-red">状态*</span>
-			</label>
+			<label class="form-label col-xs-4 col-sm-3"><strong> 状态</strong>： </label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<form:radiobutton path="enable" value="1" label="正常" />
 				<form:radiobutton path="enable" value="0" label="停用" />
@@ -98,7 +96,7 @@
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;保存并提交&nbsp;&nbsp;">
 			</div>
 		</div>
 	</form:form> </article>

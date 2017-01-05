@@ -35,11 +35,11 @@
 				<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="25">ID</th>
+							<th width="25">学员ID</th>
 							<th width="55">姓名</th>
 							<th width="30">性别</th>
 							<th width="80">手机号</th>
-							<th width="120">身份证</th>
+							<th width="120">证件号码</th>
 							<th width="160">地址</th>
 							<th width="160">所在单位</th>
 							<th width="40">职称</th>
@@ -50,7 +50,7 @@
 						<c:forEach items="${contentModel.list}" var="item">
 							<tr class="text-c">
 								<td>${ item.stuId }</td>
-								<td><a href="javascript:;" onclick="btn_show_layer('查看学员','project/student/student-view?id=${item.id}','10001')" >${ item.name }</a></td>
+								<td><strong><a href="javascript:;" onclick="btn_show_layer('查看学员','project/student/student-view?id=${item.id}','10001')" >${ item.name }</a></strong></td>
 								
 								<td>${ item.sex }</td>
 								<td>${ item.mobile }</td>

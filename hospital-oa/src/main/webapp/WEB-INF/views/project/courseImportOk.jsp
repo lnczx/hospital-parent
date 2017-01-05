@@ -12,7 +12,7 @@
 		<div class="Huialert Huialert-success radius">
 			<h3>导入成功：</h3>
 			<ol>
-				<li>本地共导入<font color="red">${totals}</font>个课表，其中新增<font color="red">${totalNews}</font>个课表, 更新<font color="red">${totalUpdate}</font>个课表.</li>
+				<li>本次共导入<font color="red">${totals}</font>条课程，其中新增<font color="red">${totalNews}</font>条课程, 更新已存在的<font color="red">${totalUpdate}</font>条课程。</li>
 				<li>
 					<a href="/hospital-oa/project/course/course-list?pId=${pId }" class="btn btn-success">查看课表</a>
 				</li>

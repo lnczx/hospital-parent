@@ -12,16 +12,18 @@
 		<form class="importForm" method="post" action="/hospital-oa/project/course/course-import" enctype="multipart/form-data">
 			<input type="hidden" name ="pId" id ="pId" value="${pId }"/>
 			<div class="Huialert Huialert-success radius">
-				<h3>1.下载模板：</h3>
+				<h3>使用提示：</h3>
 				<ol>
 					<li>
-						->
-						<a href="/hospital-oa/attach/课表导入Excel模板.xls">课表导入Excel模板.xls</a>
+						1.第一次使用时，请点击下载：
+						<a href="/hospital-oa/attach/课表导入Excel模板.xls">《课表导入Excel模板》</a>文件。
+						<br>
+						2.在《课表导入Excel模板》文件中填写信息时，请注意内容和格式的规范性，详情可点击：<a href="/hospital-oa/help.html">《导入Excel文件填写说明》</a>查看。
 					</li>
 				</ol>
 			</div>
 			<div class="Huialert Huialert Huialert-danger radius">
-				<h3>2.上传Excel</h3>
+				<h3>开始上传Excel进行导入操作</h3>
 				<ol>
 					<li>
 						<span class="btn-upload form-group">

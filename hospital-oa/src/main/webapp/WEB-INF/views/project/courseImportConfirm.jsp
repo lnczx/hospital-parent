@@ -16,16 +16,16 @@
 			<input type="hidden" name="totals" value="${totals}"/>
 			<input type="hidden" name="totalNews" value="${totalNews}"/>
 			<input type="hidden" name="totalUpdate" value="${totalUpdate}"/>
-			<h3>导入确认：</h3>
+			<h3>请确认导入的信息：</h3>
 			<ol>
-				<li>本地预计导入<font color="red">${totals}</font>个课表，其中新增<font color="red">${totalNews}</font>个项目, 更新<font color="red">${totalUpdate}</font>个项目.</li>
+				<li>本次预计导入<font color="red">${totals}</font>条课程，其中新增<font color="red">${totalNews}</font>条课程, 更新已存在的<font color="red">${totalUpdate}</font>条课程。</li>
 				<li>
 					<button type="submit" class="btn btn-primary" >
 						<i class="Hui-iconfont">&#xe600;</i>
 						确认导入
 					</button>
 					
-					<a href="/hospital-oa/project/course/course-import?pId=${pId }" class="btn btn-success">返回</a>
+					<a href="/hospital-oa/project/course/course-import?pId=${pId }" class="btn btn-success">返回重新导入</a>
 				</li>
 			</ol>
 			</form>
@@ -35,8 +35,8 @@
 				<table id="error-table" class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="20">行数</th>
-							<th width="60">日期</th>
+							<th width="50">Excel中行数</th>
+							<th width="30">日期</th>
 							<th width="80">开始时间</th>
 							<th width="80">结束时间</th>
 							<th width="40">内容</th>
