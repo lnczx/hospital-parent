@@ -54,7 +54,7 @@
 						<c:forEach items="${contentModel.list}" var="item">
 							<tr class="text-c">
 								<td>${ item.pNo }</td>
-								<td><a href="javascript:;" onclick="btn_show_layer('查看项目','project/project-view?pId=${item.pId}','10001')" >${ item.name }</a></td>
+								<td><strong><a href="javascript:;" onclick="btn_show_layer('查看项目','project/project-view?pId=${item.pId}','10001')" >${ item.name }</a></strong></td>
 								<td>${ item.pHeader }</td>
 								<td>${ item.credit }</td>
 								<td>${ item.numRecruit }</td>
