@@ -9,7 +9,7 @@
 					<li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 常用功能 <i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
 							<li><a href="http://jjxmglxt.pumc.edu.cn/app/login.do" target="_blank"><i class="Hui-iconfont">&#xe616;</i> 进入老版系统</a></li>
-							<li><a href="javascript:;" onclick="btn_add_blank('template-index.html')"><i class="Hui-iconfont">&#xe613;</i> 导入模板下载</a></li>
+							<li><a href="javascript:;" onclick="btn_add_blank('help.html')"><i class="Hui-iconfont">&#xe613;</i> 使用帮助中心</a></li>
 						</ul>
 					</li>
 				</ul>
