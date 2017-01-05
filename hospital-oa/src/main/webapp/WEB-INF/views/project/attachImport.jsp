@@ -8,24 +8,19 @@
 <!--css for this page-->
 </head>
 <body>
-	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span
-		class="c-gray en">&gt;</span> 招生简章导入 <a class="btn btn-success radius r" style="line-height: 1.6em; margin-top: 3px"
-		href="javascript:location.replace(location.href);" title="刷新">
-		<i class="Hui-iconfont">&#xe68f;</i>
-	</a></nav>
 	<div class="page-container">
 		<form class="importForm" id="attach-form" method="post" action="/hospital-oa/project/attach-import" enctype="multipart/form-data">
 			<div class="Huialert Huialert-success radius">
 			<input type="hidden" name ="pId" id ="pId" value="${pId }"/>
-				<h3>招生简章</h3>
+				<h3>使用提示：</h3>
 				<ol>
 					<li>
-						项目招生简章，上传文件最大为32M.
+						招生简章文件可以是Word、PDF或各类图片文件，上传的文件大小请不要超过32M。
 					</li>
 				</ol>
 			</div>
 			<div class="Huialert Huialert Huialert-danger radius">
-				<h3>2.上传Excel</h3>
+				<h3>开始上传招生简章文件</h3>
 				<ol>
 					<li>
 						<span class="btn-upload form-group">

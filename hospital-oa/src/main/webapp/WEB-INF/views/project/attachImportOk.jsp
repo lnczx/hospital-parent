@@ -10,10 +10,10 @@
 <body>
 	<div class="page-container">
 		<div class="Huialert Huialert-success radius">
-			<h3>导入成功：</h3>
+			<h3>导入成功！</h3>
 			<ol>
 				<li>
-					<a href="/hospital-oa/project/list?linkType=project" class="btn btn-success">查看招生简章</a>
+					<a href="/hospital-oa/project/list?linkType=project" class="btn btn-success">我的项目一览</a>
 				</li>
 			</ol>
 			</form>
