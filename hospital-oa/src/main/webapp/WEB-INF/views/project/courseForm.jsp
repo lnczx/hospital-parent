@@ -96,7 +96,10 @@
 		</div>
 		
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"> 类型： </label>
+			<label class="form-label col-xs-4 col-sm-3"> 
+				<span class="c-red">*</span>
+				类型： 
+			</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<form:select path="courseType" class="select-box">
 					<form:option value="理论">理论</form:option>

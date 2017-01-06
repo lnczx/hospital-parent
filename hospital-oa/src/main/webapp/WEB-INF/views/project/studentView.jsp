@@ -80,7 +80,6 @@
 			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>通讯地址：</label>
 			<div class="formControls col-xs-4 col-sm-4">
 				${formData.addr }
-				<form:input path="addr" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
 			</div>
 		</div>
 		<div class="row cl">
@@ -91,7 +90,7 @@
 		
 			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>电子邮箱：</label>
 			<div class="formControls col-xs-4 col-sm-4">
-				${formData.addr }
+				${formData.email }
 			</div>
 		</div>
 

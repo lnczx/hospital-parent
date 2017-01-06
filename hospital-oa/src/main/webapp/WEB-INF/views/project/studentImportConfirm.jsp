@@ -16,7 +16,7 @@
 			<input type="hidden" name="totals" value="${totals}"/>
 			<input type="hidden" name="totalNews" value="${totalNews}"/>
 			<input type="hidden" name="totalUpdate" value="${totalUpdate}"/>
-			<h3>您目前处于未提交状态，如需提交，请点击下方“提交”按钮。</h3>
+			<h3><font color="red">您目前处于“未提交”状态，如需提交，请点击下方的“提交”按钮完成操作。</font></h3>
 			<ol>
 				<li>本次预计导入<font color="red">${totals}</font>个学员，其中新增<font color="red">${totalNews}</font>个学员, 更新已存在的<font color="red">${totalUpdate}</font>个学员。</li>
 				<li>

@@ -10,9 +10,9 @@
 <body>
 	<div class="page-container">
 		<div class="Huialert Huialert-danger radius">
-			<h3>导入错误提示：</h3>
+			<h3><font color="#FF0000">请按照错误提示，以及下方表格中显示的Excel文件错误信息位置，对Excel文件重新修改再导入：</font> </h3>
 			<ol>
-				<li>${errors }</li>
+				<li>错误提示：${errors }</li>
 				<li>
 					<a href="/hospital-oa/project/student/student-import?pId=${pId }" class="btn btn-success">返回修改后重新导入</a>
 				</li>

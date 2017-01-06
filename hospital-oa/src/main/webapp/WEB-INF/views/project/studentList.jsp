@@ -35,13 +35,13 @@
 				<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="25">学员ID</th>
+							<th width="35">学员ID</th>
 							<th width="55">姓名</th>
 							<th width="30">性别</th>
 							<th width="80">手机号</th>
 							<th width="120">证件号码</th>
 							<th width="160">地址</th>
-							<th width="160">所在单位</th>
+							<th width="150">所在单位</th>
 							<th width="40">职称</th>
 							<th width="120">操作</th>
 						</tr>
