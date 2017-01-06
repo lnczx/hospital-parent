@@ -14,7 +14,7 @@
 			<ol>
 				<li>本次共导入<font color="red">${totals}</font>条课程，其中新增<font color="red">${totalNews}</font>条课程, 更新已存在的<font color="red">${totalUpdate}</font>条课程。</li>
 				<li>
-					<a href="/hospital-oa/project/course/course-list?pId=${pId }" class="btn btn-success">查看课表</a>
+					<a href="/hospital-oa/project/course/course-list?pId=${pId }" class="btn btn-success">查看会议日程</a>
 				</li>
 			</ol>
 			</form>

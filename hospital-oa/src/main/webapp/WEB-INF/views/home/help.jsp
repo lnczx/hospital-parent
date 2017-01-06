@@ -14,7 +14,7 @@
 		<div class="text-l">
 			<span class="select-box inline">
 				<strong> 常用导入模板文件下载：<a href="/hospital-oa/attach/项目导入Excel模板.xls">《项目导入Excel模板》</a> | <a
-						href="/hospital-oa/attach/课表导入Excel模板.xls">《课表导入Excel模板》</a> | <a href="/hospital-oa/attach/学员导入Excel模板.xls">《学员导入Excel模板》</a></strong>
+						href="/hospital-oa/attach/会议日程导入Excel模板.xls">《会议日程导入Excel模板》</a> | <a href="/hospital-oa/attach/学员导入Excel模板.xls">《学员导入Excel模板》</a></strong>
 			</span>
 		</div>
 		<br>
@@ -26,7 +26,7 @@
 				<strong>[目录]</strong>
 			</p>
 			<p>1.项目导入Excel文件填写规范说明</p>
-			<p>2.课表导入Excel文件填写规范说明</p>
+			<p>2.会议日程导入Excel文件填写规范说明</p>
 			<p>3.学员导入Excel文件填写规范说明</p>
 			<br>
 			<hr>

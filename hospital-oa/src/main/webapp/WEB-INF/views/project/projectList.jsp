@@ -22,7 +22,7 @@
 			搜索条件：
 			
 			<span class="select-box inline">
-					<selectYearTag:select />
+					<selectYearTag:select selectedId="${searchModel.pYear }"/>
 				</span>
 				<span class="select-box inline">
 					<selectOrgTag:select selectedId="0" sessionOrgId="${sessionScope.accountAuth.orgId}" />
@@ -47,7 +47,7 @@
 							<th width="30">人数</th>
 							<th width="20">期数</th>
 							<th width="120">起止时间</th>
-							<th width="180">操作</th>
+							<th width="200">操作</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -65,33 +65,41 @@
 									
 								
 									<c:if test="${linkType == 'project' || linkType == '' || linkType == null}">
-										
-										<a href="javascript:;" onclick="btn_add('project/project-form?pId=${item.pId}')"  class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
-										
+										<c:if test="${accountAuth.accountRole.id == 1}">
+											<a href="javascript:;" onclick="btn_add('project/project-form?pId=${item.pId}')"  class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
+										</c:if>
 										<c:if test="${item.briefingFilePath != '' }">
-											<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')" class="btn btn-primary-outline size-S radius">招生简章</a>
+											<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')" class="btn btn-primary-outline size-S radius">会议通知</a>
 										</c:if>
 										
 										<c:if test="${item.briefingFilePath == '' }">
-											<a href="javascript:;" onclick="alert('提示：项目管理员还未上传本项目的招生简章。')" class="btn btn-primary-outline size-S radius">招生简章</a>&nbsp; 
+											<a href="javascript:;" onclick="alert('提示：项目管理员还未上传本项目的会议通知。')" class="btn btn-primary-outline size-S radius">会议通知</a>&nbsp; 
 										</c:if>
-										
-										
-										<a href="javascript:;" onclick="btn_show_layer('查看课表','project/course/course-list?pId=${item.pId}','10001')"  class="btn btn-primary-outline size-S radius">课表</a> &nbsp; 
+
+										<a href="javascript:;" onclick="btn_show_layer('查看会议日程','project/course/course-list?pId=${item.pId}','10001')"  class="btn btn-primary-outline size-S radius">会议日程</a> &nbsp; 
 										<a href="javascript:;" onclick="btn_show_layer('查看学员列表','project/student/student-list?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">学员</a>
 									</c:if>
 									<c:if test="${linkType == 'attach' }">
 										<c:if test="${accountAuth.accountRole.id != 2}">
-											<a href="javascript:;" onclick="btn_show_layer('导入招生简章','project/attach-import?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">导入招生简章</a> &nbsp;
+											<a href="javascript:;" onclick="btn_show_layer('导入会议通知','project/attach-import?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">导入会议通知</a> &nbsp;
 										</c:if>
-										<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')" class="btn btn-primary-outline size-S radius">查看招生简章</a>
+										
+										
+										<c:if test="${item.briefingFilePath != '' }">
+											<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')" class="btn btn-primary-outline size-S radius">会议通知</a>
+										</c:if>
+										
+										<c:if test="${item.briefingFilePath == '' }">
+											<a href="javascript:;" onclick="alert('提示：项目管理员还未上传本项目的会议通知。')" class="btn btn-primary-outline size-S radius">会议通知</a>&nbsp; 
+										</c:if>
+										
 									</c:if>
 									
 									<c:if test="${linkType == 'course' }">
 										<c:if test="${accountAuth.accountRole.id != 2}">
-											<a href="javascript:;" onclick="btn_show_layer('导入课表','project/course/course-import?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">导入课表</a> &nbsp;
+											<a href="javascript:;" onclick="btn_show_layer('导入会议日程','project/course/course-import?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">导入会议日程</a> &nbsp;
 										</c:if>
-										<a href="javascript:;" onclick="btn_show_layer('查看课表','project/course/course-list?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">查看课表</a>
+										<a href="javascript:;" onclick="btn_show_layer('查看会议日程','project/course/course-list?pId=${item.pId}','10001')" class="btn btn-primary-outline size-S radius">查看会议日程</a>
 									</c:if>
 									
 									<c:if test="${linkType == 'student' }">

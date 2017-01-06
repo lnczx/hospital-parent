@@ -1,14 +1,18 @@
 package com.customtags;
 
 import java.io.IOException;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import com.hos.po.model.dict.Dicts;
 import com.meijia.utils.DateUtil;
+import com.meijia.utils.StringUtil;
 
 public class SelectYearTag extends SimpleTagSupport {
-
+	
+	private String selectedId = "";
+	
 	public SelectYearTag() {
 	}
 
@@ -17,19 +21,21 @@ public class SelectYearTag extends SimpleTagSupport {
 		try {
 
 			StringBuffer selectHtml = new StringBuffer();
-			selectHtml.append("<select id = \"selectYear\" name=\"selectYear\" class=\"select\">");
+			selectHtml.append("<select id = \"pYear\" name=\"pYear\" class=\"select\">");
 
 			int curYear = DateUtil.getYear();
 			
-
-			Dicts item = null;
 			String selected = "";
 			for (int i = curYear - 5; i < curYear + 5; i++) {
 				
 				selected = "";
-				if (curYear == i) {
+				if (!StringUtil.isEmpty(selectedId)) {
+					if ( selectedId.equals(String.valueOf(i))) 
+						selected = "selected=\"selected\"";
+				} else if (curYear == i) {
 					selected = "selected=\"selected\"";
 				}
+				
 				selectHtml.append("<option value='" + i + "' " + selected + ">" + i + "</option>");
 			}
 
@@ -39,6 +45,14 @@ public class SelectYearTag extends SimpleTagSupport {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String getSelectedId() {
+		return selectedId;
+	}
+
+	public void setSelectedId(String selectedId) {
+		this.selectedId = selectedId;
 	}
 
 }

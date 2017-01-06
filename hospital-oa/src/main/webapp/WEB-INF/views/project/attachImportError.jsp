@@ -9,7 +9,7 @@
 </head>
 <body>
 	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span
-		class="c-gray en">&gt;</span> 招生简章导入 
+		class="c-gray en">&gt;</span> 会议通知导入 
 	</nav>
 	<div class="page-container">
 		<div class="Huialert Huialert-danger radius">

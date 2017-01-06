@@ -11,5 +11,10 @@
 		<name>select</name>
 		<tag-class>com.customtags.SelectYearTag</tag-class>
 		<body-content>empty</body-content>
+		<attribute>
+			<name>selectedId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 </taglib>

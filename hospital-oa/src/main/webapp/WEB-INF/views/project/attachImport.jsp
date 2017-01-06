@@ -15,12 +15,12 @@
 				<h3>使用提示：</h3>
 				<ol>
 					<li>
-						招生简章文件可以是Word、PDF或各类图片文件，上传的文件大小请不要超过32M。
+						会议通知文件可以是Word、PDF或各类图片文件，上传的文件大小请不要超过32M。
 					</li>
 				</ol>
 			</div>
 			<div class="Huialert Huialert Huialert-danger radius">
-				<h3>开始上传招生简章文件</h3>
+				<h3>开始上传会议通知文件</h3>
 				<ol>
 					<li>
 						<span class="btn-upload form-group">
@@ -29,7 +29,7 @@
 								
 							<a href="javascript:void();" class="btn btn-primary upload-btn">
 								<i class="Hui-iconfont">&#xe642;</i>
-								选择 招生简章文件
+								选择 会议通知文件
 							</a>
 							<input type="file" multiple id="attachFile" name="attachFile" class="input-file"  data-rule-required="true">
 						</span>

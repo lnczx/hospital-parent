@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ include file="../shared/taglib.jsp"%>
 <%@ taglib prefix="selectOrgTag" uri="/WEB-INF/views/tags/selectOrg.tld"%>
+<%@ taglib prefix="selectYearTag" uri="/WEB-INF/views/tags/selectYear.tld"%>
 <html>
 <head>
 <!--common css for all pages-->
@@ -15,6 +16,18 @@
 	<form:form modelAttribute="formData"  id="project-form" action="/hospital-oa/project/project-form"
 		class="form form-horizontal" method="POST">
 		<form:hidden path="pId" />
+		
+		<div class="row cl">
+            <label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>项目年度：</label>
+            <div class="formControls col-xs-4 col-sm-4">
+                <selectYearTag:select selectedId="${formData.pYear }"/>
+            </div>
+             <label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>拟招人数：</label>
+            <div class="formControls col-xs-4 col-sm-4">
+                <form:input path="numRecruit" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
+            </div>
+        </div>
+		
 		<div class="row cl">
             <label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>项目编号：</label>
             <div class="formControls col-xs-4 col-sm-4">
@@ -59,15 +72,17 @@
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>拟招人数：</label>
-            <div class="formControls col-xs-4 col-sm-4">
-                <form:input path="numRecruit" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
-            </div>
-        
-            <label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>备注：</label>
+        	 <label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>备注：</label>
             <div class="formControls col-xs-4 col-sm-4">
                 <form:textarea path="remarks" class="form-control"  rows="5" cols="50"/>
             </div>
+            
+            <label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span></label>
+            <div class="formControls col-xs-4 col-sm-4">
+                
+            </div>
+        
+           
         </div>
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">

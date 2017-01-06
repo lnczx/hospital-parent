@@ -138,7 +138,7 @@ public class ProjectServiceImpl implements ProjectService {
 		vo.setEndDate(endDate);
 		vo.setDateRange(dateRange);
 		
-		//招生简章
+		//会议通知
 		String briefingFilePath = "";
 		ProjectSearchVo searchVo = new ProjectSearchVo();
 		searchVo.setpId(vo.getpId());
@@ -200,8 +200,8 @@ public class ProjectServiceImpl implements ProjectService {
 			List<String> item = (List<String>) excelDatas.get(i);
 			
 			int s = item.size();
-			item.add(s, String.valueOf(i+1));
-			item.add(s + 1, "<font color='green'>新增</font>");
+			item.add(10, String.valueOf(i+1));
+			item.add(11, "<font color='green'>新增</font>");
 			String pNo = item.get(0).toString().trim();
 			String numTermStr = item.get(8).toString().trim();
 			Short numTerm = Short.valueOf(numTermStr);
@@ -211,7 +211,7 @@ public class ProjectServiceImpl implements ProjectService {
 			List<Projects> list = this.selectBySearchVo(searchVo);
 			
 			if (!list.isEmpty()) {
-				item.set(s + 1, "<font color='red'>修改</font>");
+				item.set(11, "<font color='red'>修改</font>");
 			}
 			result.add(item);
 		}			
@@ -279,7 +279,7 @@ public class ProjectServiceImpl implements ProjectService {
 				errorNum++;		
 			} else {
 				if (!RegexUtil.isInteger(numRecruitStr)) {
-					item.set(7, "<font color='red'>拟招人数必须为数字</font>");
+					item.set(7, "<font color='red'>>授予学分必须为数字</font>");
 					errorNum++;		
 				}
 			}
@@ -295,8 +295,19 @@ public class ProjectServiceImpl implements ProjectService {
 				}
 			}
 			
+			String yearStr = item.get(9).trim();
+			if (StringUtil.isEmpty(yearStr)) {
+				item.set(9, "<font color='red'>项目年度为必填项</font>");
+				errorNum++;		
+			} else {
+				if (!RegexUtil.isInteger(yearStr) || yearStr.length() != 4) {
+					item.set(9, "<font color='red'>项目年度格式不正确</font>");
+					errorNum++;		
+				}
+			}
+			
 			if (errorNum > 0) {
-				item.add(9, String.valueOf(i+1));
+				item.add(10, String.valueOf(i+1));
 				result.add(item);
 			}
 			
@@ -326,6 +337,7 @@ public class ProjectServiceImpl implements ProjectService {
 		if (!datas.get(6).equals("授予学分")) tableHeaderFalg = false;
 		if (!datas.get(7).equals("拟招人数")) tableHeaderFalg = false;
 		if (!datas.get(8).equals("项目期数")) tableHeaderFalg = false;
+		if (!datas.get(9).equals("项目年度")) tableHeaderFalg = false;
 		
 		if (!tableHeaderFalg) {
 			System.out.println("表格表头不对，请按照模板的格式填写.");
@@ -346,7 +358,7 @@ public class ProjectServiceImpl implements ProjectService {
 		for (int i = 1; i < datas.size(); i++) {
 			List<String> item = (List<String>) datas.get(i);
 			String pNo = item.get(0).toString().trim();
-			int pYear = Integer.valueOf(pNo.substring(0, 4)).intValue();
+			
 			String name = item.get(1).toString().trim();
 			String orgName = item.get(2).toString().trim();
 			
@@ -364,7 +376,7 @@ public class ProjectServiceImpl implements ProjectService {
 			Integer numRecruit = Integer.valueOf(numRecruitStr);
 			String numTermStr = item.get(8).toString().trim();
 			Short numTerm = Short.valueOf(numTermStr);
-			
+			int pYear = Integer.valueOf(item.get(9).trim()).intValue();
 			
 			Projects record = this.initProject();
 			

@@ -16,9 +16,9 @@
 				<ol>
 					<li>
 						1.第一次使用时，请点击下载：
-						<a href="/hospital-oa/attach/课表导入Excel模板.xls">《课表导入Excel模板》</a>文件。
+						<a href="/hospital-oa/attach/会议日程导入Excel模板.xls">《会议日程导入Excel模板》</a>文件。
 						<br>
-						2.在《课表导入Excel模板》文件中填写信息时，请注意内容和格式的规范性，详情可点击：<a href="/hospital-oa/help.html">《导入Excel文件填写说明》</a>查看。
+						2.在《会议日程导入Excel模板》文件中填写信息时，请注意内容和格式的规范性，详情可点击：<a href="/hospital-oa/help.html">《导入Excel文件填写说明》</a>查看。
 					</li>
 				</ol>
 			</div>
@@ -31,7 +31,7 @@
 								nullmsg="请添加附件！" style="width: 200px">
 							<a href="javascript:void();" class="btn btn-primary upload-btn">
 								<i class="Hui-iconfont">&#xe642;</i>
-								选择 课表Excel文件
+								选择 会议日程Excel文件
 							</a>
 							<input type="file" multiple name="course-file" class="input-file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"  data-rule-required="true">
 						</span>

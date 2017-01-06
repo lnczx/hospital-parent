@@ -3,7 +3,7 @@ $(function() {
 		var fileNames = '';
 		$.each(this.files, function() {
 			if (this.size.toFixed(2) > (32*1024*1024)) {
-				alert("招生简章文件大小为32M以下.");
+				alert("会议通知文件大小为32M以下.");
 			}
 			
 			fileNames += '<span class="am-badge">' + this.name + '</span> ';

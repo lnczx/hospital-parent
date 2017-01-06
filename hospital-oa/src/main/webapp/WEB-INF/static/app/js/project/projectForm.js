@@ -66,6 +66,7 @@ $(function() {
 			credit : {
 				required : true,
 				isIntGteZero : true,
+				isDigits : true,
 			},
 			
 			numRecruit : {

@@ -18,7 +18,7 @@ $(function(){
     jQuery.validator.addMethod("isIntGteZero", function(value, element) { 
          value=parseInt(value);      
          return this.optional(element) || value>=0;       
-    }, "整数必须大于或等于0");   
+    }, "整数，且大于或等于0");   
     
     // 判断整数value是否不等于0 
     jQuery.validator.addMethod("isIntNEqZero", function(value, element) { 

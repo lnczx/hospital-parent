@@ -36,12 +36,13 @@
 							<th width="30">授予学分</th>
 							<th width="30">拟招人数</th>
 							<th width="30">项目期数</th>
+							<th width="30">项目年度</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${tableDatas}" var="item">
 						<tr>
-							<td>${item[9]}</td>
+							<td>${item[10]}</td>
 							<td>${item[0]}</td>
 							<td>${item[1]}</td>
 							<td>${item[2]}</td>
@@ -51,6 +52,7 @@
 							<td>${item[6]}</td>
 							<td>${item[7]}</td>
 							<td>${item[8]}</td>
+							<td>${item[9]}</td>
 						</tr>
 						</c:forEach>
 					</tbody>

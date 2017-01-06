@@ -68,11 +68,11 @@ public class ProjectController extends BaseController {
 	 * @param searchVo
 	 * @param linkType   根据不同的linkType展现不同的按钮
 	 *        linkType == 'project' or ''    
-	 *           招生简章  课表   学员
+	 *           会议通知  会议日程   学员
 	 *        linkType == 'courseType'
-	 *           导入课表  查看课表
+	 *           导入会议日程  查看会议日程
 	 *        linkType == 'attach'
-	 *           导入招生简章  查看招生简章
+	 *           导入会议通知  查看会议通知
 	 *        linkType == 'student'
 	 *           导入学员  查看学员
 	 *         

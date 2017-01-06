@@ -63,11 +63,11 @@
 		</if>
 		
 	    <if test="pNo != null and pNo !=''">
-			and p_no = #{pNo,jdbcType=VARCHAR}
+			and p_no like  CONCAT('%',#{pNo},'%')
 		</if>
 		
 	    <if test="name != null and name !=''">
-			and name = #{name,jdbcType=VARCHAR}
+			and name like  CONCAT('%',#{name},'%')
 		</if>
 		
 		<if test="numTerm != null">
