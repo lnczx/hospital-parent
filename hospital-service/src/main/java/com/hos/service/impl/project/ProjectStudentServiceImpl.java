@@ -235,6 +235,21 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 				}
 			}
 			
+			if (StringUtil.isEmpty(item.get(2).trim())) {
+				item.set(2, "<font color='red'>所在省市为必填项</font>");
+				errorNum++;
+			}
+			
+			if (StringUtil.isEmpty(item.get(3).trim())) {
+				item.set(3, "<font color='red'>所在单位为必填项</font>");
+				errorNum++;
+			}
+			
+			if (StringUtil.isEmpty(item.get(4).trim())) {
+				item.set(4, "<font color='red'>职称为必填项</font>");
+				errorNum++;
+			}
+			
 //			String cityName = item.get(2).trim();
 //			if (!StringUtil.isEmpty(cityName)) {
 //				Dicts dict = dictService.findCityByName(cityName);
@@ -288,13 +303,13 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 
 		if (!datas.get(0).equals("姓名(必填)"))
 			tableHeaderFalg = false;
-		if (!datas.get(1).equals("性别"))
+		if (!datas.get(1).equals("性别(必填)"))
 			tableHeaderFalg = false;
-		if (!datas.get(2).equals("所在省市"))
+		if (!datas.get(2).equals("所在省市(必填)"))
 			tableHeaderFalg = false;
-		if (!datas.get(3).equals("所在单位"))
+		if (!datas.get(3).equals("所在单位(必填)"))
 			tableHeaderFalg = false;
-		if (!datas.get(4).equals("职称"))
+		if (!datas.get(4).equals("职称(必填)"))
 			tableHeaderFalg = false;
 		if (!datas.get(5).equals("通讯地址"))
 			tableHeaderFalg = false;

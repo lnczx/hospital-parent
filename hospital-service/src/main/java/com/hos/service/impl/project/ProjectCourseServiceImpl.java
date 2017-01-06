@@ -248,6 +248,15 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 				item.set(4, "<font color='red'>教师为必填项</font>");
 				errorNum++;
 			}
+			if (StringUtil.isEmpty(item.get(5).trim())) {
+				item.set(4, "<font color='red'>职称为必填项</font>");
+				errorNum++;
+			}
+			if (StringUtil.isEmpty(item.get(6).trim())) {
+				item.set(4, "<font color='red'>单位为必填项</font>");
+				errorNum++;
+			}
+			
 			if (StringUtil.isEmpty(item.get(7).trim())) {
 				item.set(7, "<font color='red'>类型为必填项</font>");
 				errorNum++;
@@ -316,9 +325,9 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			tableHeaderFalg = false;
 		if (!datas.get(4).equals("教师(必填)"))
 			tableHeaderFalg = false;
-		if (!datas.get(5).equals("职称"))
+		if (!datas.get(5).equals("职称(必填)"))
 			tableHeaderFalg = false;
-		if (!datas.get(6).equals("单位"))
+		if (!datas.get(6).equals("单位(必填)"))
 			tableHeaderFalg = false;
 		if (!datas.get(7).equals("类型(必填)"))
 			tableHeaderFalg = false;
