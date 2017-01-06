@@ -23,15 +23,15 @@
 				<table id="error-table" class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="60">Excel中行数</th>
+							<th width="50">Excel中行数</th>
 							<th width="30">姓名</th>
 							<th width="30">性别</th>
-							<th width="60">所在省市</th>
+							<th width="80">所在省市</th>
 							<th width="120">所在单位</th>
 							<th width="30">职称</th>
-							<th width="160">通讯地址</th>
+							<th width="120">通讯地址</th>
 							<th width="60">手机号</th>
-							<th width="60">邮箱</th>
+							<th width="80">邮箱</th>
 						</tr>
 					</thead>
 					<tbody>

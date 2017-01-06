@@ -35,11 +35,11 @@
 				<table id="error-table" class="table table-border table-bordered table-hover table-bg table-sort">
 					<thead>
 						<tr class="text-c">
-							<th width="50">Excel中行数</th>
+							<th width="40">Excel中行数</th>
 							<th width="30">日期</th>
-							<th width="80">开始时间</th>
-							<th width="80">结束时间</th>
-							<th width="40">内容</th>
+							<th width="50">开始时间</th>
+							<th width="50">结束时间</th>
+							<th width="80">内容</th>
 							<th width="50">教师</th>
 							<th width="60">职称</th>
 							<th width="30">单位</th>

@@ -228,7 +228,10 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 			}
 			
 			String sex = item.get(1).trim();
-			if (!StringUtil.isEmpty(sex)) {
+			if (StringUtil.isEmpty(sex)) {
+				item.set(1, "<font color='red'>性别为必填项</font>");
+				errorNum++;
+			} else { 
 				if (!sex.equals("男") && !sex.equals("女")) {
 					item.set(1, "<font color='red'>性别填写有误</font>");
 					errorNum++;
