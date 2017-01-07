@@ -245,7 +245,7 @@ public class ProjectController extends BaseController {
 		
 		for (int i = 0; i < dupList.size(); i++) {
 			List<String> item = (List<String>) dupList.get(i);
-			String status = item.get(10).toString();
+			String status = item.get(11).toString();
 			if (status.indexOf("新增") >= 0) totalNews++;
 			if (status.indexOf("修改") >= 0) totalUpdate++;
 		}
