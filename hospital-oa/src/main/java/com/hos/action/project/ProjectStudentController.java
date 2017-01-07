@@ -199,7 +199,7 @@ public class ProjectStudentController extends BaseController {
 			projectStudentService.deleteByPrimaryKey(id);
 		}
 
-		return "redirect:course-list?pId="+pId;
+		return "redirect:student-list?pId="+pId;
 
 	}	
 
