@@ -19,7 +19,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="帮助说明" data-href="/home/help">帮助说明</span>
+					<span title="欢迎使用" data-href="/home/help">欢迎使用</span>
 					<em></em>
 				</li>
 			</ul>

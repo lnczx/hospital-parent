@@ -20,10 +20,10 @@
 			<input type="hidden" name="totalUpdate" value="${totalUpdate}"/>
 			<h3><font color="red">您目前处于“未提交”状态，如需提交，请点击下方的“提交”按钮完成操作。</font></h3>
 			<ol>
-				<li>本次Excel预计导入<font color="red">${totals}</font>个项目，其中新增<font color="red">${totalNews}</font>个项目, 更新已存在的<font color="red">${totalUpdate}</font>个项目。</li>
+				<li>本次Excel导入文件中包含<font color="red">${totals}</font>个项目信息，其中新增<font color="red">${totalNews}</font>个项目, 其余<font color="red">${totalUpdate}</font>个项目出现重复。</li>
 				<li>
 					<button type="submit" class="btn btn-primary" >
-						<i class="Hui-iconfont">&#xe600;</i>
+						
 						提交
 					</button>
 					
