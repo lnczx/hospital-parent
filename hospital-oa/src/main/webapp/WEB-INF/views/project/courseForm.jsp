@@ -28,7 +28,7 @@
 				日期：
 			</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<form:input path="courseDate" class="input-text form_datetime"  readonly="true" />
+				<form:input path="courseDate" class="input-text"  readonly="true" />
 			</div>
 		</div>
 		

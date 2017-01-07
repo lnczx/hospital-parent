@@ -36,17 +36,8 @@
 			</div>
 			
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>证件类型：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				<selectIdTypeTag:select selectedId="${formData.idType }"  />
-			</div>
 		
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>证件号码：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				<form:input path="idCard" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
-			</div>
-		</div>
+		
 		<div class="row cl">
 			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>性别：</label>
 			<div class="formControls col-xs-4 col-sm-4 skin-minimal">
@@ -56,11 +47,55 @@
 					<form:option value="女">女</form:option>
 				</form:select> 
 			</div>
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>出生日期：</label>
+			
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>所在省市：</label>
 			<div class="formControls col-xs-4 col-sm-4">
-				<form:input path="birthDate" class="input-text form_datetime"  readonly="true" />
+				<span class="select-box">
+					<selectCityTag:select selectedId="${formData.cityId }" />
+				</span>
+			</div>
+			
+		</div>
+		
+		<div class="row cl">
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>所在单位：</label>
+			<div class="formControls col-xs-4 col-sm-4">
+				<form:input path="orgName" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
+			</div>
+			
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>职称：</label>
+			<div class="formControls col-xs-4 col-sm-4">
+				<selectTitleTag:select selectedId="${formData.titleId }"  />
 			</div>
 		</div>
+		<div class="row cl">
+			
+		
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>通讯地址：</label>
+			<div class="formControls col-xs-4 col-sm-4">
+				<form:input path="addr" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
+			</div>
+			
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>电子邮箱：</label>
+			<div class="formControls col-xs-4 col-sm-4">
+				<form:input path="email" class="input-text" autocomplete="off" maxLength="255" placeholder="@" />
+			</div>
+		</div>
+		
+		
+		
+		<%-- <div class="row cl">
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>证件类型：</label>
+			<div class="formControls col-xs-4 col-sm-4">
+				<selectIdTypeTag:select selectedId="${formData.idType }"  />
+			</div>
+		
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>证件号码：</label>
+			<div class="formControls col-xs-4 col-sm-4">
+				<form:input path="idCard" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
+			</div>
+		</div> 
+		
 		<div class="row cl">
 			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>最高学历：</label>
 			<div class="formControls col-xs-4 col-sm-4">
@@ -71,42 +106,20 @@
 			<div class="formControls col-xs-4 col-sm-4">
 				<selectDegreeTag:select selectedId="${formData.degreeId }"  />
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>所在省市：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				<span class="select-box">
-					<selectCityTag:select selectedId="${formData.cityId }" />
-				</span>
-			</div>
+		</div> 
 		
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>所在单位：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				<form:input path="orgName" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>职称：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				<selectTitleTag:select selectedId="${formData.titleId }"  />
-			</div>
-		
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>通讯地址：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				<form:input path="addr" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
-			</div>
-		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>民族：</label>
 			<div class="formControls col-xs-4 col-sm-4">
 				<selectNationTag:select selectedId="${formData.nationId }"  />
 			</div>
 		
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>电子邮箱：</label>
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>出生日期：</label>
 			<div class="formControls col-xs-4 col-sm-4">
-				<form:input path="email" class="input-text" autocomplete="off" maxLength="255" placeholder="@" />
+				<form:input path="birthDate" class="input-text form_datetime"  readonly="true" />
 			</div>
-		</div>
+		</div> --%>
+		
 		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">

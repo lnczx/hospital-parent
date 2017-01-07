@@ -321,7 +321,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 		Boolean tableHeaderFalg = true;
 		
-		if (datas.isEmpty() || datas.size() < 9) {
+		if (datas.isEmpty() || datas.size() < 10) {
 			tableHeaderFalg = false;
 //			System.out.println("表格表头不对，请按照模板的格式填写.");
 			error = "表格表头不对，请按照模板的格式填写.";

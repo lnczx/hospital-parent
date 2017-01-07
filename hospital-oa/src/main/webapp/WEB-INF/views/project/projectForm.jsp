@@ -71,7 +71,7 @@
                  <form:input path="credit" class="input-text" autocomplete="off" maxLength="255" placeholder="" />
             </div>
         </div>
-        <div class="row cl">
+       <%--  <div class="row cl">
         	 <label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>备注：</label>
             <div class="formControls col-xs-4 col-sm-4">
                 <form:textarea path="remarks" class="form-control"  rows="5" cols="50"/>
@@ -83,7 +83,7 @@
             </div>
         
            
-        </div>
+        </div> --%>
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
                 <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;保存并提交&nbsp;&nbsp;">

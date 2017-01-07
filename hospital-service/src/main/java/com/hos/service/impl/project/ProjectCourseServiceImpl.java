@@ -114,18 +114,20 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 		BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
 		
 		int courseMin = 0;
-		String courseDate = vo.getCourseDate();
-		String startTimeStr = vo.getStartTime();
-		String endTimeStr = vo.getEndTime();
-		
-		String startDateTime = courseDate + " " + startTimeStr + ":00";
-		Long startTime = TimeStampUtil.getMillisOfDayFull(startDateTime) / 1000;
-		
-		String endDateTime = courseDate + " " + endTimeStr + ":00";
- 		Long endTime = TimeStampUtil.getMillisOfDayFull(endDateTime) / 1000;
- 		
- 		courseMin = (int) ((endTime - startTime) /60);
-		vo.setCourseMin(courseMin);
+		if (vo.getCourseId() > 0L) {
+			String courseDate = vo.getCourseDate();
+			String startTimeStr = vo.getStartTime();
+			String endTimeStr = vo.getEndTime();
+			
+			String startDateTime = courseDate + " " + startTimeStr + ":00";
+			Long startTime = TimeStampUtil.getMillisOfDayFull(startDateTime) / 1000;
+			
+			String endDateTime = courseDate + " " + endTimeStr + ":00";
+	 		Long endTime = TimeStampUtil.getMillisOfDayFull(endDateTime) / 1000;
+	 		
+	 		courseMin = (int) ((endTime - startTime) /60);
+			vo.setCourseMin(courseMin);
+		}
 		return vo;
 	}
 
@@ -308,7 +310,7 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 
 		Boolean tableHeaderFalg = true;
 
-		if (datas.isEmpty() || datas.size() < 7) {
+		if (datas.isEmpty() || datas.size() < 8) {
 			tableHeaderFalg = false;
 			// System.out.println("表格表头不对，请按照模板的格式填写.");
 			error = "表格表头不对，请按照模板的格式填写.";

@@ -17,6 +17,38 @@ $('.form_datetime').datetimepicker({
 	showButtonPanel : false,
 });
 
+$(".form_datetime").change(function(){
+	doCourseMin();
+});
+
+
+function doCourseMin() {
+	console.log("doCourseMin");
+	var startTimeStr = $("#startTime").val();
+	var endTimeStr = $("#endTime").val();
+	
+	if (startTimeStr == undefined || startTimeStr == '') return false;
+	if (endTimeStr == undefined || endTimeStr == '') return false;
+	
+	 var startDate = $("#startTime").data("datetimepicker").getDate();
+	 var endDate = $("#endTime").data("datetimepicker").getDate();
+	 
+	 var startDateTime = startDate.getTime() / 1000;
+	 var endDateTime = endDate.getTime() / 1000;
+	 
+//	 console.log("startDateTime = " + startDateTime);
+//	 console.log("endDateTime = " + endDateTime);
+//	 
+	 if (startDateTime > endDateTime) {
+		 alert("结束时间不能小于开始时间.");
+		 $("#endTime").val('');
+		 return false;
+	 }
+	 
+	 var courseMin = (endDateTime - startDateTime) / 60;
+	 $("#courseMin").html(parseInt(courseMin));
+	 return true;
+}
 
 
 $(function() {
@@ -37,6 +69,7 @@ $(function() {
 					url : appRootUrl + "/project/course/checkDupName.json",
 					type : "get",
 					dataType : "json",
+					async : false,
 					data : {
 						pId : function() {
 							return $("#pId").val();

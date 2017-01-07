@@ -297,7 +297,7 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 
 		Boolean tableHeaderFalg = true;
 
-		if (datas.isEmpty() || datas.size() < 7) {
+		if (datas.isEmpty() || datas.size() < 8 ) {
 			tableHeaderFalg = false;
 			// System.out.println("表格表头不对，请按照模板的格式填写.");
 			error = "表格表头不对，请按照模板的格式填写.";
