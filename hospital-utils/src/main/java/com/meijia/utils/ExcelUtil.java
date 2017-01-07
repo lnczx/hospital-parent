@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -127,14 +128,18 @@ public class ExcelUtil {
 		Workbook wb = loadWorkbook(fileName, in);
 		if (null != wb) {
 			Sheet sh = wb.getSheetAt(sheetIndex);
-			int rows = sh.getPhysicalNumberOfRows();
+			int rows1 = sh.getPhysicalNumberOfRows();
+			int rows2 = sh.getLastRowNum();
+			
+			int rows = rows1;
+			
+			if (rows2 > rows1) rows = rows2 + 1;
+			
 			int cells = 0;
 			cells = sh.getRow(0).getPhysicalNumberOfCells();
 			for (int i = skipRows; i < rows; i++) {
 				Row row = sh.getRow(i);
-				if (null == row) {
-					break;
-				}
+				if (ExcelUtil.checkIfRowIsEmpty(row)) continue;
 
 				if (row.getLastCellNum() > cells)
 					cells = row.getPhysicalNumberOfCells();
@@ -146,7 +151,7 @@ public class ExcelUtil {
 
 					String v = "";
 					if (row.getCell(c) != null) {
-						System.out.println(cells + "-----" + c + "----- " + row.getCell(c).getCellType());
+//						System.out.println(cells + "-----" + c + "----- " + row.getCell(c).getCellType());
 						v = readCellValues(row.getCell(c));
 					}
 
@@ -157,6 +162,23 @@ public class ExcelUtil {
 		}
 
 		return ls;
+	}
+	
+	public static boolean checkIfRowIsEmpty(Row row) {
+	    if (row == null) {
+	        return true;
+	    }
+	    if (row.getLastCellNum() <= 0) {
+	        return true;
+	    }
+	    boolean isEmptyRow = true;
+	    for (int cellNum = row.getFirstCellNum(); cellNum < row.getLastCellNum(); cellNum++) {
+	        Cell cell = row.getCell(cellNum);
+	        if (cell != null && cell.getCellType() != Cell.CELL_TYPE_BLANK && StringUtils.isNotBlank(cell.toString())) {
+	            isEmptyRow = false;
+	        }
+	    }
+	    return isEmptyRow;
 	}
 
 	public static String readCellValues(Cell cell) throws Exception {
