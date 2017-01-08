@@ -275,11 +275,11 @@ public class ProjectServiceImpl implements ProjectService {
 			
 			String numRecruitStr = item.get(7).trim();
 			if (StringUtil.isEmpty(numRecruitStr)) {
-				item.set(7, "<font color='red'>授予学分必须为数字</font>");
+				item.set(7, "<font color='red'>拟招人数必须为数字</font>");
 				errorNum++;		
 			} else {
 				if (!RegexUtil.isInteger(numRecruitStr)) {
-					item.set(7, "<font color='red'>>授予学分必须为数字</font>");
+					item.set(7, "<font color='red'>拟招人数必须为数字</font>");
 					errorNum++;		
 				}
 			}

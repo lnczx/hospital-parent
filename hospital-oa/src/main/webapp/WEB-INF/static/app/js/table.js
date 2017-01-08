@@ -2,7 +2,17 @@ $(function(){
 	var table = $('.table-sort').dataTable({
 		"lengthChange": false,
 		"searching" : false,
-		"ordering" : false
+		"ordering" : false,
+
+		"bProcessing": true,
+	    "sAutoWidth": false,
+	    "bDestroy":true,
+	    "sPaginationType": "bootstrap", // full_numbers
+	    "iDisplayStart ": 10,
+	    "iDisplayLength": 10,
+	    "bPaginate": false, //hide pagination
+	    "bFilter": false, //hide Search bar
+	    "bInfo": false, // hide showing entries
 //		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
 //		"bStateSave": true,//状态保存
 //		"aoColumnDefs": [

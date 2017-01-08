@@ -73,6 +73,10 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<c:import url = "../shared/paging.jsp">
+      				<c:param name="pageModelName" value="contentModel"/>
+      				<c:param name="urlAddress" value="/project/course/course-list"/>
+     			</c:import>
 			</div>
 		</div>
 		<!-- js placed at the end of the document so the pages load faster -->

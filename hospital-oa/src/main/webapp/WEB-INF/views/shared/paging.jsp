@@ -32,7 +32,7 @@
 	} else {
 %>
 <div class="dataTables_info" >
-	显示<%=pageInfo.getPageSize()%>条 ，共
+	每页显示<%=pageInfo.getPageSize()%>条 ，共
 	<%=pageInfo.getTotal()%>条
 </div>
 <div class="dataTables_paginate paging_simple_numbers">
