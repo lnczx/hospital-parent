@@ -319,6 +319,8 @@ public class ProjectController extends BaseController {
 		
 		searchVo.setpNo(pNo);
 		
+		searchVo.setNumTerm(numTerm);
+		
 		List<Projects> list = projectService.selectBySearchVo(searchVo);
 		
 		if (!list.isEmpty() && pId.equals(0L)) {
