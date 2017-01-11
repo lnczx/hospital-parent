@@ -12,7 +12,7 @@
 		<form class="importForm" id="attach-form" method="post" action="/hospital-oa/project/attach-import" enctype="multipart/form-data">
 			<div class="Huialert Huialert-success radius">
 			<input type="hidden" name ="pId" id ="pId" value="${pId }"/>
-				<h3>使用提示：</h3>
+				<h3><font color="red">注意：上传前请核实“会议通知”中项目编号，项目名称，学分等信息是否与申报的内容一致，否则后果自负。</font></h3>
 				<ol>
 					<li>
 						会议通知文件可以是Word、PDF或各类图片文件，上传的文件大小请不要超过32M。

@@ -12,24 +12,20 @@
 <body>
 	<div class="page-container">
 		<div class="text-l">
-			<span class="select-box inline">
-				<strong> 常用导入模板文件下载：<a href="/hospital-oa/attach/项目导入Excel模板.xls">《项目导入Excel模板》</a> | <a
-						href="/hospital-oa/attach/会议日程导入Excel模板.xls">《会议日程导入Excel模板》</a> | <a href="/hospital-oa/attach/学员导入Excel模板.xls">《学员导入Excel模板》</a></strong>
-			</span>
+			您好，欢迎使用协和医学院继续教育项目管理系统。<br><br>
+			<strong> 常用导入模板文件下载：</strong><a href="/hospital-oa/attach/项目导入Excel模板.xls"><font color="red">《项目导入Excel模板》</font></a> | <a href="/hospital-oa/attach/会议日程导入Excel模板.xls"><font color="red">《会议日程导入Excel模板》</font></a> | <a href="/hospital-oa/attach/学员导入Excel模板.xls"><font color="red">《学员导入Excel模板》</font></a>
+			
 		</div>
 		<br>
 		<hr>
 		<div class="mt-20">
-			<p class="f-20 text-success text-c">系统使用帮助中心</p>
-			<br>
 			<p>
-				<strong>[目录]</strong>
+				<strong>系统使用帮助</strong>
 			</p>
-			<p>1.项目导入Excel文件填写规范说明</p>
+			<p>1.项目管理员操作手册</p>
 			<p>2.会议日程导入Excel文件填写规范说明</p>
 			<p>3.学员导入Excel文件填写规范说明</p>
 			<br>
-			<hr>
 		</div>
 	</div>
 	<%@ include file="../shared/importJs.jsp"%>
