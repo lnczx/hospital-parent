@@ -6,7 +6,7 @@
 			<c:if test="${item.id > 2}">
 				<dl id="menu-${item.id} }">
 					<dt class="selected">
-						<i class='${ empty item.itemIcon?"icon-list": item.itemIcon}'></i>${ item.name }
+						<i class='${ empty item.itemIcon?"icon-list": item.itemIcon}'></i><strong>${ item.name }</strong>
 						<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 					</dt>
 					<dd style="display: block;">
