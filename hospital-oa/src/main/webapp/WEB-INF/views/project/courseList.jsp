@@ -17,7 +17,7 @@
 				<form:hidden path="pId" />
 				<form:input path="content" class="input-text" style="width: 250px" placeholder="输入课程名称" />
 				<form:input path="teacher" class="input-text" style="width: 250px" placeholder="输入教师名称" />
-				<button type="submit" class="btn btn-success radius" id="" name="">
+				<button type="button" class="btn btn-success radius" onclick="searchSubmit()">
 					<i class="Hui-iconfont">&#xe665;</i>
 					搜索
 				</button>
@@ -26,11 +26,21 @@
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
 			<span class="l">
 				<c:if test="${accountAuth.accountRole.id != 2}">
-				<a href="javascript:;" onclick="btn_add('project/course/course-form?pId=${pId}&courseId=0')" class="btn btn-primary radius">
-					<i class="Hui-iconfont">&#xe600;</i>
-					逐条添加课程
-				</a>
+					<a href="javascript:;" onclick="btn_add('project/course/course-form?pId=${pId}&courseId=0')"
+						class="btn btn-primary radius">
+						<i class="Hui-iconfont">&#xe600;</i>
+						逐条添加课程
+					</a>
+					<a href="javascript:;" onclick="btn_add('project/course/course-import?pId=${pId}')"
+						class="btn btn-secondary radius">
+						<i class="Hui-iconfont">&#xe645;</i>
+						批量导入
+					</a>
 				</c:if>
+				<a href="javascript:;" onclick="exportCourse()" class="btn btn-success radius">
+					<i class="Hui-iconfont">&#xe644;</i>
+					导出Excel
+				</a>
 		</div>
 		<div class="mt-20">
 			<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
@@ -61,22 +71,21 @@
 								<td>${ item.titleStr }</td>
 								<td>${ item.orgName }</td>
 								<td>${ item.courseType }</td>
-								
-								<td class="td-manage">
-									<c:if test="${accountAuth.accountRole.id != 2}">
-									<a href="javascript:;" onclick="btn_add('project/course/course-form?pId=${pId}&courseId=${item.courseId }')"  class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
+								<td class="td-manage"><c:if test="${accountAuth.accountRole.id != 2}">
+										<a href="javascript:;" onclick="btn_add('project/course/course-form?pId=${pId}&courseId=${item.courseId }')"
+											class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
 									
-									<a href="javascript:;" onclick="btn_del('project/course/course-del?pId=${pId}&courseId=${item.courseId }')"  class="btn btn-primary-outline size-S radius">删除</a> &nbsp; 
-									</c:if>
-								</td>
+									<a href="javascript:;" onclick="btn_del('project/course/course-del?pId=${pId}&courseId=${item.courseId }')"
+											class="btn btn-primary-outline size-S radius">删除</a> &nbsp; 
+									</c:if></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<c:import url = "../shared/paging.jsp">
-      				<c:param name="pageModelName" value="contentModel"/>
-      				<c:param name="urlAddress" value="/project/course/course-list"/>
-     			</c:import>
+				<c:import url="../shared/paging.jsp">
+					<c:param name="pageModelName" value="contentModel" />
+					<c:param name="urlAddress" value="/project/course/course-list" />
+				</c:import>
 			</div>
 		</div>
 		<!-- js placed at the end of the document so the pages load faster -->

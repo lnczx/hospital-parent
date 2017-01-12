@@ -267,6 +267,7 @@ public class ProjectServiceImpl implements ProjectService {
 				item.set(6, "<font color='red'>授予学分为必填项</font>");
 				errorNum++;	
 			} else {
+				creditStr = creditStr.replace("分", "");
 				if (!RegexUtil.isInteger(creditStr)) {
 					item.set(6, "<font color='red'>授予学分必须为数字</font>");
 					errorNum++;	
@@ -371,6 +372,8 @@ public class ProjectServiceImpl implements ProjectService {
 			String pHeaderTel = item.get(4).toString().trim();
 			String addr = item.get(5).toString().trim();
 			String creditStr = item.get(6).toString().trim();
+			creditStr = creditStr.replace("分", "");
+			
 			Short credit = Short.valueOf(creditStr);
 			String numRecruitStr = item.get(7).toString().trim();
 			Integer numRecruit = Integer.valueOf(numRecruitStr);

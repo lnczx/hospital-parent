@@ -2,13 +2,19 @@ package com.hos.action.project;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.ss.usermodel.Cell;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,21 +36,18 @@ import com.hos.service.project.ProjectCourseService;
 import com.hos.service.project.ProjectService;
 import com.hos.vo.project.ProjectCourseSearchVo;
 import com.hos.vo.project.ProjectCourseVo;
-import com.hos.vo.project.ProjectSearchVo;
-import com.hos.vo.project.ProjectVo;
 import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.ExcelUtil;
 import com.meijia.utils.RandomUtil;
 import com.meijia.utils.StringUtil;
 import com.meijia.utils.TimeStampUtil;
+import com.meijia.utils.poi.HssExcelTools;
 import com.simi.action.BaseController;
 import com.simi.oa.auth.AccountAuth;
 import com.simi.oa.auth.AuthHelper;
 import com.simi.oa.auth.AuthPassport;
 import com.simi.oa.common.ConstantOa;
-import com.simi.po.model.admin.AdminAccount;
 import com.simi.vo.AppResultData;
-import com.simi.vo.admin.AccountSearchVo;
 
 @Controller
 @RequestMapping(value = "/project/course")
@@ -359,6 +362,79 @@ public class ProjectCourseController extends BaseController {
 		
 		return result;
 	}
+	
+	@AuthPassport
+	@RequestMapping(value = "/course-export", method = { RequestMethod.GET })
+	public String export(HttpServletRequest request, HttpServletResponse response, ProjectCourseSearchVo searchVo) throws IOException {
 
+		Long pId = searchVo.getpId();
+		Projects project = projectService.selectByPrimaryKey(pId);
+		
+		List<ProjectCourse> list = projectCourseService.selectBySearchVo(searchVo);
 
+		
+		String cpath = request.getSession().getServletContext().getRealPath("/WEB-INF") + "/attach/";
+		String templateName = "会议日程导入Excel模板.xls";
+		
+		HssExcelTools excel = new HssExcelTools(cpath + templateName, 0);
+		HSSFSheet sh = excel.getHssSheet();
+		
+		int rowNum = 1;
+		
+		for (int i = 0 ; i < list.size(); i++) {
+			ProjectCourse item = list.get(i);
+			ProjectCourseVo vo = projectCourseService.getVo(item);
+			
+			HSSFRow rowData = sh.createRow(rowNum);
+			
+			for(int j = 0; j <= 7; j++) {
+				rowData.createCell(j);
+				HSSFCell c = rowData.getCell(j);
+				c.setCellType(Cell.CELL_TYPE_STRING);
+			}
+			
+			//日期
+			this.setCellValueForString(rowData, 0, vo.getCourseDate());
+			
+			//开始时间
+			this.setCellValueForString(rowData, 1, vo.getStartTime());
+			
+			//结束时间
+			this.setCellValueForString(rowData, 2, vo.getEndTime());
+			
+			//内容
+			this.setCellValueForString(rowData, 3, vo.getContent());
+			
+			//教师
+			this.setCellValueForString(rowData, 4, vo.getTeacher());
+			
+			//职称
+			this.setCellValueForString(rowData, 5, vo.getTitleStr());
+			
+			//单位
+			this.setCellValueForString(rowData, 6, vo.getOrgName());
+			
+			//类型
+			this.setCellValueForString(rowData, 7, vo.getCourseType());
+			
+			rowNum++;
+		}
+		
+		String fileName = project.getName() + "-会议日程.xls";
+		excel.downloadExcel(response, fileName);
+		
+		return null;
+	}
+
+	private  void setCellValueForString(HSSFRow rowData, int rowNum, String v) {
+		HSSFCell c = rowData.getCell(rowNum);
+		c.setCellType(Cell.CELL_TYPE_STRING);
+		c.setCellValue(v);
+	}
+	
+	private  void setCellValueForDouble(HSSFRow rowData, int cellNum, Double v) {
+		HSSFCell c = rowData.getCell(cellNum);
+		c.setCellType(Cell.CELL_TYPE_NUMERIC);
+		c.setCellValue(v);
+	}
 }

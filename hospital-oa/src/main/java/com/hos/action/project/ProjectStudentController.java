@@ -2,13 +2,19 @@ package com.hos.action.project;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.ss.usermodel.Cell;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,13 +32,17 @@ import com.hos.common.ConstantMsg;
 import com.hos.common.Constants;
 import com.hos.po.model.dict.DictOrgs;
 import com.hos.po.model.dict.Dicts;
+import com.hos.po.model.project.ProjectCourse;
 import com.hos.po.model.project.ProjectStudent;
+import com.hos.po.model.project.Projects;
 import com.hos.po.model.student.Students;
 import com.hos.service.dict.DictOrgService;
 import com.hos.service.dict.DictService;
 import com.hos.service.project.ProjectStudentService;
 import com.hos.service.project.ProjectService;
 import com.hos.service.student.StudentService;
+import com.hos.vo.project.ProjectCourseSearchVo;
+import com.hos.vo.project.ProjectCourseVo;
 import com.hos.vo.project.ProjectStudentSearchVo;
 import com.hos.vo.project.ProjectStudentVo;
 import com.meijia.utils.BeanUtilsExp;
@@ -40,6 +50,7 @@ import com.meijia.utils.ExcelUtil;
 import com.meijia.utils.RandomUtil;
 import com.meijia.utils.StringUtil;
 import com.meijia.utils.TimeStampUtil;
+import com.meijia.utils.poi.HssExcelTools;
 import com.simi.action.BaseController;
 import com.simi.oa.auth.AccountAuth;
 import com.simi.oa.auth.AuthHelper;
@@ -141,6 +152,12 @@ public class ProjectStudentController extends BaseController {
 		if (titleId != null && titleId > 0L) {
 			Dicts titleObj = dictService.findById(titleId, Constants.DICT_TITLE);
 			if (titleObj != null) formData.setTitleStr(titleObj.getName());
+		}
+		
+		Long cityId = formData.getCityId();
+		if (cityId != null && cityId > 0L) {
+			Dicts cityObj = dictService.findById(cityId, Constants.DICT_AREA);
+			if (cityObj != null) formData.setCityName(cityObj.getName());
 		}
 		
 		
@@ -360,4 +377,85 @@ public class ProjectStudentController extends BaseController {
 		
 		return result;
 	}
+	
+	@AuthPassport
+	@RequestMapping(value = "/student-export", method = { RequestMethod.GET })
+	public String export(HttpServletRequest request, HttpServletResponse response, ProjectStudentSearchVo searchVo) throws IOException {
+
+		Long pId = searchVo.getpId();
+		Projects project = projectService.selectByPrimaryKey(pId);
+		
+		List<ProjectStudent> list = projectStudentService.selectBySearchVo(searchVo);
+
+		
+		String cpath = request.getSession().getServletContext().getRealPath("/WEB-INF") + "/attach/";
+		String templateName = "学员导入Excel模板.xls";
+		
+		HssExcelTools excel = new HssExcelTools(cpath + templateName, 0);
+		HSSFSheet sh = excel.getHssSheet();
+		
+		int rowNum = 1;
+		
+		for (int i = 0 ; i < list.size(); i++) {
+			ProjectStudent item = list.get(i);
+			
+			HSSFRow rowData = sh.createRow(rowNum);
+			
+			for(int j = 0; j <= 7; j++) {
+				rowData.createCell(j);
+				HSSFCell c = rowData.getCell(j);
+				c.setCellType(Cell.CELL_TYPE_STRING);
+			}
+			
+			//姓名
+			this.setCellValueForString(rowData, 0, item.getName());
+			
+			//性别
+			this.setCellValueForString(rowData, 1, item.getSex());
+			
+			//所在省市
+			String cityName = item.getCityName();
+			if (StringUtil.isEmpty(cityName)) {
+				Long cityId = item.getCityId();
+				Dicts dictObj = dictService.findById(cityId, Constants.DICT_AREA);
+				if (dictObj != null) cityName = dictObj.getName();
+			}
+			
+			this.setCellValueForString(rowData, 2, cityName);
+			
+			//所在单位
+			this.setCellValueForString(rowData, 3, item.getOrgName());
+			
+			//职称
+			this.setCellValueForString(rowData, 4, item.getTitleStr());
+			
+			//通讯地址
+			this.setCellValueForString(rowData, 5, item.getAddr());
+			
+			//手机号
+			this.setCellValueForString(rowData, 6, item.getMobile());
+			
+			//电子邮箱
+			this.setCellValueForString(rowData, 7, item.getEmail());
+			
+			rowNum++;
+		}
+		
+		String fileName = project.getName() + "-学员列表.xls";
+		excel.downloadExcel(response, fileName);
+		
+		return null;
+	}
+
+	private  void setCellValueForString(HSSFRow rowData, int rowNum, String v) {
+		HSSFCell c = rowData.getCell(rowNum);
+		c.setCellType(Cell.CELL_TYPE_STRING);
+		c.setCellValue(v);
+	}
+	
+	private  void setCellValueForDouble(HSSFRow rowData, int cellNum, Double v) {
+		HSSFCell c = rowData.getCell(cellNum);
+		c.setCellType(Cell.CELL_TYPE_NUMERIC);
+		c.setCellValue(v);
+	}	
 }
