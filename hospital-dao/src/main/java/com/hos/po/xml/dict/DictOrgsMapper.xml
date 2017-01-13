@@ -7,13 +7,14 @@
 		<result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
 		<result column="parent_id" property="parentId" jdbcType="NUMERIC" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="short_name" property="shortName" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="add_time" property="addTime" jdbcType="NUMERIC" />
 		<result column="update_time" property="updateTime" jdbcType="NUMERIC" />
 		<result column="admin_id" property="adminId" jdbcType="NUMERIC" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		org_id, org_code, parent_code, parent_id, name, remark, add_time, update_time, admin_id
+		org_id, org_code, parent_code, parent_id, name, short_name, remark, add_time, update_time, admin_id
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
@@ -79,11 +80,11 @@
 		<selectKey resultType="java.lang.Long" keyProperty="orgId" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		insert into dict_orgs (org_code, parent_code, name,
+		insert into dict_orgs (org_code, parent_code, name, short_name,
 		remark, add_time, update_time,
 		admin_id)
 		values (#{orgCode,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, 
-		#{parentId,jdbcType=NUMERIC},#{name,jdbcType=VARCHAR},
+		#{parentId,jdbcType=NUMERIC},#{name,jdbcType=VARCHAR}, #{shortName,jdbcType=VARCHAR},
 		#{remark,jdbcType=VARCHAR}, #{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC},
 		#{adminId,jdbcType=NUMERIC})
 	</insert>
@@ -104,6 +105,9 @@
 			</if>
 			<if test="name != null">
 				name,
+			</if>
+			<if test="shortName != null">
+				short_name,
 			</if>
 			<if test="remark != null">
 				remark,
@@ -130,6 +134,9 @@
 			</if>
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="shortName != null">
+				#{shortName,jdbcType=VARCHAR},
 			</if>
 			<if test="remark != null">
 				#{remark,jdbcType=VARCHAR},
@@ -160,6 +167,9 @@
 			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
 			</if>
+			<if test="shortName != null">
+				short_name = #{shortName,jdbcType=VARCHAR},
+			</if>
 			<if test="remark != null">
 				remark = #{remark,jdbcType=VARCHAR},
 			</if>
@@ -181,6 +191,7 @@
 		parent_code = #{parentCode,jdbcType=VARCHAR},
 		parent_id = #{parentId,jdbcType=NUMERIC},
 		name = #{name,jdbcType=VARCHAR},
+		short_name = #{shortName,jdbcType=VARCHAR},
 		remark = #{remark,jdbcType=VARCHAR},
 		add_time = #{addTime,jdbcType=NUMERIC},
 		update_time = #{updateTime,jdbcType=NUMERIC},

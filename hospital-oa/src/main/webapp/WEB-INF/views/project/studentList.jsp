@@ -50,7 +50,7 @@
 							<th width="55">姓名</th>
 							<th width="30">性别</th>
 							<th width="80">手机号</th>
-							<th width="120">证件号码</th>
+							
 							<th width="160">地址</th>
 							<th width="150">所在单位</th>
 							<th width="40">职称</th>
@@ -65,7 +65,7 @@
 											onclick="btn_show_layer('查看学员','project/student/student-view?id=${item.id}','10001')">${ item.name }</a></strong></td>
 								<td>${ item.sex }</td>
 								<td>${ item.mobile }</td>
-								<td>${ item.idCard }</td>
+								
 								<td>${ item.addr }</td>
 								<td>${ item.orgName }</td>
 								<td>${ item.titleStr }</td>

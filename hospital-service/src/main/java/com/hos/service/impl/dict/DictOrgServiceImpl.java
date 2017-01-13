@@ -46,6 +46,7 @@ public class DictOrgServiceImpl implements DictOrgService {
 		record.setOrgCode("");
 		record.setParentCode("");
 		record.setName("");
+		record.setShortName("");
 		record.setRemark("");
 		record.setAdminId(0L);
 		record.setAddTime(TimeStampUtil.getNowSecond());

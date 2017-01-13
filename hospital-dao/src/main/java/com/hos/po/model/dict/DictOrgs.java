@@ -10,6 +10,8 @@ public class DictOrgs {
     private Long parentId;
 
     private String name;
+    
+    private String shortName;
 
     private String remark;
 
@@ -89,5 +91,13 @@ public class DictOrgs {
 
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 }
