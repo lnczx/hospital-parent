@@ -13,7 +13,7 @@ $('.form_datetime').datetimepicker({
 	autoclose : true,
 	todayBtn : false,
 	startDate : curFormDateTime,
-	minuteStep : 1,
+	minuteStep : 5,
 	showButtonPanel : false,
 });
 
