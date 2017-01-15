@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,15 +29,15 @@ import com.hos.common.ConstantMsg;
 import com.hos.common.Constants;
 import com.hos.po.model.dict.DictOrgs;
 import com.hos.po.model.project.ProjectAttach;
-import com.hos.po.model.project.ProjectCourse;
 import com.hos.po.model.project.Projects;
 import com.hos.service.dict.DictOrgService;
 import com.hos.service.project.ProjectAttachService;
 import com.hos.service.project.ProjectService;
-import com.hos.vo.project.ProjectCourseSearchVo;
+import com.hos.vo.dict.DictOrgSearchVo;
 import com.hos.vo.project.ProjectSearchVo;
 import com.hos.vo.project.ProjectVo;
 import com.meijia.utils.BeanUtilsExp;
+import com.meijia.utils.BoyerMooreUtil;
 import com.meijia.utils.ExcelUtil;
 import com.meijia.utils.FileUtil;
 import com.meijia.utils.RandomUtil;
@@ -442,5 +444,39 @@ public class ProjectController extends BaseController {
 		
 		return null;
 	}
+	
+	
+	@RequestMapping(value = "/shortname-test", method = { RequestMethod.GET }) 
+	public String shortNameTest(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		
+		DictOrgSearchVo searchVo = new DictOrgSearchVo();
+		
+		searchVo.setIsOrg((short) 1);
+		List<DictOrgs> list = dictOrgService.selectBySearchVo(searchVo);
+		
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		
+		BoyerMooreUtil bm = new BoyerMooreUtil();
+		
+		for (DictOrgs item : list) {
+			Map<String, Object> vo = new HashMap<String, Object>();
+			vo.put("name", item.getName());
+			vo.put("shortName", item.getShortName());
+			vo.put("mc", bm.boyerMoore(item.getShortName(), item.getName()));
+			
+			result.add(vo);
+		}
+		
+		model.addAttribute("contentModel", result);
+		return "project/shortNameTest";
+	}
+	
+	@RequestMapping(value = "/shortname-match", method = RequestMethod.POST)
+	public AppResultData<Object> checkDupName(@RequestParam("matchName") String matchName) {
 
+		AppResultData<Object> result = new AppResultData<Object>(Constants.SUCCESS_0, ConstantMsg.SUCCESS_0_MSG, "");
+		DictOrgs resultData = dictOrgService.findByMatchName(matchName);
+		result.setData(resultData);
+		return result;
+	}
 }

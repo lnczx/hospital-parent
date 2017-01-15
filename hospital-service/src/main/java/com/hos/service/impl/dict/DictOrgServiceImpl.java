@@ -12,6 +12,7 @@ import com.hos.po.model.dict.DictOrgs;
 import com.hos.service.dict.DictOrgService;
 import com.hos.service.dict.DictService;
 import com.hos.vo.dict.DictOrgSearchVo;
+import com.meijia.utils.BoyerMooreUtil;
 import com.meijia.utils.TimeStampUtil;
 
 
@@ -114,6 +115,54 @@ public class DictOrgServiceImpl implements DictOrgService {
 			if (item.getOrgId().equals(orgId)) {
 				return item;
 			}
+		}
+		return null;
+	}
+	
+	/** 
+	 * 查找匹配单位
+	 * 1. 是否名称相同
+	 * 2. 是否简称相同
+	 * 3. 是否匹配全部简称。
+	 */
+	@Override
+	public DictOrgs findByMatchName(String matchName) {
+		
+		List<DictOrgs> list = dictService.LoadOrgData();
+		
+		//是否名称相同 是否简称相同
+		for(DictOrgs item : list) {
+			if (item.getName().equals(matchName)) {
+				return item;
+			}
+			
+			if (item.getShortName().equals(matchName)) {
+				return item;
+			}
+		}
+		
+		BoyerMooreUtil bm = new BoyerMooreUtil();
+		//是否匹配全部简称.
+		for(DictOrgs item : list) {
+			
+			if (item.getParentId().equals(0L)) continue;
+			
+			
+			String shortName = item.getShortName();
+			
+			String text = shortName;
+			String pattern = matchName;
+			
+			if (matchName.length() > shortName.length()) {
+				text = matchName;
+				pattern = shortName;
+			}
+			int matchCount = shortName.length();
+			int bmMatchCount = bm.boyerMoore(pattern, text);
+			if (bmMatchCount == matchCount) {
+				return item;
+			}
+			
 		}
 		return null;
 	}

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BoyerMooreUtil {
-	public void boyerMoore(String pattern, String text) {
+	public int boyerMoore(String pattern, String text) {
 		int m = pattern.length();
 		int n = text.length();
 		Map<String, Integer> bmBc = new HashMap<String, Integer>();
@@ -28,6 +28,7 @@ public class BoyerMooreUtil {
 			}
 		}
 		System.out.println("count:" + count);
+		return count;
 	}
 
 	private void preBmBc(String pattern, int patLength, Map<String, Integer> bmBc) {
@@ -93,7 +94,7 @@ public class BoyerMooreUtil {
 	
 	public static void main(String[] args)
     {
-        String text = "协和医学院继续教育学院";
+        String text = "继续教育";
         String pattern = "继续教育";
         BoyerMooreUtil bm = new BoyerMooreUtil();
         bm.boyerMoore(pattern, text);
