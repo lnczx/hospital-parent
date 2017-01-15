@@ -213,6 +213,18 @@ public class ProjectServiceImpl implements ProjectService {
 			if (!list.isEmpty()) {
 				item.set(11, "<font color='red'>修改</font>");
 			}
+			
+			//转换为正确的申办单位名称
+			String orgName = item.get(2).trim();
+
+			List<DictOrgs> orgs = dictOrgService.findByMatchName(orgName);
+			
+			if (!orgs.isEmpty() && orgs.size() == 1) {
+				DictOrgs org = orgs.get(0);
+				orgName = org.getName();
+				item.set(2, orgName);
+			}
+			
 			result.add(item);
 		}			
 		
@@ -243,9 +255,12 @@ public class ProjectServiceImpl implements ProjectService {
 				errorNum++;
 			} else {
 				String orgName = item.get(2).trim();
-				DictOrgs org = dictOrgService.findByName(orgName);
-				if (org == null) {
-					item.set(2, "<font color='red'>申办单位不存在</font>");
+//				DictOrgs org = dictOrgService.findByName(orgName);
+				
+				List<DictOrgs> orgs = dictOrgService.findByMatchName(orgName);
+				
+				if (orgs.isEmpty() || orgs.size() > 1) {
+					item.set(2, "<font color='red'>申办单位填写有误</font>");
 					errorNum++;
 				}
 			}
@@ -363,9 +378,12 @@ public class ProjectServiceImpl implements ProjectService {
 			String name = item.get(1).toString().trim();
 			String orgName = item.get(2).toString().trim();
 			
-			DictOrgs org = dictOrgService.findByName(orgName);
+			List<DictOrgs> orgs = dictOrgService.findByMatchName(orgName);
 			Long orgId = 0L;
-			if (org !=null) orgId = org.getOrgId();
+			if (!orgs.isEmpty() && orgs.size() == 1) {
+				DictOrgs org = orgs.get(0);
+				orgId = org.getOrgId();
+			}
 			
 			
 			String pHeader = item.get(3).toString().trim();
