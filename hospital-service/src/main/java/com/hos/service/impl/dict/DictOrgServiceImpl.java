@@ -149,8 +149,9 @@ public class DictOrgServiceImpl implements DictOrgService {
 		if (!resultData.isEmpty()) return resultData;
 		
 		//去掉特殊字符
-//		matchName = StringUtil.StringFilter(matchName);
-		
+		matchName = StringUtil.StringFilter(matchName);
+		//去掉空格
+		matchName = matchName.replace(" ", "");
 		BoyerMooreUtil bm = new BoyerMooreUtil();
 		
 		
@@ -199,7 +200,8 @@ public class DictOrgServiceImpl implements DictOrgService {
 		
 		//去掉特殊字符
 		matchName = StringUtil.StringFilter(matchName);
-		
+		//去掉空格
+		matchName = matchName.replace(" ", "");
 		BoyerMooreUtil bm = new BoyerMooreUtil();
 		
 		
