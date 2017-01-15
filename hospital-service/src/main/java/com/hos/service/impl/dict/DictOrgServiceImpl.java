@@ -149,7 +149,7 @@ public class DictOrgServiceImpl implements DictOrgService {
 		if (!resultData.isEmpty()) return resultData;
 		
 		//去掉特殊字符
-		matchName = StringUtil.StringFilter(matchName);
+//		matchName = StringUtil.StringFilter(matchName);
 		
 		BoyerMooreUtil bm = new BoyerMooreUtil();
 		
@@ -162,27 +162,32 @@ public class DictOrgServiceImpl implements DictOrgService {
 			
 			String shortName = item.getShortName();
 			
+			if (matchName.indexOf(shortName) >= 0) {
+				resultData.add(item);
+				continue;
+			}
+			
 			//去掉医院这两个字，属于特殊处理，干扰字段
-			shortName = shortName.replace("医院", "");
-			matchName = matchName.replace("医院", "");
-			if (shortName.equals(matchName)) {
-				resultData.add(item);
-				continue;
-			}
+//			shortName = shortName.replace("医", "");
+//			matchName = matchName.replace("医", "");
+//			if (shortName.equals(matchName)) {
+//				resultData.add(item);
+//				continue;
+//			}
 			
-			String text = shortName;
-			String pattern = matchName;
-			
-			if (matchName.length() > shortName.length()) {
-				text = matchName;
-				pattern = shortName;
-			}
-			int matchCount = shortName.length();
-			int bmMatchCount = bm.boyerMoore(pattern, text);
-			if (bmMatchCount == matchCount) {
-				resultData.add(item);
-				continue;
-			}
+//			String text = shortName;
+//			String pattern = matchName;
+//			
+//			if (matchName.length() > shortName.length()) {
+//				text = matchName;
+//				pattern = shortName;
+//			}
+//			int matchCount = shortName.length();
+//			int bmMatchCount = bm.boyerMoore(pattern, text);
+//			if (bmMatchCount == matchCount) {
+//				resultData.add(item);
+//				continue;
+//			}
 			
 		}
 		return resultData;
