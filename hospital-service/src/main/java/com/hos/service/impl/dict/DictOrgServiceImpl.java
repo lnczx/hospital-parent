@@ -165,32 +165,81 @@ public class DictOrgServiceImpl implements DictOrgService {
 			if (matchName.indexOf(shortName) >= 0) {
 				resultData.add(item);
 				continue;
-			}
-			
-			//去掉医院这两个字，属于特殊处理，干扰字段
-//			shortName = shortName.replace("医", "");
-//			matchName = matchName.replace("医", "");
-//			if (shortName.equals(matchName)) {
-//				resultData.add(item);
-//				continue;
-//			}
-			
-//			String text = shortName;
-//			String pattern = matchName;
-//			
-//			if (matchName.length() > shortName.length()) {
-//				text = matchName;
-//				pattern = shortName;
-//			}
-//			int matchCount = shortName.length();
-//			int bmMatchCount = bm.boyerMoore(pattern, text);
-//			if (bmMatchCount == matchCount) {
-//				resultData.add(item);
-//				continue;
-//			}
-			
+			}			
 		}
 		return resultData;
 	}
+	
+	/** 
+	 * 查找匹配单位
+	 * 1. 是否名称相同
+	 * 2. 是否简称相同
+	 * 3. 是否匹配全部简称。
+	 */
+	@Override
+	public List<DictOrgs> findByMatchNameLike(String matchName) {
+		
+		List<DictOrgs> list = dictService.LoadOrgData();
+		
+		List<DictOrgs> resultData = new ArrayList<DictOrgs>();
+		//是否名称相同 是否简称相同
+		for(DictOrgs item : list) {
+			if (item.getName().equals(matchName)) {
+				resultData.add(item);
+				continue;
+			}
+			
+			if (item.getShortName().equals(matchName)) {
+				resultData.add(item);
+				continue;
+			}
+		}
+		
+		if (!resultData.isEmpty()) return resultData;
+		
+		//去掉特殊字符
+		matchName = StringUtil.StringFilter(matchName);
+		
+		BoyerMooreUtil bm = new BoyerMooreUtil();
+		
+		
+		//是否匹配全部简称.
+		for(DictOrgs item : list) {
+			
+			if (item.getParentId().equals(0L)) continue;
+			
+			
+			String shortName = item.getShortName();
+			
+			if (matchName.indexOf(shortName) >= 0) {
+				resultData.add(item);
+				continue;
+			}
+			
+			//去掉医院这两个字，属于特殊处理，干扰字段
+			shortName = shortName.replace("院", "");
+			matchName = matchName.replace("院", "");
+			if (shortName.equals(matchName)) {
+				resultData.add(item);
+				continue;
+			}
+			
+			String text = shortName;
+			String pattern = matchName;
+			
+			if (matchName.length() > shortName.length()) {
+				text = matchName;
+				pattern = shortName;
+			}
+			int matchCount = shortName.length();
+			int bmMatchCount = bm.boyerMoore(pattern, text);
+			if (bmMatchCount == matchCount) {
+				resultData.add(item);
+				continue;
+			}
+			
+		}
+		return resultData;
+	}	
 
 }

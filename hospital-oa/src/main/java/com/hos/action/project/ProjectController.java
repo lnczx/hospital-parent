@@ -472,10 +472,19 @@ public class ProjectController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/shortname-match", method = RequestMethod.POST)
-	public AppResultData<Object> checkDupName(@RequestParam("matchName") String matchName) {
+	public AppResultData<Object> shortNameMatch(@RequestParam("matchName") String matchName) {
 
 		AppResultData<Object> result = new AppResultData<Object>(Constants.SUCCESS_0, ConstantMsg.SUCCESS_0_MSG, "");
 		List<DictOrgs> resultData = dictOrgService.findByMatchName(matchName);
+		result.setData(resultData);
+		return result;
+	}
+	
+	@RequestMapping(value = "/shortname-match-like", method = RequestMethod.POST)
+	public AppResultData<Object> shortNameMatchLike(@RequestParam("matchName") String matchName) {
+
+		AppResultData<Object> result = new AppResultData<Object>(Constants.SUCCESS_0, ConstantMsg.SUCCESS_0_MSG, "");
+		List<DictOrgs> resultData = dictOrgService.findByMatchNameLike(matchName);
 		result.setData(resultData);
 		return result;
 	}

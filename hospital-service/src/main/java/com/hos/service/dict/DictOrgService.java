@@ -33,4 +33,6 @@ public interface DictOrgService {
 
 	List<DictOrgs> findByMatchName(String name);
 
+	List<DictOrgs> findByMatchNameLike(String matchName);
+
 }

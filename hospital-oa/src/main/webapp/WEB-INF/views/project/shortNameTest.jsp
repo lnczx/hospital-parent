@@ -18,7 +18,12 @@
 				
 				<button type="button" class="btn btn-success radius" onClick="matchTest()">
 					<i class="Hui-iconfont">&#xe665;</i>
-					匹配测试
+					整体性匹配测试
+				</button>
+				
+				<button type="button" class="btn btn-success radius" onClick="matchTestLike()">
+					<i class="Hui-iconfont">&#xe665;</i>
+					模糊匹配测试
 				</button>
 				
 				<label id="matchResult"></label>
@@ -84,7 +89,49 @@
 							
 							var matchResultHtml = '<br>匹配结果:' + datas.length + "个.<br>";
 							$.each(datas, function(i, item) {
-								matchResultHtml+="---单位全称" + item.name + ", 单位简称: " + item.short_name + "<br>";
+								matchResultHtml+="---单位全称:" + item.name + ", 单位简称: " + item.short_name + "<br>";
+							});
+							$("#matchResult").html(matchResultHtml);
+						}
+						
+						
+					},
+					error:function(){
+						
+					}
+				});
+			}
+			
+			function matchTestLike() {
+				var matchName = $("#matchName").val();
+				if (matchName == undefined || matchName == '') {
+					alert("需要输入匹配单位名称.");
+					return false;s
+				}
+				$("#matchResult").html("");
+				var params = {};
+				params.matchName = matchName;
+				$.ajax({
+					type: 'POST',
+					url: appRootUrl +'/project/shortname-match-like.json',
+					dataType: 'json',
+					cache: false,
+					data:params,
+					success:function(result){
+						var status = result.status;
+						if (status == "999") {
+							alert(result.msg);
+							return false;
+						}
+						
+						var datas = result.data;
+						if (datas == undefined || datas == '' || datas == null) {
+							$("#matchResult").html("未找到匹配单位");
+						} else {
+							
+							var matchResultHtml = '<br>匹配结果:' + datas.length + "个.<br>";
+							$.each(datas, function(i, item) {
+								matchResultHtml+="---单位全称:" + item.name + ", 单位简称: " + item.short_name + "<br>";
 							});
 							$("#matchResult").html(matchResultHtml);
 						}
