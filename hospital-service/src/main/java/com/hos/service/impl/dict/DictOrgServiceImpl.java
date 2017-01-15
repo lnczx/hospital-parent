@@ -1,5 +1,6 @@
 package com.hos.service.impl.dict;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.hos.service.dict.DictOrgService;
 import com.hos.service.dict.DictService;
 import com.hos.vo.dict.DictOrgSearchVo;
 import com.meijia.utils.BoyerMooreUtil;
+import com.meijia.utils.StringUtil;
 import com.meijia.utils.TimeStampUtil;
 
 
@@ -126,22 +128,32 @@ public class DictOrgServiceImpl implements DictOrgService {
 	 * 3. 是否匹配全部简称。
 	 */
 	@Override
-	public DictOrgs findByMatchName(String matchName) {
+	public List<DictOrgs> findByMatchName(String matchName) {
 		
 		List<DictOrgs> list = dictService.LoadOrgData();
 		
+		List<DictOrgs> resultData = new ArrayList<DictOrgs>();
 		//是否名称相同 是否简称相同
 		for(DictOrgs item : list) {
 			if (item.getName().equals(matchName)) {
-				return item;
+				resultData.add(item);
+				continue;
 			}
 			
 			if (item.getShortName().equals(matchName)) {
-				return item;
+				resultData.add(item);
+				continue;
 			}
 		}
 		
+		if (!resultData.isEmpty()) return resultData;
+		
+		//去掉特殊字符
+		matchName = StringUtil.StringFilter(matchName);
+		
 		BoyerMooreUtil bm = new BoyerMooreUtil();
+		
+		
 		//是否匹配全部简称.
 		for(DictOrgs item : list) {
 			
@@ -149,6 +161,14 @@ public class DictOrgServiceImpl implements DictOrgService {
 			
 			
 			String shortName = item.getShortName();
+			
+			//去掉医院这两个字，属于特殊处理，干扰字段
+			shortName = shortName.replace("医院", "");
+			matchName = matchName.replace("医院", "");
+			if (shortName.equals(matchName)) {
+				resultData.add(item);
+				continue;
+			}
 			
 			String text = shortName;
 			String pattern = matchName;
@@ -160,11 +180,12 @@ public class DictOrgServiceImpl implements DictOrgService {
 			int matchCount = shortName.length();
 			int bmMatchCount = bm.boyerMoore(pattern, text);
 			if (bmMatchCount == matchCount) {
-				return item;
+				resultData.add(item);
+				continue;
 			}
 			
 		}
-		return null;
+		return resultData;
 	}
 
 }

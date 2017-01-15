@@ -31,6 +31,6 @@ public interface DictOrgService {
 
 	DictOrgs findById(Long orgId);
 
-	DictOrgs findByMatchName(String name);
+	List<DictOrgs> findByMatchName(String name);
 
 }

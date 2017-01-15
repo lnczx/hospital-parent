@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * String常用工具类.. 持续更新ing..
@@ -191,6 +192,16 @@ public class StringUtil {
 			return true;
 		}
 		return false;
+	}
+
+	public static String StringFilter(String str) throws PatternSyntaxException {
+		// 只允许字母和数字
+		// String regEx = "[^a-zA-Z0-9]";
+		// 清除掉所有特殊字符
+		String regEx = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+		Pattern p = Pattern.compile(regEx);
+		Matcher m = p.matcher(str);
+		return m.replaceAll("").trim();
 	}
 
 	public static void main(String[] args) throws UnsupportedEncodingException {

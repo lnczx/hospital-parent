@@ -475,7 +475,7 @@ public class ProjectController extends BaseController {
 	public AppResultData<Object> checkDupName(@RequestParam("matchName") String matchName) {
 
 		AppResultData<Object> result = new AppResultData<Object>(Constants.SUCCESS_0, ConstantMsg.SUCCESS_0_MSG, "");
-		DictOrgs resultData = dictOrgService.findByMatchName(matchName);
+		List<DictOrgs> resultData = dictOrgService.findByMatchName(matchName);
 		result.setData(resultData);
 		return result;
 	}

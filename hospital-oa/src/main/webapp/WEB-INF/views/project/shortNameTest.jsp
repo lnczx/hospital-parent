@@ -61,7 +61,7 @@
 					alert("需要输入匹配单位名称.");
 					return false;s
 				}
-				
+				$("#matchResult").html("");
 				var params = {};
 				params.matchName = matchName;
 				$.ajax({
@@ -77,11 +77,16 @@
 							return false;
 						}
 						
-						var data = result.data;
-						if (data == undefined || data == '' || data == null) {
+						var datas = result.data;
+						if (datas == undefined || datas == '' || datas == null) {
 							$("#matchResult").html("未找到匹配单位");
 						} else {
-							$("#matchResult").html("匹配结果：单位全称" + data.name + ", 单位简称: " + data.short_name);
+							
+							var matchResultHtml = '<br>匹配结果:' + datas.length + "个.<br>";
+							$.each(datas, function(i, item) {
+								matchResultHtml+="---单位全称" + item.name + ", 单位简称: " + item.short_name + "<br>";
+							});
+							$("#matchResult").html(matchResultHtml);
 						}
 						
 						
