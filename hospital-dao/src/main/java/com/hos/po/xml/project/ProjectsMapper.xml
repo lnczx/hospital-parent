@@ -37,7 +37,7 @@
 		<include refid="Base_Column_List" />
 		from projects
 		<include refid="bySearchVo"/>
-		order by add_time desc
+		order by p_id desc
 	</select>
 	
 	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectSearchVo">
@@ -45,7 +45,7 @@
 		<include refid="Base_Column_List" />
 		from projects
 		<include refid="bySearchVo"/>
-		order by add_time desc
+		order by p_id desc
 	</select>
 	
 	<sql id="bySearchVo">
