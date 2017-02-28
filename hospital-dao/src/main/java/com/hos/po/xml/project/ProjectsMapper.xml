@@ -45,7 +45,7 @@
 		<include refid="Base_Column_List" />
 		from projects
 		<include refid="bySearchVo"/>
-		order by p_id desc
+		order by p_no , num_term asc
 	</select>
 	
 	<sql id="bySearchVo">

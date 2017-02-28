@@ -40,6 +40,8 @@
 					<div class="formControls col-xs-8 col-xs-offset-3">
 						<input name="" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
 						<input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+
+						<a href="http://jjxmglxt.pumc.edu.cn/app/login.do" target="_blank" class="btn btn-warning radius size-L">升级前页面</a>
 					</div>
 				</div>
 			</form:form>
