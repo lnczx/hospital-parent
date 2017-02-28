@@ -86,11 +86,11 @@
 										
 										
 										<c:if test="${item.briefingFilePath != '' }">
-											<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')" class="btn btn-primary-outline size-S radius">会议通知</a>
+											<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')" class="btn btn-primary-outline size-S radius">查看会议通知</a>
 										</c:if>
 										
 										<c:if test="${item.briefingFilePath == '' }">
-											<a href="javascript:;" onclick="alert('提示：项目管理员还未上传本项目的会议通知。')" class="btn btn-primary-outline size-S radius">会议通知</a>&nbsp; 
+											<a href="javascript:;" onclick="alert('提示：项目管理员还未上传本项目的会议通知。')" class="btn btn-primary-outline size-S radius">查看会议通知</a>&nbsp; 
 										</c:if>
 										
 									</c:if>
