@@ -13,7 +13,7 @@
 	<div class="page-container">
 		<div class="text-l">
 			您好，欢迎使用协和医学院继续教育项目管理系统。<br><br>
-			<strong> 常用导入模板文件下载：</strong><a href="/hospital-oa/attach/项目导入Excel模板.xls"><font color="red">《项目导入Excel模板》</font></a> | <a href="/hospital-oa/attach/会议日程导入Excel模板.xls"><font color="red">《会议日程导入Excel模板》</font></a> | <a href="/hospital-oa/attach/学员导入Excel模板.xls"><font color="red">《学员导入Excel模板》</font></a>
+			<strong> 常用导入模板文件下载：</strong><a href="/hospital-oa/attach/项目导入Excel模板.xls" target="_blank"><font color="red">《项目导入Excel模板》</font></a> | <a href="/hospital-oa/attach/会议日程导入Excel模板.xls" target="_blank"><font color="red">《会议日程导入Excel模板》</font></a> | <a href="/hospital-oa/attach/学员导入Excel模板.xls" target="_blank"><font color="red">《学员导入Excel模板》</font></a>
 			
 		</div>
 		<br>
@@ -22,7 +22,7 @@
 			<p>
 				<strong>系统使用帮助</strong>
 			</p>
-			<p><a href="/hospital-oa/attach/help.pptx">1.项目管理员操作手册</a></p>
+			<p><a href="/hospital-oa/attach/help.pptx" target="_blank">1.项目管理员操作手册</a></p>
 <!-- 			<p>2.会议日程导入Excel文件填写规范说明</p>
 			<p>3.学员导入Excel文件填写规范说明</p> -->
 			<br>

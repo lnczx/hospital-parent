@@ -16,7 +16,7 @@
 				<ol>
 					<li>
 						1.第一次使用时，请点击下载：
-						<a href="/hospital-oa/attach/学员导入Excel模板.xls"><font color="#FF0000">《学员导入Excel模板》</font></a>文件，并逐条填写。
+						<a href="/hospital-oa/attach/学员导入Excel模板.xls" target="_blank"><font color="#FF0000">《学员导入Excel模板》</font></a>文件，并逐条填写。
 						<br>
 						2.在《学员导入Excel模板》文件中填写信息时，请注意内容和格式的规范性，详情可点击：<a href="/hospital-oa/home/help">
 						<font color="#FF0000">《导入Excel文件填写说明》</font></a>查看。
