@@ -22,9 +22,9 @@
 			<p>
 				<strong>系统使用帮助</strong>
 			</p>
-			<p>1.项目管理员操作手册</p>
-			<p>2.会议日程导入Excel文件填写规范说明</p>
-			<p>3.学员导入Excel文件填写规范说明</p>
+			<p><a href="/hospital-oa/attach/help.pptx">1.项目管理员操作手册</a></p>
+<!-- 			<p>2.会议日程导入Excel文件填写规范说明</p>
+			<p>3.学员导入Excel文件填写规范说明</p> -->
 			<br>
 		</div>
 	</div>
