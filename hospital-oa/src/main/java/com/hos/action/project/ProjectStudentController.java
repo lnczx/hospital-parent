@@ -442,7 +442,7 @@ public class ProjectStudentController extends BaseController {
 		}
 		
 		String fileName = project.getName() + "-学员列表.xls";
-		excel.downloadExcel(response, fileName);
+		excel.downloadExcel(request, response, fileName);
 		
 		return null;
 	}

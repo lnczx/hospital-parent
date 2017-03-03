@@ -421,7 +421,7 @@ public class ProjectCourseController extends BaseController {
 		}
 		
 		String fileName = project.getName() + "-会议日程.xls";
-		excel.downloadExcel(response, fileName);
+		excel.downloadExcel(request, response, fileName);
 		
 		return null;
 	}

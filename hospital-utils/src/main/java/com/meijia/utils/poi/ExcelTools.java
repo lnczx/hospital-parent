@@ -3,6 +3,7 @@ package com.meijia.utils.poi;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -55,7 +56,7 @@ public abstract class ExcelTools {
 	 * @param filaName
 	 * @throws IOException
 	 */
-	public abstract void downloadExcel(HttpServletResponse response, String filaName) throws IOException;
+	public abstract void downloadExcel(HttpServletRequest request, HttpServletResponse response, String filaName) throws IOException;
 
 	
 	public XSSFWorkbook getXssWb() {

@@ -6,13 +6,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -74,7 +77,7 @@ public class HssExcelTools extends ExcelTools{
 	}
 
 	@Override
-	public void downloadExcel(HttpServletResponse response, String filaName) throws IOException {
+	public void downloadExcel(HttpServletRequest request, HttpServletResponse response, String fileName) throws IOException {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		this.getHssWb().write(os);
 		byte[] content = os.toByteArray();
@@ -82,11 +85,21 @@ public class HssExcelTools extends ExcelTools{
 		// 设置response参数，可以打开下载页面
 		response.reset();
 		response.setContentType("application/vnd.ms-excel;charset=utf-8");
-		response.setHeader("Content-Disposition", "attachment;filename=" + new String((filaName).getBytes(), "iso-8859-1"));
+		
 		ServletOutputStream out = response.getOutputStream();
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
 		try {
+			final String userAgent = request.getHeader("USER-AGENT");
+			if (StringUtils.contains(userAgent, "MSIE")) {// IE浏览器
+				fileName = URLEncoder.encode(fileName, "UTF8");
+			} else if (StringUtils.contains(userAgent, "Mozilla")) {// google,火狐浏览器
+				fileName = new String(fileName.getBytes(), "ISO8859-1");
+			}
+			
+			
+			response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+			
 			bis = new BufferedInputStream(is);
 			bos = new BufferedOutputStream(out);
 			byte[] buff = new byte[2048];
@@ -94,6 +107,8 @@ public class HssExcelTools extends ExcelTools{
 			while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
 				bos.write(buff, 0, bytesRead);
 			}
+		} catch (UnsupportedEncodingException e) {  
+	        e.printStackTrace();  	
 		} catch (final IOException e) {
 			throw e;
 		} finally {
