@@ -8,8 +8,8 @@ $(function(){
 	    "sAutoWidth": false,
 	    "bDestroy":true,
 	    "sPaginationType": "bootstrap", // full_numbers
-	    "iDisplayStart ": 10,
-	    "iDisplayLength": 10,
+	    "iDisplayStart ": 50,
+	    "iDisplayLength": 50,
 	    "bPaginate": false, //hide pagination
 	    "bFilter": false, //hide Search bar
 	    "bInfo": false, // hide showing entries

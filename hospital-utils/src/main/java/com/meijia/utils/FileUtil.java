@@ -9,9 +9,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
 
 public class FileUtil {
 
@@ -159,38 +164,50 @@ public class FileUtil {
 		}
 	}
 	
-	public static void fileDownload(HttpServletResponse response, String fileName, String filePath){
-		
-        //获取网站部署路径(通过ServletContext对象)，用于确定下载文件位置，从而实现下载  
-        //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型  
-        response.setContentType("multipart/form-data");  
-        //2.设置文件头：最后一个参数是设置下载文件名(假如我们叫a.pdf)  
-        response.setHeader("Content-Disposition", "attachment;fileName="+fileName);  
-        ServletOutputStream out;  
-        //通过文件路径获得File对象(假如此路径中有一个download.pdf文件)  
-        File file = new File(filePath + fileName);  
-  
-        try {  
-            FileInputStream inputStream = new FileInputStream(file);  
-  
-            //3.通过response获取ServletOutputStream对象(out)  
-            out = response.getOutputStream();  
-  
-            int b = 0;  
-            byte[] buffer = new byte[512];  
-            while (b != -1){  
-                b = inputStream.read(buffer);  
-                //4.写到输出流(out)中  
-                out.write(buffer,0,b);  
-            }  
-            inputStream.close();  
-            out.close();  
-            out.flush();  
-  
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }  
-    }  
+	public static void fileDownload(HttpServletRequest request, HttpServletResponse response, String fileName, String filePath) {
+
+		// 获取网站部署路径(通过ServletContext对象)，用于确定下载文件位置，从而实现下载
+		// 1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
+		response.setContentType("multipart/form-data");
+		// 2.设置文件头：最后一个参数是设置下载文件名(假如我们叫a.pdf)
+
+		final String userAgent = request.getHeader("USER-AGENT");
+
+		ServletOutputStream out;
+		// 通过文件路径获得File对象(假如此路径中有一个download.pdf文件)
+
+		try {
+			File file = new File(filePath + fileName);
+			if (StringUtils.contains(userAgent, "MSIE")) {// IE浏览器
+				fileName = URLEncoder.encode(fileName, "UTF8");
+			} else if (StringUtils.contains(userAgent, "Mozilla")) {// google,火狐浏览器
+				fileName = new String(fileName.getBytes(), "ISO8859-1");
+			}
+
+			response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
+
+			FileInputStream inputStream = new FileInputStream(file);
+
+			// 3.通过response获取ServletOutputStream对象(out)
+			out = response.getOutputStream();
+
+			int b = 0;
+			byte[] buffer = new byte[512];
+			while (b != -1) {
+				b = inputStream.read(buffer);
+				// 4.写到输出流(out)中
+				out.write(buffer, 0, b);
+			}
+			inputStream.close();
+			out.close();
+			out.flush();
+
+		} catch (UnsupportedEncodingException e) {  
+	        e.printStackTrace();  
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) throws Exception {
 

@@ -29,6 +29,7 @@
 				</span>
 				<form:input path="name" class="input-text" style="width: 250px" placeholder="输入项目名称" />
 				<form:input path="pNo" class="input-text" style="width: 250px" placeholder="输入项目编号" />
+				<input type="hidden" name="linkType" value="${linkType }"/>
 				<button type="submit" class="btn btn-success radius" id="" name="">
 					<i class="Hui-iconfont">&#xe665;</i>
 					搜索

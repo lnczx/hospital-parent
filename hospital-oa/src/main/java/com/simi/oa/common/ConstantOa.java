@@ -10,7 +10,7 @@ public class ConstantOa {
 	/**
 	 * 默认的分页显示数量
 	 */
-	public static final int DEFAULT_PAGE_SIZE=10;
+	public static final int DEFAULT_PAGE_SIZE=50;
 
 	public static final String PAGE_NO_NAME="pageNo";
 

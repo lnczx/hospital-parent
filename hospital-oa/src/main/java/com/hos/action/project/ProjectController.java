@@ -438,7 +438,8 @@ public class ProjectController extends BaseController {
 			ProjectAttach item = list.get(0);
 			String fileName = item.getFileName();
 			String filePath = Constants.IMPORT_PATH;
-			FileUtil.fileDownload(response, fileName, filePath);
+			
+			FileUtil.fileDownload(request, response, fileName, filePath);
 		}
 		
 		
