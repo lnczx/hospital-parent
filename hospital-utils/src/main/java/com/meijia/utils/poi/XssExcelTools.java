@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFFooter;
@@ -114,7 +115,7 @@ public class XssExcelTools extends ExcelTools {
 	}
 	
 	@Override
-	public void downloadExcel(HttpServletResponse response, String filaName) throws IOException {
+	public void downloadExcel(HttpServletRequest request, HttpServletResponse response, String filaName) throws IOException {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		this.getXssWb().write(os);
 		byte[] content = os.toByteArray();
