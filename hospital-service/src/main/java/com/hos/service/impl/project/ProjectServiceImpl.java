@@ -169,7 +169,7 @@ public class ProjectServiceImpl implements ProjectService {
 		projectStudentSearchVo.setpId(item.getpId());
 		PageInfo pageInfo = projectStudentService.selectByListPage(projectStudentSearchVo, 1, 10);		
 		List<ProjectStudent> projectStudents = pageInfo.getList();
-		if (projectStudents.isEmpty()) {
+		if (!projectStudents.isEmpty()) {
 			vo.setHasStudent(true);
 		}
 		
