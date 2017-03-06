@@ -178,11 +178,7 @@ public class FileUtil {
 
 		try {
 			File file = new File(filePath + fileName);
-			if (StringUtils.contains(userAgent, "MSIE")) {// IE浏览器
-				fileName = URLEncoder.encode(fileName, "UTF8");
-			} else if (StringUtils.contains(userAgent, "Mozilla")) {// google,火狐浏览器
-				fileName = new String(fileName.getBytes(), "ISO8859-1");
-			}
+			fileName = encodeChineseDownloadFileName(request, fileName);
 
 			response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
 
@@ -208,6 +204,26 @@ public class FileUtil {
 			e.printStackTrace();
 		}
 	}
+	
+	public static String encodeChineseDownloadFileName(  
+            HttpServletRequest request, String pFileName) throws UnsupportedEncodingException {  
+          
+         String filename = null;    
+            String agent = request.getHeader("USER-AGENT");    
+            if (null != agent){    
+                if (-1 != agent.indexOf("Firefox")) {//Firefox    
+                    filename = "=?UTF-8?B?" + (new String(org.apache.commons.codec.binary.Base64.encodeBase64(pFileName.getBytes("UTF-8"))))+ "?=";    
+                }else if (-1 != agent.indexOf("Chrome")) {//Chrome    
+                    filename = new String(pFileName.getBytes(), "ISO8859-1");    
+                } else {//IE7+    
+                    filename = java.net.URLEncoder.encode(pFileName, "UTF-8");    
+                    filename = StringUtils.replace(filename, "+", "%20");//替换空格    
+                }    
+            } else {    
+                filename = pFileName;    
+            }    
+            return filename;   
+    }  
 
 	public static void main(String[] args) throws Exception {
 
