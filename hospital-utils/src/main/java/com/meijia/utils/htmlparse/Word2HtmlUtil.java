@@ -120,6 +120,7 @@ public class Word2HtmlUtil {
 		
 			//设置图片存放的位置
 			word2HtmlConverter.setPicturesManager(new PicturesManager() {
+				@Override
 				public String savePicture(byte[] content, PictureType pictureType, 
 					String suggestedName, float widthInches, float heightInches) {
 					File htmlFile = new File(htmlPath);

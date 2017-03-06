@@ -12,6 +12,12 @@ public class ProjectVo extends Projects {
 	private String endDate;
 	
 	private String briefingFilePath;
+	
+	private Boolean hasCourse;
+	
+	private Boolean hasAttach;
+	
+	private Boolean hasStudent;
 
 	public String getDateRange() {
 		return dateRange;
@@ -43,6 +49,30 @@ public class ProjectVo extends Projects {
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+
+	public Boolean getHasCourse() {
+		return hasCourse;
+	}
+
+	public void setHasCourse(Boolean hasCourse) {
+		this.hasCourse = hasCourse;
+	}
+
+	public Boolean getHasAttach() {
+		return hasAttach;
+	}
+
+	public void setHasAttach(Boolean hasAttach) {
+		this.hasAttach = hasAttach;
+	}
+
+	public Boolean getHasStudent() {
+		return hasStudent;
+	}
+
+	public void setHasStudent(Boolean hasStudent) {
+		this.hasStudent = hasStudent;
 	}
 	
 }

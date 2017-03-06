@@ -17,7 +17,7 @@
 				<form:hidden path="pId" />
 				<form:input path="content" class="input-text" style="width: 250px" placeholder="输入课程名称" />
 				<form:input path="teacher" class="input-text" style="width: 250px" placeholder="输入教师名称" />
-				<button type="button" class="btn btn-success radius" onclick="searchSubmit()">
+				<button type="button" class="btn btn-primary radius" onclick="searchSubmit()">
 					<i class="Hui-iconfont">&#xe665;</i>
 					搜索
 				</button>

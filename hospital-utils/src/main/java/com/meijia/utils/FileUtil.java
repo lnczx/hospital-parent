@@ -10,54 +10,53 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
 
 public class FileUtil {
 
 	/**
 	 * 获取文件内容
-	 * @param file 文件对象
-	 * @param encoding 编码格式，UTF-8
+	 * 
+	 * @param file
+	 *            文件对象
+	 * @param encoding
+	 *            编码格式，UTF-8
 	 * @return
 	 */
 	@SuppressWarnings("finally")
 	public static String getFileContent(File file, String encoding) {
 		String content = "";
 		BufferedReader reader = null;
-		
+
 		try {
-			InputStreamReader read = new InputStreamReader(new FileInputStream(file),"UTF-8"); 
-			reader = new BufferedReader( read );
+			InputStreamReader read = new InputStreamReader(new FileInputStream(file), "UTF-8");
+			reader = new BufferedReader(read);
 			String tempString = null;
-			
-			//读取简历内容
-			while ( (tempString = reader.readLine()) != null ) {
+
+			// 读取简历内容
+			while ((tempString = reader.readLine()) != null) {
 				content += tempString;
 			}
-			
+
 			return content;
 		} catch (IOException e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 			return content;
 		} finally {
 			if (null != reader) {
-				try{
+				try {
 					reader.close();
 				} catch (IOException e) {
-//					System.out.println(e.getMessage());
+					// System.out.println(e.getMessage());
 					return content;
 				}
 			}
 			return content;
 		}// end finally
-	}	
-	
+	}
+
 	public static byte[] getBytes(String filePath) throws IOException {
 		FileInputStream in = new FileInputStream(filePath);
 
@@ -163,7 +162,7 @@ public class FileUtil {
 			}
 		}
 	}
-	
+
 	public static void fileDownload(HttpServletRequest request, HttpServletResponse response, String fileName, String filePath) {
 
 		// 获取网站部署路径(通过ServletContext对象)，用于确定下载文件位置，从而实现下载
@@ -178,7 +177,7 @@ public class FileUtil {
 
 		try {
 			File file = new File(filePath + fileName);
-			fileName = encodeChineseDownloadFileName(request, fileName);
+			fileName = processFileName(request, fileName);
 
 			response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
 
@@ -198,32 +197,39 @@ public class FileUtil {
 			out.close();
 			out.flush();
 
-		} catch (UnsupportedEncodingException e) {  
-	        e.printStackTrace();  
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static String encodeChineseDownloadFileName(  
-            HttpServletRequest request, String pFileName) throws UnsupportedEncodingException {  
-          
-         String filename = null;    
-            String agent = request.getHeader("USER-AGENT");    
-            if (null != agent){    
-                if (-1 != agent.indexOf("Firefox")) {//Firefox    
-                    filename = "=?UTF-8?B?" + (new String(org.apache.commons.codec.binary.Base64.encodeBase64(pFileName.getBytes("UTF-8"))))+ "?=";    
-                }else if (-1 != agent.indexOf("Chrome")) {//Chrome    
-                    filename = new String(pFileName.getBytes(), "ISO8859-1");    
-                } else {//IE7+    
-                    filename = java.net.URLEncoder.encode(pFileName, "UTF-8");    
-                    filename = StringUtils.replace(filename, "+", "%20");//替换空格    
-                }    
-            } else {    
-                filename = pFileName;    
-            }    
-            return filename;   
-    }  
+
+	/**
+	 * 
+	 * @Title: processFileName
+	 * 
+	 * @Description: ie,chrom,firfox下处理文件名显示乱码
+	 */
+	public static String processFileName(HttpServletRequest request, String fileNames) {
+		String codedfilename = null;
+		try {
+			String agent = request.getHeader("USER-AGENT");
+			if (null != agent && -1 != agent.indexOf("MSIE") || 
+				null != agent && -1 != agent.indexOf("Trident") ||
+						null != agent && -1 != agent.indexOf("Edge")) {// ie
+
+				String name = java.net.URLEncoder.encode(fileNames, "UTF8");
+
+				codedfilename = name;
+			} else if (null != agent && -1 != agent.indexOf("Mozilla")) {// 火狐,chrome等
+
+				codedfilename = new String(fileNames.getBytes("UTF-8"), "iso-8859-1");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return codedfilename;
+	}
 
 	public static void main(String[] args) throws Exception {
 

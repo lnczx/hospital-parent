@@ -3,7 +3,6 @@ package com.meijia.utils;
 import java.io.IOException;
 import java.util.*;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonGenerationException;

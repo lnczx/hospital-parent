@@ -23,7 +23,6 @@ import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -351,10 +350,10 @@ public class ExcelUtil {
 			HSSFRow sourceRow = null;
 			HSSFRow targetRow = null;
 
-			sourceRow = (HSSFRow) sheet.getRow(startRow);
-			targetRow = (HSSFRow) sheet.createRow(++startRow);
+			sourceRow = sheet.getRow(startRow);
+			targetRow = sheet.createRow(++startRow);
 
-			Util.copyRow((HSSFSheet) sheet, sourceRow, targetRow);
+			Util.copyRow(sheet, sourceRow, targetRow);
 		}
 
 	}
@@ -395,21 +394,21 @@ public class ExcelUtil {
 		int srcCellType = srcCell.getCellType();
 		distCell.setCellType(srcCellType);
 		if (copyValueFlag) {
-			if (srcCellType == HSSFCell.CELL_TYPE_NUMERIC) {
-				if (HSSFDateUtil.isCellDateFormatted(srcCell)) {
+			if (srcCellType == Cell.CELL_TYPE_NUMERIC) {
+				if (DateUtil.isCellDateFormatted(srcCell)) {
 					distCell.setCellValue(srcCell.getDateCellValue());
 				} else {
 					distCell.setCellValue(srcCell.getNumericCellValue());
 				}
-			} else if (srcCellType == HSSFCell.CELL_TYPE_STRING) {
+			} else if (srcCellType == Cell.CELL_TYPE_STRING) {
 				distCell.setCellValue(srcCell.getRichStringCellValue());
-			} else if (srcCellType == HSSFCell.CELL_TYPE_BLANK) {
+			} else if (srcCellType == Cell.CELL_TYPE_BLANK) {
 				// nothing21
-			} else if (srcCellType == HSSFCell.CELL_TYPE_BOOLEAN) {
+			} else if (srcCellType == Cell.CELL_TYPE_BOOLEAN) {
 				distCell.setCellValue(srcCell.getBooleanCellValue());
-			} else if (srcCellType == HSSFCell.CELL_TYPE_ERROR) {
+			} else if (srcCellType == Cell.CELL_TYPE_ERROR) {
 				distCell.setCellErrorValue(srcCell.getErrorCellValue());
-			} else if (srcCellType == HSSFCell.CELL_TYPE_FORMULA) {
+			} else if (srcCellType == Cell.CELL_TYPE_FORMULA) {
 				distCell.setCellFormula(srcCell.getCellFormula());
 			} else { // nothing29
 			}

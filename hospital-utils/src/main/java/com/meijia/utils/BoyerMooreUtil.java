@@ -36,7 +36,7 @@ public class BoyerMooreUtil {
 		{
 			for (int i = patLength - 2; i >= 0; i--)
 				if (!bmBc.containsKey(String.valueOf(pattern.charAt(i)))) {
-					bmBc.put(String.valueOf(pattern.charAt(i)), (Integer) (patLength - i - 1));
+					bmBc.put(String.valueOf(pattern.charAt(i)), patLength - i - 1);
 				}
 		}
 	}

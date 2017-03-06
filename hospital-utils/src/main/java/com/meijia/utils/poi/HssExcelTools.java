@@ -7,26 +7,21 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFFooter;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HeaderFooter;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Footer;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import com.meijia.utils.FileUtil;
 
 
@@ -61,12 +56,12 @@ public class HssExcelTools extends ExcelTools{
 
     public static HSSFCellStyle getContentStyle (HSSFWorkbook workbook) {  
         HSSFCellStyle contentStyle = workbook.createCellStyle(); //设置内容行格式  
-        contentStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);    
-        contentStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中     
-        contentStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);    
-        contentStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);    
-        contentStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);    
-        contentStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);   
+        contentStyle.setAlignment(CellStyle.ALIGN_CENTER);    
+        contentStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//上下居中     
+        contentStyle.setBorderTop(CellStyle.BORDER_THIN);    
+        contentStyle.setBorderBottom(CellStyle.BORDER_THIN);    
+        contentStyle.setBorderLeft(CellStyle.BORDER_THIN);    
+        contentStyle.setBorderRight(CellStyle.BORDER_THIN);   
         HSSFDataFormat df = workbook.createDataFormat();  //此处设置数据格式  
         contentStyle.setDataFormat(df.getFormat("#,#0")); //数据格式只显示整数，如果是小数点后保留两位，可以写contentStyle.setDataFormat(df.getFormat("#,#0.00"));  
         return contentStyle;  
@@ -75,7 +70,7 @@ public class HssExcelTools extends ExcelTools{
 	@Override
 	public void createFooter() {
 		Footer footer = hssSheet.getFooter();
-		footer.setRight("第" + HSSFFooter.page() + "页，共" + HSSFFooter.numPages() + "页");
+		footer.setRight("第" + HeaderFooter.page() + "页，共" + HeaderFooter.numPages() + "页");
 	}
 
 	@Override
@@ -93,7 +88,7 @@ public class HssExcelTools extends ExcelTools{
 		BufferedOutputStream bos = null;
 		try {
 			
-			fileName = FileUtil.encodeChineseDownloadFileName(request, fileName);
+			fileName = FileUtil.processFileName(request, fileName);
 			
 			
 			response.setHeader("Content-Disposition", "attachment;filename=" + fileName);

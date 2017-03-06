@@ -14,13 +14,16 @@ import com.hos.common.Constants;
 import com.hos.po.dao.project.ProjectsMapper;
 import com.hos.po.model.dict.DictOrgs;
 import com.hos.po.model.project.ProjectAttach;
+import com.hos.po.model.project.ProjectStudent;
 import com.hos.po.model.project.Projects;
 import com.hos.service.dict.DictOrgService;
 import com.hos.service.dict.DictService;
 import com.hos.service.project.ProjectAttachService;
 import com.hos.service.project.ProjectCourseService;
 import com.hos.service.project.ProjectService;
+import com.hos.service.project.ProjectStudentService;
 import com.hos.vo.project.ProjectSearchVo;
+import com.hos.vo.project.ProjectStudentSearchVo;
 import com.hos.vo.project.ProjectVo;
 import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.DateUtil;
@@ -28,6 +31,7 @@ import com.meijia.utils.RegexUtil;
 import com.meijia.utils.StringUtil;
 import com.meijia.utils.TimeStampUtil;
 import com.simi.vo.AppResultData;
+
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -46,6 +50,9 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Autowired
 	private DictOrgService dictOrgService;
+	
+	@Autowired
+	private ProjectStudentService projectStudentService;
 	
 	
 	@Override
@@ -113,6 +120,10 @@ public class ProjectServiceImpl implements ProjectService {
 		ProjectVo vo = new ProjectVo();
 		BeanUtilsExp.copyPropertiesIgnoreNull(item, vo);
 		
+		vo.setHasCourse(false);
+		vo.setHasAttach(false);
+		vo.setHasStudent(false);
+		
 		String dateRange = "";
 		//得到起止时间.
 		String startDate = "";
@@ -127,6 +138,7 @@ public class ProjectServiceImpl implements ProjectService {
 			if ( dataRanges.get("maxDate") != null) {
 				endDate = dataRanges.get("maxDate");
 			}
+			vo.setHasCourse(true);
 		}
 		
 		if (StringUtil.isEmpty(startDate) ) startDate = item.getpYear() + "-01-01";
@@ -147,8 +159,20 @@ public class ProjectServiceImpl implements ProjectService {
 		if (!list.isEmpty()) {
 			ProjectAttach pa = list.get(0);
 			briefingFilePath = pa.getFileName();
+			vo.setHasAttach(true);
 		}
 		vo.setBriefingFilePath(briefingFilePath);
+		
+		
+		//是否有学生
+		ProjectStudentSearchVo projectStudentSearchVo = new ProjectStudentSearchVo();
+		projectStudentSearchVo.setpId(item.getpId());
+		PageInfo pageInfo = projectStudentService.selectByListPage(projectStudentSearchVo, 1, 10);		
+		List<ProjectStudent> projectStudents = pageInfo.getList();
+		if (projectStudents.isEmpty()) {
+			vo.setHasStudent(true);
+		}
+		
 		return vo;
 	}
 	

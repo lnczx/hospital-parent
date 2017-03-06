@@ -1,7 +1,5 @@
 package com.hos.vo.project;
 
-import java.util.Date;
-
 public class ProjectCourseSearchVo {
 	private Long pId;
 		

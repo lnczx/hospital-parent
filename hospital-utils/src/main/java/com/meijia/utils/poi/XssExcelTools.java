@@ -5,11 +5,8 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
@@ -17,12 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFFooter;
+import org.apache.poi.hssf.usermodel.HeaderFooter;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Footer;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
@@ -57,12 +55,12 @@ public class XssExcelTools extends ExcelTools {
 
     public static XSSFCellStyle getContentStyle (XSSFWorkbook workbook) {  
         XSSFCellStyle contentStyle = workbook.createCellStyle(); //设置内容行格式  
-        contentStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);    
-        contentStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//上下居中     
-        contentStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);    
-        contentStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);    
-        contentStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);    
-        contentStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);   
+        contentStyle.setAlignment(CellStyle.ALIGN_CENTER);    
+        contentStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//上下居中     
+        contentStyle.setBorderTop(CellStyle.BORDER_THIN);    
+        contentStyle.setBorderBottom(CellStyle.BORDER_THIN);    
+        contentStyle.setBorderLeft(CellStyle.BORDER_THIN);    
+        contentStyle.setBorderRight(CellStyle.BORDER_THIN);   
         XSSFDataFormat df = workbook.createDataFormat();  //此处设置数据格式  
         contentStyle.setDataFormat(df.getFormat("#,#0")); //数据格式只显示整数，如果是小数点后保留两位，可以写contentStyle.setDataFormat(df.getFormat("#,#0.00"));  
         return contentStyle;  
@@ -71,9 +69,10 @@ public class XssExcelTools extends ExcelTools {
 	/**
 	 * 设置页脚 
 	 */
+	@Override
 	public void createFooter(){
 		Footer footer = xssSheet.getFooter();
-		footer.setRight("第" + HSSFFooter.page() + "页，共" + HSSFFooter.numPages() + "页");
+		footer.setRight("第" + HeaderFooter.page() + "页，共" + HeaderFooter.numPages() + "页");
 	}
 	
 	/**
@@ -82,6 +81,7 @@ public class XssExcelTools extends ExcelTools {
 	 * @param startRow
 	 * @param rows
 	 */
+	@Override
 	public void insertRows(int startRow, int rows){
         int bottomRow = xssSheet.getLastRowNum();
 		if(startRow > bottomRow){
@@ -98,6 +98,7 @@ public class XssExcelTools extends ExcelTools {
 	 * 替换模板中变量
 	 * @param map
 	 */
+	@Override
 	public void replaceExcelData(Map<String, String> map){
 		int rowNum = xssSheet.getLastRowNum();
 		for(int i = 0;i <= rowNum; i++){

@@ -37,10 +37,12 @@ public class ProjectStudentVo extends ProjectStudent {
 		this.degreeName = degreeName;
 	}
 
+	@Override
 	public String getCityName() {
 		return cityName;
 	}
 
+	@Override
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
 	}

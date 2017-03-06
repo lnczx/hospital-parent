@@ -16,7 +16,7 @@
 				<form:hidden path="pId" />
 				<form:input path="name" class="input-text" style="width: 250px" placeholder="输入学员姓名" />
 				<form:input path="mobile" class="input-text" style="width: 250px" placeholder="输入学员手机号" />
-				<button type="button" class="btn btn-success radius" onclick="searchSubmit()">
+				<button type="button" class="btn btn-primary radius" onclick="searchSubmit()">
 					<i class="Hui-iconfont">&#xe665;</i>
 					搜索
 				</button>

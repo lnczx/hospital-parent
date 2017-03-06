@@ -1,7 +1,5 @@
 package com.hos.po.model.project;
 
-import java.util.Date;
-
 public class ProjectCourse {
 	
     private Long courseId;

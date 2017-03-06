@@ -1,9 +1,7 @@
 package com.meijia.utils;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -124,7 +122,8 @@ public class GsonUtil {
 	        return null;  
 	    }  
 	    Map<String, Object> sortedMap = new TreeMap<String, Object>(new Comparator<String>() {  
-	        public int compare(String key1, String key2) {  
+	        @Override
+			public int compare(String key1, String key2) {  
 	            int intKey1 = 0, intKey2 = 0;  
 	            try {  
 	                intKey1 = getInt(key1);  
