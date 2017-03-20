@@ -151,10 +151,10 @@ public class ProjectStudentController extends BaseController {
 			if (titleObj != null) formData.setTitleStr(titleObj.getName());
 		}
 		
-		Long cityId = formData.getCityId();
-		if (cityId != null && cityId > 0L) {
-			Dicts cityObj = dictService.findById(cityId, Constants.DICT_AREA);
-			if (cityObj != null) formData.setCityName(cityObj.getName());
+		Long eduId = formData.getEduId();
+		if (eduId != null && eduId > 0L) {
+			Dicts eduObject = dictService.findById(eduId, Constants.DICT_EDU);
+			if (eduObject != null) formData.setEduName(eduObject.getName());
 		}
 		
 		
@@ -290,7 +290,7 @@ public class ProjectStudentController extends BaseController {
 		
 		for (int i = 0; i < dupList.size(); i++) {
 			List<String> item = (List<String>) dupList.get(i);
-			String status = item.get(9).toString();
+			String status = item.get(7).toString();
 			if (status.indexOf("新增") >= 0) totalNews++;
 			if (status.indexOf("修改") >= 0) totalUpdate++;
 		}
@@ -398,7 +398,7 @@ public class ProjectStudentController extends BaseController {
 			
 			HSSFRow rowData = sh.createRow(rowNum);
 			
-			for(int j = 0; j <= 7; j++) {
+			for(int j = 0; j <= 6; j++) {
 				rowData.createCell(j);
 				HSSFCell c = rowData.getCell(j);
 				c.setCellType(Cell.CELL_TYPE_STRING);
@@ -407,33 +407,22 @@ public class ProjectStudentController extends BaseController {
 			//姓名
 			this.setCellValueForString(rowData, 0, item.getName());
 			
-			//性别
-			this.setCellValueForString(rowData, 1, item.getSex());
+			//职称
+			this.setCellValueForString(rowData, 1, item.getTitleStr());
 			
-			//所在省市
-			String cityName = item.getCityName();
-			if (StringUtil.isEmpty(cityName)) {
-				Long cityId = item.getCityId();
-				Dicts dictObj = dictService.findById(cityId, Constants.DICT_AREA);
-				if (dictObj != null) cityName = dictObj.getName();
-			}
+			//职务
+			this.setCellValueForString(rowData, 2, item.getDutyName());
 			
-			this.setCellValueForString(rowData, 2, cityName);
+			//学历
+			this.setCellValueForString(rowData, 3, item.getEduName());
 			
 			//所在单位
-			this.setCellValueForString(rowData, 3, item.getOrgName());
+			this.setCellValueForString(rowData, 4, item.getOrgName());
 			
-			//职称
-			this.setCellValueForString(rowData, 4, item.getTitleStr());
-			
-			//通讯地址
-			this.setCellValueForString(rowData, 5, item.getAddr());
 			
 			//手机号
-			this.setCellValueForString(rowData, 6, item.getMobile());
+			this.setCellValueForString(rowData, 5, item.getMobile());
 			
-			//电子邮箱
-			this.setCellValueForString(rowData, 7, item.getEmail());
 			
 			rowNum++;
 		}

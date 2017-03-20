@@ -36,7 +36,7 @@
 					<tbody>
 						<c:forEach items="${tableDatas}" var="item">
 						<tr>
-							<td>${item[8]}</td>
+							<td>${item[6]}</td>
 							<td>${item[0]}</td>
 							<td>${item[1]}</td>
 							<td>${item[2]}</td>
