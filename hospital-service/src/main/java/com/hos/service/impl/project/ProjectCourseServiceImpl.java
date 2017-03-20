@@ -315,21 +315,21 @@ public class ProjectCourseServiceImpl implements ProjectCourseService {
 			return error;
 		}
 
-		if (!datas.get(0).equals("日期(必填)"))
+		if (datas.get(0).indexOf("日期") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(1).equals("开始时间(必填)"))
+		if (datas.get(1).indexOf("开始时间") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(2).equals("结束时间(必填)"))
+		if (datas.get(2).indexOf("结束时间") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(3).equals("内容(必填)"))
+		if (datas.get(3).indexOf("内容") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(4).equals("教师(必填)"))
+		if (datas.get(4).indexOf("教师") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(5).equals("职称(必填)"))
+		if (datas.get(5).indexOf("职称") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(6).equals("单位(必填)"))
+		if (datas.get(6).indexOf("单位") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(7).equals("类型(必填)"))
+		if (datas.get(7).indexOf("类型") < 0)
 			tableHeaderFalg = false;
 //		if (!datas.get(8).equals("学分(必填)"))
 //			tableHeaderFalg = false;

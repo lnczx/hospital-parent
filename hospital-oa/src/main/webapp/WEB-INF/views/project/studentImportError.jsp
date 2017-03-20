@@ -25,13 +25,12 @@
 						<tr class="text-c">
 							<th width="50">Excel中行数</th>
 							<th width="30">姓名</th>
-							<th width="30">性别</th>
-							<th width="80">所在省市</th>
-							<th width="120">所在单位</th>
 							<th width="30">职称</th>
-							<th width="120">通讯地址</th>
-							<th width="60">手机号</th>
-							<th width="80">邮箱</th>
+							<th width="30">职务</th>
+							<th width="30">学历</th>
+							<th width="120">所在单位</th>
+							<th width="60">联系电话</th>
+
 						</tr>
 					</thead>
 					<tbody>
@@ -44,8 +43,6 @@
 							<td>${item[3]}</td>
 							<td>${item[4]}</td>
 							<td>${item[5]}</td>
-							<td>${item[6]}</td>
-							<td>${item[7]}</td>
 						</tr>
 						</c:forEach>
 					</tbody>

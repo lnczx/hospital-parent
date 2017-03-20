@@ -18,7 +18,9 @@
 		<result column="title_id" property="titleId" jdbcType="NUMERIC" />
 		<result column="title_str" property="titleStr" jdbcType="VARCHAR" />
 		<result column="duty_name" property="dutyName" jdbcType="VARCHAR" />
+		<result column="degree_name" property="degreeName" jdbcType="VARCHAR" />
 		<result column="degree_id" property="degreeId" jdbcType="NUMERIC" />
+		<result column="edu_name" property="eduName" jdbcType="VARCHAR" />
 		<result column="edu_id" property="eduId" jdbcType="NUMERIC" />
 		<result column="addr" property="addr" jdbcType="VARCHAR" />
 		<result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
@@ -28,7 +30,7 @@
 	</resultMap>
 	<sql id="Base_Column_List">
 		stu_id, name, mobile, sex, nation_id, birth_date, id_type, id_card, email, city_id, city_name,
-		org_id, org_name, title_id, title_str, duty_name, degree_id, edu_id, addr, zip_code,
+		org_id, org_name, title_id, title_str, duty_name, degree_name, degree_id, edu_id, addr, zip_code,
 		admin_id, add_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -86,16 +88,16 @@
 		birth_date, id_type, id_card,
 		email, city_id, city_name,
 		org_id, org_name, title_id,
-		title_str, duty_name, degree_id,
-		edu_id, addr, zip_code,
+		title_str, duty_name, degree_name, degree_id,
+		edu_name, edu_id, addr, zip_code,
 		admin_id, add_time, update_time
 		)
 		values (#{name,jdbcType=VARCHAR}, #{mobile,jdbcType=CHAR}, #{sex,jdbcType=VARCHAR}, #{nationId,jdbcType=NUMERIC}, 
 		#{birthDate,jdbcType=VARCHAR}, #{idType,jdbcType=NUMERIC}, #{idCard,jdbcType=VARCHAR},
 		#{email,jdbcType=VARCHAR}, #{cityId,jdbcType=NUMERIC}, #{cityName,jdbcType=VARCHAR},
 		#{orgId,jdbcType=NUMERIC}, #{orgName,jdbcType=VARCHAR}, #{titleId,jdbcType=NUMERIC},
-		#{titleStr,jdbcType=VARCHAR}, #{dutyName,jdbcType=VARCHAR}, #{degreeId,jdbcType=NUMERIC},
-		#{eduId,jdbcType=NUMERIC}, #{addr,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR},
+		#{titleStr,jdbcType=VARCHAR}, #{dutyName,jdbcType=VARCHAR}, #{degreeName,jdbcType=VARCHAR}, #{degreeId,jdbcType=NUMERIC},
+		#{eduName,jdbcType=VARCHAR}, #{eduId,jdbcType=NUMERIC}, #{addr,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR},
 		#{adminId,jdbcType=INTEGER}, #{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC}
 		)
 	</insert>
@@ -150,8 +152,14 @@
 			<if test="dutyName != null">
 				duty_name,
 			</if>
+			<if test="degreeName != null">
+				degree_name,
+			</if>
 			<if test="degreeId != null">
 				degree_id,
+			</if>
+			<if test="eduName != null">
+				edu_id,
 			</if>
 			<if test="eduId != null">
 				edu_id,
@@ -218,8 +226,14 @@
 			<if test="dutyName != null">
 				#{dutyName,jdbcType=VARCHAR},
 			</if>
+			<if test="degreeName != null">
+				#{degreeName,jdbcType=VARCHAR},
+			</if>
 			<if test="degreeId != null">
 				#{degreeId,jdbcType=NUMERIC},
+			</if>
+			<if test="eduName != null">
+				#{eduName,jdbcType=VARCHAR},
 			</if>
 			<if test="eduId != null">
 				#{eduId,jdbcType=NUMERIC},
@@ -289,8 +303,14 @@
 			<if test="dutyName != null">
 				duty_name = #{dutyName,jdbcType=VARCHAR},
 			</if>
+			<if test="degreeName != null">
+				degree_name = #{degreeName,jdbcType=VARCHAR},
+			</if>
 			<if test="degreeId != null">
 				degree_id = #{degreeId,jdbcType=NUMERIC},
+			</if>
+			<if test="eduName != null">
+				edu_name = #{eduName,jdbcType=VARCHAR},
 			</if>
 			<if test="eduId != null">
 				edu_id = #{eduId,jdbcType=NUMERIC},
@@ -330,7 +350,9 @@
 		title_id = #{titleId,jdbcType=NUMERIC},
 		title_str = #{titleStr,jdbcType=VARCHAR},
 		duty_name = #{dutyName,jdbcType=VARCHAR},
+		degree_name = #{degreeName,jdbcType=VARCHAR},
 		degree_id = #{degreeId,jdbcType=NUMERIC},
+		edu_name = #{eduName,jdbcType=VARCHAR},
 		edu_id = #{eduId,jdbcType=NUMERIC},
 		addr = #{addr,jdbcType=VARCHAR},
 		zip_code = #{zipCode,jdbcType=VARCHAR},

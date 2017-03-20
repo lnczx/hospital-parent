@@ -32,8 +32,12 @@ public class Students {
     private String titleStr;
 
     private String dutyName;
+    
+    private String degreeName;
 
     private Long degreeId;
+    
+    private String eduName;
 
     private Long eduId;
 
@@ -229,5 +233,21 @@ public class Students {
 
 	public void setDegreeId(Long degreeId) {
 		this.degreeId = degreeId;
+	}
+
+	public String getDegreeName() {
+		return degreeName;
+	}
+
+	public void setDegreeName(String degreeName) {
+		this.degreeName = degreeName;
+	}
+
+	public String getEduName() {
+		return eduName;
+	}
+
+	public void setEduName(String eduName) {
+		this.eduName = eduName;
 	}
 }

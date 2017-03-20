@@ -80,6 +80,7 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 		record.setCityId(0L);
 		record.setCityName("");
 		record.setDutyName("");
+		record.setDegreeName("");
 		record.setDegreeId(0L);
 		record.setEduId(0L);
 		record.setAddr("");		
@@ -196,7 +197,7 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 			item.add(8, String.valueOf(i + 1));
 			item.add(9, "<font color='green'>新增</font>");
 			String name = item.get(0).trim();
-			String mobile = item.get(6).trim();
+			String mobile = item.get(5).trim();
 			ProjectStudentSearchVo searchVo = new ProjectStudentSearchVo();
 			searchVo.setpId(pId);
 			searchVo.setName(name);
@@ -229,55 +230,34 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 			
 			String sex = item.get(1).trim();
 			if (StringUtil.isEmpty(sex)) {
-				item.set(1, "<font color='red'>性别为必填项</font>");
+				item.set(1, "<font color='red'>职称为必填项</font>");
 				errorNum++;
-			} else { 
-				if (!sex.equals("男") && !sex.equals("女")) {
-					item.set(1, "<font color='red'>性别填写有误</font>");
-					errorNum++;
-				}
-			}
+			} 
 			
 			if (StringUtil.isEmpty(item.get(2).trim())) {
-				item.set(2, "<font color='red'>所在省市为必填项</font>");
+				item.set(2, "<font color='red'>职务为必填项</font>");
 				errorNum++;
 			}
 			
 			if (StringUtil.isEmpty(item.get(3).trim())) {
-				item.set(3, "<font color='red'>所在单位为必填项</font>");
+				item.set(3, "<font color='red'>学历为必填项</font>");
 				errorNum++;
 			}
 			
 			if (StringUtil.isEmpty(item.get(4).trim())) {
-				item.set(4, "<font color='red'>职称为必填项</font>");
+				item.set(4, "<font color='red'>单位为必填项</font>");
 				errorNum++;
 			}
 			
-//			String cityName = item.get(2).trim();
-//			if (!StringUtil.isEmpty(cityName)) {
-//				Dicts dict = dictService.findCityByName(cityName);
-//				if (dict == null) {
-//					item.set(2, "<font color='red'>所在城市不存在</font>");
-//					errorNum++;
-//				}
-//			}
+
 			
-//			String orgName = item.get(3).trim();
-//			if (!StringUtil.isEmpty(orgName)) {
-//			DictOrgs org = dictOrgService.findByName(orgName);
-//				if (org == null) {
-//					item.set(3, "<font color='red'>所在单位不存在</font>");
-//					errorNum++;
-//				}
-//			}
-			
-			if (StringUtil.isEmpty(item.get(6).trim())) {
-				item.set(6, "<font color='red'>手机号为必填项</font>");
+			if (StringUtil.isEmpty(item.get(5).trim())) {
+				item.set(5, "<font color='red'>联系电话为必填项</font>");
 				errorNum++;
 			} else {
-				String mobile = item.get(6).trim();
+				String mobile = item.get(5).trim();
 				if (!RegexUtil.isMobile(mobile)) {
-					item.set(6, "<font color='red'>手机号格式不正确</font>");
+					item.set(5, "<font color='red'>手机号格式不正确</font>");
 					errorNum++;
 				}
 			}
@@ -297,31 +277,26 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 
 		Boolean tableHeaderFalg = true;
 
-		if (datas.isEmpty() || datas.size() < 8 ) {
+		if (datas.isEmpty() || datas.size() < 6 ) {
 			tableHeaderFalg = false;
 			// System.out.println("表格表头不对，请按照模板的格式填写.");
 			error = "表格表头不对，请按照模板的格式填写.";
 			return error;
 		}
 
-		if (!datas.get(0).equals("姓名(必填)"))
+		if (datas.get(0).indexOf("姓名") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(1).equals("性别(必填)"))
+		if (datas.get(1).indexOf("职称") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(2).equals("所在省市(必填)"))
+		if (datas.get(2).indexOf("职务") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(3).equals("所在单位(必填)"))
+		if (datas.get(3).indexOf("学历") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(4).equals("职称(必填)"))
+		if (datas.get(4).indexOf("单位") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(5).equals("通讯地址"))
+		if (datas.get(5).indexOf("联系电话") < 0)
 			tableHeaderFalg = false;
-		if (!datas.get(6).equals("手机号(必填)"))
-			tableHeaderFalg = false;
-		if (!datas.get(7).equals("电子邮箱"))
-			tableHeaderFalg = false;
-
-
+		
 		if (!tableHeaderFalg) {
 			System.out.println("表格表头不对，请按照模板的格式填写.");
 			error = "表格表头不对，请按照模板的格式填写.";
@@ -340,25 +315,24 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 			List<String> item = (List<String>) datas.get(i);
 			
 			String name = item.get(0).trim();
-			String sex = item.get(1).trim();
-			String cityName = item.get(2).trim();
-			Long cityId = 0L;
-			Dicts dictCity = dictService.findByName(cityName, Constants.DICT_AREA);
-			if (dictCity != null) cityId = dictCity.getId();
-			
-			String orgName = item.get(3).trim();
-			DictOrgs org = dictOrgService.findByName(orgName);
-			Long orgId = 0L;
-			if (org != null) orgId = org.getOrgId();
-			
-			String titleStr = item.get(4).trim();
+			String titleStr = item.get(1).trim();
 			Long titleId = 0L;
 			Dicts dictTitle = dictService.findByName(titleStr, Constants.DICT_TITLE);
 			if (dictTitle != null) titleId = dictTitle.getId();
 			
-			String addr = item.get(5).trim();
-			String mobile = item.get(6).trim();			
-			String email = item.get(7).trim();
+			String dutyName = item.get(2).trim();
+			
+			String eduStr = item.get(3).trim();
+			Long eduId = 0L;
+			Dicts dictEdu = dictService.findByName(eduStr, Constants.DICT_EDU);
+			if (dictEdu != null) eduId = dictEdu.getId();
+			
+			String orgName = item.get(4).trim();
+			DictOrgs org = dictOrgService.findByName(orgName);
+			Long orgId = 0L;
+			if (org != null) orgId = org.getOrgId();
+
+			String mobile = item.get(5).trim();			
 
 			ProjectStudentSearchVo searchVo = new ProjectStudentSearchVo();
 			searchVo.setName(name);
@@ -373,16 +347,14 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 			}
 
 			student.setName(name);
-			student.setSex(sex);
-			student.setCityId(cityId);
-			student.setCityName(cityName);
-			student.setOrgId(orgId);
-			student.setOrgName(orgName);
 			student.setTitleId(titleId);
 			student.setTitleStr(titleStr);
-			student.setAddr(addr);
+			student.setDutyName(dutyName);
+			student.setEduName(eduStr);
+			student.setEduId(eduId);
+			student.setOrgId(orgId);
+			student.setOrgName(orgName);
 			student.setMobile(mobile);
-			student.setEmail(email);
 			student.setAdminId(adminId);
 			if (student.getStuId().equals(0L)) {
 				studentService.insertSelective(student);
@@ -408,16 +380,15 @@ public class ProjectStudentServiceImpl implements ProjectStudentService {
 			record.setpId(pId);
 			record.setStuId(stuId);
 			record.setName(name);
-			record.setSex(sex);
-			record.setCityId(cityId);
-			record.setCityName(cityName);
-			record.setOrgId(orgId);
-			record.setOrgName(orgName);
 			record.setTitleId(titleId);
 			record.setTitleStr(titleStr);
-			record.setAddr(addr);
+			record.setDutyName(dutyName);
+			record.setEduName(eduStr);
+			record.setEduId(eduId);
+			
+			record.setOrgId(orgId);
+			record.setOrgName(orgName);
 			record.setMobile(mobile);
-			record.setEmail(email);
 			record.setFileName(fileName);
 			if (record.getId().equals(0L)) {
 				this.insertSelective(record);

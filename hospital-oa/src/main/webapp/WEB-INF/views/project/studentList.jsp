@@ -48,12 +48,12 @@
 						<tr class="text-c">
 							<th width="35">学员ID</th>
 							<th width="55">姓名</th>
-							<th width="30">性别</th>
-							<th width="80">手机号</th>
-							
-							<th width="160">地址</th>
-							<th width="150">所在单位</th>
+							<th width="80">联系方式</th>
 							<th width="40">职称</th>
+							<th width="40">职务</th>
+							<th width="40">学历</th>
+							<th width="150">单位</th>
+							
 							<th width="120">操作</th>
 						</tr>
 					</thead>
@@ -63,12 +63,13 @@
 								<td>${ item.stuId }</td>
 								<td><strong><a href="javascript:;"
 											onclick="btn_show_layer('查看学员','project/student/student-view?id=${item.id}','10001')">${ item.name }</a></strong></td>
-								<td>${ item.sex }</td>
-								<td>${ item.mobile }</td>
 								
-								<td>${ item.addr }</td>
-								<td>${ item.orgName }</td>
+								<td>${ item.mobile }</td>
 								<td>${ item.titleStr }</td>
+								<td>${ item.dutyName }</td>
+								<td>${ item.eduName }</td>
+								<td>${ item.orgName }</td>
+								
 								<td class="td-manage"><c:if test="${accountAuth.accountRole.id != 2}">
 										<a href="javascript:;" onclick="btn_add('project/student/student-form?pId=${pId}&id=${item.id }')"
 											class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 

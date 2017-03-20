@@ -21,76 +21,34 @@
 				${formData.name }
 			</div>
 			
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>手机号：</label>
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>联系方式：</label>
 			<div class="formControls col-xs-4 col-sm-4">
-				
 				${formData.mobile }
 			</div>
 			
 		</div>
+		
+		
 		<div class="row cl">
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>证件类型：</label>
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>职称：</label>
 			<div class="formControls col-xs-4 col-sm-4">
-				${formData.idTypeName }
+				${formData.titleName }
 			</div>
 		
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>证件号码：</label>
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>职务：</label>
 			<div class="formControls col-xs-4 col-sm-4">
-				${formData.idCard }
+				${formData.dutyName }
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>性别：</label>
-			<div class="formControls col-xs-4 col-sm-4 skin-minimal">
-				${formData.sex }
-			</div>
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>出生日期：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				${formData.birthDate }
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>最高学历：</label>
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>学历：</label>
 			<div class="formControls col-xs-4 col-sm-4">
 				${formData.eduName }
 			</div>
 		
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>最高学位：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				${formData.degreeName }
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>所在省市：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				${formData.cityName }
-			</div>
-		
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>所在单位：</label>
+			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>单位：</label>
 			<div class="formControls col-xs-4 col-sm-4">
 				${formData.orgName }
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>职称：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				${formData.titleStr }
-			</div>
-		
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>通讯地址：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				${formData.addr }
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>民族：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				<selectNationTag:select selectedId="${formData.nationId }"  />
-			</div>
-		
-			<label class="form-label col-xs-2 col-sm-2"><span class="c-red"></span>电子邮箱：</label>
-			<div class="formControls col-xs-4 col-sm-4">
-				${formData.email }
 			</div>
 		</div>
 

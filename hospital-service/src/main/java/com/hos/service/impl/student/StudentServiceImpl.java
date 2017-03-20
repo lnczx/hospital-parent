@@ -59,6 +59,7 @@ public class StudentServiceImpl implements StudentService {
 		record.setCityId(0L);
 		record.setCityName("");
 		record.setDutyName("");
+		record.setDegreeName("");
 		record.setDegreeId(0L);
 		record.setEduId(0L);
 		record.setAddr("");		
