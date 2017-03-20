@@ -26,20 +26,42 @@
 			<span class="l">
 				<c:if test="${accountAuth.accountRole.id != 2}">
 					<a href="javascript:;" onclick="btn_add('project/student/student-form?pId=${pId}&id=0')"
+						<c:if test="${project.statusStudent != 1 }">
 						class="btn btn-primary radius">
-						<i class="Hui-iconfont">&#xe600;</i>
-						逐条添加学员
-					</a>
+						</c:if>
+						<c:if test="${project.statusStudent == 1 }">
+						class="btn disabled radius">
+						</c:if>
+						<i class="Hui-iconfont">&#xe600;</i> 逐条添加学员</a>
 					<a href="javascript:;" onclick="btn_add('project/student/student-import?pId=${pId}')"
+						<c:if test="${project.statusStudent != 1 }">
 						class="btn btn-secondary radius">
-						<i class="Hui-iconfont">&#xe645;</i>
-						批量导入
-					</a>
+						</c:if>
+						<c:if test="${project.statusStudent == 1 }">
+						class="btn disabled radius">
+						</c:if>
+						<i class="Hui-iconfont">&#xe645;</i> 批量导入</a>
 				</c:if>
 				<a href="javascript:;" onclick="exportStudent()" class="btn btn-success radius">
 					<i class="Hui-iconfont">&#xe644;</i>
 					导出Excel
 				</a>
+				<c:if test="${accountAuth.accountRole.id != 2 && project.statusStudent != 1}">
+					<a href="#" onclick="btn_push('确定要提交项目学员吗?', ${pId}, 'statusStudent', 1)" class="btn btn-danger radius">
+						<i class="Hui-iconfont">&#xe645;</i>
+						提交
+					</a>
+				</c:if>
+				<c:if test="${accountAuth.accountRole.id == 2 && project.statusStudent == 1}">
+					<a href="#" onclick="btn_push('确定要退回项目学员吗?', ${pId}, 'statusCstatusStudentourse', 2)" class="btn btn-danger radius">
+						<i class="Hui-iconfont">&#xe645;</i>
+						退回
+					</a>
+				</c:if>
+			</span>
+			<span class="r">
+				<small>说明：下方按钮为绿色时表示已提交，红色表示退回，蓝色表示有数据但未提交，灰色表示提交后不能操作。</small>
+			</span>
 		</div>
 		<div class="mt-20">
 			<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
@@ -53,8 +75,9 @@
 							<th width="40">职务</th>
 							<th width="40">学历</th>
 							<th width="150">单位</th>
-							
-							<th width="120">操作</th>
+							<c:if test="${accountAuth.accountRole.id != 2 && project.statusStudent != 1}">
+								<th width="120">操作</th>
+							</c:if>
 						</tr>
 					</thead>
 					<tbody>
@@ -63,20 +86,18 @@
 								<td>${ item.stuId }</td>
 								<td><strong><a href="javascript:;"
 											onclick="btn_show_layer('查看学员','project/student/student-view?id=${item.id}','10001')">${ item.name }</a></strong></td>
-								
 								<td>${ item.mobile }</td>
 								<td>${ item.titleStr }</td>
 								<td>${ item.dutyName }</td>
 								<td>${ item.eduName }</td>
 								<td>${ item.orgName }</td>
-								
-								<td class="td-manage"><c:if test="${accountAuth.accountRole.id != 2}">
-										<a href="javascript:;" onclick="btn_add('project/student/student-form?pId=${pId}&id=${item.id }')"
-											class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
-									
-									<a href="javascript:;" onclick="btn_del('project/student/student-del?pId=${pId}&id=${item.id }')"
-											class="btn btn-primary-outline size-S radius">删除</a> &nbsp; 
-									</c:if></td>
+								<c:if test="${accountAuth.accountRole.id != 2 && project.statusStudent != 1 }">
+									<td class="td-manage"><a href="javascript:;"
+											onclick="btn_add('project/student/student-form?pId=${pId}&id=${item.id }')"
+											class="btn btn-primary-outline size-S radius">修改</a> &nbsp; <a href="javascript:;"
+											onclick="btn_del('project/student/student-del?pId=${pId}&id=${item.id }')"
+											class="btn btn-primary-outline size-S radius">删除</a> &nbsp;</td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</tbody>

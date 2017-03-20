@@ -45,6 +45,39 @@ function btn_del(path) {
     location.href = appRootUrl + path;
 }
 
+function btn_push(confirmMsg, pId, statusType, status) {
+	if (confirm(confirmMsg)) {
+		var params = {};
+		params.pId = pId;
+		params.statusType = statusType;
+		params.status = status;
+		$.ajax({
+			type: 'POST',
+			url: appRootUrl +'/project/project-status-push',
+			dataType: 'json',
+			async : false,
+			cache: false,
+			data:params,
+			success:function(result){
+				var status = result.status;
+				if (status == "999") {
+					alert(result.msg);
+					return false;
+				}
+				
+				alert("操作成功");
+				location.replace(location.href);
+			},
+			error:function(){
+				
+			}
+		});
+		
+		
+		location.replace(location.href);
+	}
+}
+
 
 //菜单点击展开
 function setSubMenuId(menuId) {

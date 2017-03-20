@@ -417,6 +417,12 @@ public class ProjectController extends BaseController {
 			projectAttachService.updateByPrimaryKeySelective(record);
 		} else {
 			projectAttachService.insertSelective(record);
+			
+			//设定为project status_attach = 1
+			Projects project = projectService.selectByPrimaryKey(pId);
+			project.setStatusAttach(Constants.STATUS_1);
+			project.setUpdateTime(TimeStampUtil.getNowSecond());
+			projectService.updateByPrimaryKeySelective(project);
 		}
 		
 		
@@ -487,6 +493,46 @@ public class ProjectController extends BaseController {
 		AppResultData<Object> result = new AppResultData<Object>(Constants.SUCCESS_0, ConstantMsg.SUCCESS_0_MSG, "");
 		List<DictOrgs> resultData = dictOrgService.findByMatchNameLike(matchName);
 		result.setData(resultData);
+		return result;
+	}
+	
+	@RequestMapping(value = "/project-status-push", method = RequestMethod.POST)
+	public AppResultData<Object> projectStatusPush(
+			@RequestParam("pId") Long pId,
+			@RequestParam("statusType") String statusType, 
+			@RequestParam("status") Short status
+			) {
+		
+		AppResultData<Object> result = new AppResultData<Object>(Constants.SUCCESS_0, ConstantMsg.SUCCESS_0_MSG, "");
+		
+		ProjectSearchVo searchVo = new ProjectSearchVo();
+		
+		searchVo.setpId(pId);
+		
+		List<Projects> list = projectService.selectBySearchVo(searchVo);
+		
+		if (list.isEmpty()) {
+			result.setStatus(Constants.ERROR_999);
+			result.setMsg("项目重复，请检查项目编号和期数是否已经录入过.");
+		}
+		
+		Projects project = list.get(0);
+		
+		if (statusType.equals("statusAttach")) {
+			project.setStatusAttach(status);
+		}
+		
+		if (statusType.equals("statusCourse")) {
+			project.setStatusCourse(status);
+		}
+		
+		if (statusType.equals("statusStudent")) {
+			project.setStatusStudent(status);
+		}
+		
+		project.setUpdateTime(TimeStampUtil.getNowSecond());
+		projectService.updateByPrimaryKeySelective(project);
+		
 		return result;
 	}
 }

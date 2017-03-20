@@ -12,6 +12,8 @@ public class ProjectCourseSearchVo {
 	private String content;
 	
 	private String teacher;
+	
+	private Short statusCourse;
 
 	public Long getpId() {
 		return pId;
@@ -59,6 +61,14 @@ public class ProjectCourseSearchVo {
 
 	public void setTeacher(String teacher) {
 		this.teacher = teacher;
+	}
+
+	public Short getStatusCourse() {
+		return statusCourse;
+	}
+
+	public void setStatusCourse(Short statusCourse) {
+		this.statusCourse = statusCourse;
 	}
 	
 }

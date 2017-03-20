@@ -27,20 +27,43 @@
 			<span class="l">
 				<c:if test="${accountAuth.accountRole.id != 2}">
 					<a href="javascript:;" onclick="btn_add('project/course/course-form?pId=${pId}&courseId=0')"
+						<c:if test="${project.statusCourse != 1 }">
 						class="btn btn-primary radius">
-						<i class="Hui-iconfont">&#xe600;</i>
-						逐条添加课程
-					</a>
+						</c:if>
+						<c:if test="${project.statusCourse == 1 }">
+						class="btn disabled radius">
+						</c:if>
+						<i class="Hui-iconfont">&#xe600;</i> 逐条添加课程</a>
 					<a href="javascript:;" onclick="btn_add('project/course/course-import?pId=${pId}')"
+
+						<c:if test="${project.statusCourse != 1 }">
 						class="btn btn-secondary radius">
-						<i class="Hui-iconfont">&#xe645;</i>
-						批量导入
-					</a>
+						</c:if>
+						<c:if test="${project.statusCourse == 1 }">
+						class="btn disabled radius">
+						</c:if>
+						<i class="Hui-iconfont">&#xe645;</i>批量导入</a>
 				</c:if>
 				<a href="javascript:;" onclick="exportCourse()" class="btn btn-success radius">
 					<i class="Hui-iconfont">&#xe644;</i>
 					导出Excel
 				</a>
+				<c:if test="${accountAuth.accountRole.id != 2 && project.statusCourse != 1}">
+					<a href="#" onclick="btn_push('确定要提交会议日程吗?', ${pId}, 'statusCourse', 1)" class="btn btn-danger radius">
+						<i class="Hui-iconfont">&#xe645;</i>
+						提交
+					</a>
+				</c:if>
+				<c:if test="${accountAuth.accountRole.id == 2 && project.statusCourse == 1}">
+					<a href="#" onclick="btn_push('确定要退回会议日程吗?', ${pId}, 'statusCourse', 2)" class="btn btn-danger radius">
+						<i class="Hui-iconfont">&#xe645;</i>
+						退回
+					</a>
+				</c:if>
+			</span>
+			<span class="r">
+				<small>说明：下方按钮为绿色时表示已提交，红色表示退回，蓝色表示有数据但未提交，灰色表示提交后不能操作。</small>
+			</span>
 		</div>
 		<div class="mt-20">
 			<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
@@ -55,8 +78,10 @@
 							<th width="40">教师</th>
 							<th width="30">职称</th>
 							<th width="150">单位</th>
-							<th width="30">类型</th>
-							<th width="120">操作</th>
+							<th width="40">类型</th>
+							<c:if test="${accountAuth.accountRole.id != 2 && project.statusCourse != 1}">
+								<th width="110">操作</th>
+							</c:if>
 						</tr>
 					</thead>
 					<tbody>
@@ -71,13 +96,13 @@
 								<td>${ item.titleStr }</td>
 								<td>${ item.orgName }</td>
 								<td>${ item.courseType }</td>
-								<td class="td-manage"><c:if test="${accountAuth.accountRole.id != 2}">
-										<a href="javascript:;" onclick="btn_add('project/course/course-form?pId=${pId}&courseId=${item.courseId }')"
-											class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
-									
-									<a href="javascript:;" onclick="btn_del('project/course/course-del?pId=${pId}&courseId=${item.courseId }')"
-											class="btn btn-primary-outline size-S radius">删除</a> &nbsp; 
-									</c:if></td>
+								<c:if test="${accountAuth.accountRole.id != 2 && project.statusCourse != 1 }">
+									<td class="td-manage"><a href="javascript:;"
+											onclick="btn_add('project/course/course-form?pId=${pId}&courseId=${item.courseId }')"
+											class="btn btn-primary-outline size-S radius">修改</a> &nbsp; <a href="javascript:;"
+											onclick="btn_del('project/course/course-del?pId=${pId}&courseId=${item.courseId }')"
+											class="btn btn-primary-outline size-S radius">删除</a> &nbsp;</td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</tbody>

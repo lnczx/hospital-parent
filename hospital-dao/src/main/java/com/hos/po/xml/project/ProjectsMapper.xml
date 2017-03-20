@@ -15,6 +15,9 @@
 		<result column="num_recruit" property="numRecruit" jdbcType="INTEGER" />
 		<result column="num_term" property="numTerm" jdbcType="SMALLINT" />
 		<result column="status" property="status" jdbcType="SMALLINT" />
+		<result column="status_attach" property="statusAttach" jdbcType="NUMERIC" />
+		<result column="status_course" property="statusCourse" jdbcType="NUMERIC" />
+		<result column="status_student" property="statusStudent" jdbcType="NUMERIC" />
 		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
 		<result column="file_name" property="fileName" jdbcType="VARCHAR" />
 		<result column="admin_id" property="adminId" jdbcType="NUMERIC" />
@@ -23,7 +26,7 @@
 	</resultMap>
 	<sql id="Base_Column_List">
 		p_id, p_year, p_no, name, org_id, org_name, p_header, p_header_tel, addr, credit,
-		num_recruit, num_term, status, remarks, file_name, admin_id, add_time, update_time
+		num_recruit, num_term, status, status_attach, status_course, status_student, remarks, file_name, admin_id, add_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
@@ -86,12 +89,13 @@
 		insert into projects (p_year, p_no, name,
 		org_id, org_name, p_header,
 		p_header_tel, addr, credit,
-		num_recruit, num_term, status, remarks, file_name, admin_id,
+		num_recruit, num_term, status, status_attach, status_course, status_student, remarks, file_name, admin_id,
 		add_time, update_time)
 		values (#{pYear,jdbcType=NUMERIC}, #{pNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
 		#{orgId,jdbcType=NUMERIC}, #{orgName,jdbcType=VARCHAR}, #{pHeader,jdbcType=VARCHAR},
 		#{pHeaderTel,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{credit,jdbcType=SMALLINT},
 		#{numRecruit,jdbcType=INTEGER}, #{numTerm,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT},
+		#{statusAttach,jdbcType=NUMERIC}, #{statusCourse,jdbcType=NUMERIC}, #{statusStudent,jdbcType=NUMERIC},
 		#{remarks,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{adminId,jdbcType=NUMERIC},
 		#{addTime,jdbcType=NUMERIC}, #{updateTime,jdbcType=NUMERIC})
 	</insert>
@@ -136,6 +140,15 @@
 			</if>
 			<if test="status != null">
 				status,
+			</if>
+			<if test="statusAttach != null">
+				status_attach,
+			</if>
+			<if test="statusCourse != null">
+				status_course,
+			</if>
+			<if test="statusStudent != null">
+				statusStudent,
 			</if>
 			<if test="remarks != null">
 				remarks,
@@ -189,6 +202,15 @@
 			</if>
 			<if test="status != null">
 				#{status,jdbcType=SMALLINT},
+			</if>
+			<if test="statusAttach != null">
+				#{statusAttach,jdbcType=NUMERIC},
+			</if>
+			<if test="statusCourse != null">
+				#{statusCourse,jdbcType=NUMERIC},
+			</if>
+			<if test="statusStudent != null">
+				#{statusStudent,jdbcType=NUMERIC},
 			</if>
 			<if test="remarks != null">
 				#{remarks,jdbcType=VARCHAR},
@@ -246,6 +268,15 @@
 			<if test="status != null">
 				status = #{status,jdbcType=SMALLINT},
 			</if>
+			<if test="statusAttach != null">
+				status_attach = #{statusAttach,jdbcType=NUMERIC},
+			</if>
+			<if test="statusCourse != null">
+				status_course = #{statusCourse,jdbcType=NUMERIC},
+			</if>
+			<if test="statusStudent != null">
+				status_student = #{statusStudent,jdbcType=NUMERIC},
+			</if>
 			<if test="remarks != null">
 				remarks = #{remarks,jdbcType=VARCHAR},
 			</if>
@@ -278,6 +309,9 @@
 		num_recruit = #{numRecruit,jdbcType=INTEGER},
 		num_term = #{numTerm,jdbcType=SMALLINT},
 		status = #{status,jdbcType=SMALLINT},
+		status_attach = #{statusAttach,jdbcType=NUMERIC},
+		status_course = #{statusCourse,jdbcType=NUMERIC},
+		status_student = #{statusStudent,jdbcType=NUMERIC},
 		remarks = #{remarks,jdbcType=VARCHAR},
 		file_name = #{fileName,jdbcType=VARCHAR},
 		admin_id = #{adminId,jdbcType=NUMERIC},

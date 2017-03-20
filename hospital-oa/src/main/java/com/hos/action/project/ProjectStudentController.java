@@ -32,6 +32,7 @@ import com.hos.common.ConstantMsg;
 import com.hos.common.Constants;
 import com.hos.po.model.dict.DictOrgs;
 import com.hos.po.model.dict.Dicts;
+import com.hos.po.model.project.ProjectCourse;
 import com.hos.po.model.project.ProjectStudent;
 import com.hos.po.model.project.Projects;
 import com.hos.po.model.student.Students;
@@ -50,6 +51,7 @@ import com.meijia.utils.TimeStampUtil;
 import com.meijia.utils.poi.HssExcelTools;
 import com.simi.action.BaseController;
 import com.simi.oa.auth.AccountAuth;
+import com.simi.oa.auth.AccountRole;
 import com.simi.oa.auth.AuthHelper;
 import com.simi.oa.auth.AuthPassport;
 import com.simi.oa.common.ConstantOa;
@@ -83,15 +85,24 @@ public class ProjectStudentController extends BaseController {
 		model.addAttribute("searchModel", searchVo);
 		int pageNo = ServletRequestUtils.getIntParameter(request, ConstantOa.PAGE_NO_NAME, ConstantOa.DEFAULT_PAGE_NO);
 		int pageSize = ConstantOa.DEFAULT_PAGE_SIZE;
-
-		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
-
-		@SuppressWarnings("rawtypes")
-		PageInfo pageInfo = projectStudentService.selectByListPage(searchVo, pageNo, pageSize);		
-		model.addAttribute("contentModel", pageInfo);
 		
-		Long pId = Long.valueOf(request.getParameter("pId"));
+		Long pId = searchVo.getpId();
+		Projects project = projectService.selectByPrimaryKey(pId);
+		model.addAttribute("project", project);
 		model.addAttribute("pId", pId);
+		
+		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
+		AccountRole accountRole = accountAuth.getAccountRole();
+		
+		Short statusCourse = project.getStatusCourse();
+		if (accountRole.getId().equals(2L) && !statusCourse.equals((short)1)) {
+			List<ProjectStudent> list = new ArrayList<ProjectStudent>();
+			PageInfo pageInfo = new PageInfo(list);
+			model.addAttribute("contentModel", pageInfo);
+		} else {
+			PageInfo pageInfo = projectStudentService.selectByListPage(searchVo, pageNo, pageSize);		
+			model.addAttribute("contentModel", pageInfo);
+		}
 		
 		return "project/studentList";
 	}

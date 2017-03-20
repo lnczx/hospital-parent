@@ -27,6 +27,12 @@ public class Projects {
 
     private Short status;
     
+    private Short statusAttach;
+    
+    private Short statusCourse;
+    
+    private Short statusStudent;
+    
     private String remarks;
     
     private String fileName;
@@ -179,5 +185,29 @@ public class Projects {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public Short getStatusAttach() {
+		return statusAttach;
+	}
+
+	public void setStatusAttach(Short statusAttach) {
+		this.statusAttach = statusAttach;
+	}
+
+	public Short getStatusCourse() {
+		return statusCourse;
+	}
+
+	public void setStatusCourse(Short statusCourse) {
+		this.statusCourse = statusCourse;
+	}
+
+	public Short getStatusStudent() {
+		return statusStudent;
+	}
+
+	public void setStatusStudent(Short statusStudent) {
+		this.statusStudent = statusStudent;
 	}
 }

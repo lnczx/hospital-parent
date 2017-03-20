@@ -24,6 +24,11 @@ public class Constants {
 	public static String DICT_DEGREE = "degree"; //学位
 	public static String DICT_ID_TYPE = "id_type"; //证件类型
 	
+	//项目状态
+	public static Short STATUS_0 = 0 ; //保存
+	public static Short STATUS_1 = 1 ; //提交
+	public static Short STATUS_2 = 2 ; //退回
+	
 	//导入的文件夹
 	public static String IMPORT_PATH = "/data/hospital-oa/import/";
 }

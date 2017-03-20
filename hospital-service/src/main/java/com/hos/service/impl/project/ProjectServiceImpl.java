@@ -86,7 +86,10 @@ public class ProjectServiceImpl implements ProjectService {
 		record.setCredit((short) 0);
 		record.setNumRecruit(0);
 		record.setNumTerm((short) 0);
-		record.setStatus((short) 0);		
+		record.setStatus((short) 0);	
+		record.setStatusAttach(Constants.STATUS_0);
+		record.setStatusCourse(Constants.STATUS_0);
+		record.setStatusStudent(Constants.STATUS_0);
 		record.setRemarks("");
 		record.setFileName("");
 		record.setAdminId(0L);
