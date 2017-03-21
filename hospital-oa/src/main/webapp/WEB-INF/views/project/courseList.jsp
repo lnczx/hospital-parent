@@ -48,14 +48,27 @@
 					<i class="Hui-iconfont">&#xe644;</i>
 					导出Excel
 				</a>
-				<c:if test="${accountAuth.accountRole.id != 2 && project.statusCourse != 1}">
-					<a href="#" onclick="btn_push('确定要提交会议日程吗?', ${pId}, 'statusCourse', 1)" class="btn btn-danger radius">
+				<c:if test="${accountAuth.accountRole.id != 2}">
+					<a href="#" onclick="btn_push('点击提交后，将无法修改，请确定是否提交？?', ${pId}, 'statusCourse', 1)" 
+					 <c:if test="${project.statusCourse != 1 }">
+						class="btn btn-danger radius">
+						</c:if>
+						<c:if test="${project.statusCourse == 1 }">
+						class="btn disabled radius">
+						</c:if>
 						<i class="Hui-iconfont">&#xe645;</i>
 						提交
 					</a>
 				</c:if>
-				<c:if test="${accountAuth.accountRole.id == 2 && project.statusCourse == 1}">
-					<a href="#" onclick="btn_push('确定要退回会议日程吗?', ${pId}, 'statusCourse', 2)" class="btn btn-danger radius">
+				<c:if test="${accountAuth.accountRole.id == 2}">
+					<a href="#" onclick="btn_push('确定要退回会议日程吗?', ${pId}, 'statusCourse', 2)" 
+					
+					 <c:if test="${project.statusCourse == 1 }">
+						class="btn btn-danger radius">
+						</c:if>
+						<c:if test="${project.statusCourse != 1 }">
+						class="btn disabled radius">
+						</c:if>
 						<i class="Hui-iconfont">&#xe645;</i>
 						退回
 					</a>

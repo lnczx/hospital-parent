@@ -76,7 +76,7 @@
 												class="btn btn-primary-outline size-S radius">修改</a> &nbsp; 
 										</c:if>
 										<c:if test="${item.briefingFilePath != '' }">
-											<c:if test="${accountAuth.accountRole.id == 1}">
+											<c:if test="${accountAuth.accountRole.id == 2}">
 												<span class="dropDown">
 													<a  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
 													<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>
@@ -93,7 +93,7 @@
 												
 											</c:if>
 											
-											<c:if test="${accountAuth.accountRole.id != 1}">
+											<c:if test="${accountAuth.accountRole.id != 2}">
 												<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')"
 												<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>>会议通知</a>
 											</c:if>

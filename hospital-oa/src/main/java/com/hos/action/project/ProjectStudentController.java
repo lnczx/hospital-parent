@@ -94,8 +94,8 @@ public class ProjectStudentController extends BaseController {
 		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
 		AccountRole accountRole = accountAuth.getAccountRole();
 		
-		Short statusCourse = project.getStatusCourse();
-		if (accountRole.getId().equals(2L) && !statusCourse.equals((short)1)) {
+		Short statusStudent = project.getStatusStudent();
+		if (accountRole.getId().equals(2L) && !statusStudent.equals((short)1)) {
 			List<ProjectStudent> list = new ArrayList<ProjectStudent>();
 			PageInfo pageInfo = new PageInfo(list);
 			model.addAttribute("contentModel", pageInfo);

@@ -22,10 +22,10 @@
 				<li>
 					<button type="submit" class="btn btn-primary" >
 						
-						提交
+						保存
 					</button>
 					
-					<a href="/hospital-oa/project/student/student-import?pId=${pId }" class="btn btn-success">返回重新导入</a>
+					<a href="/hospital-oa/project/student/student-import?pId=${pId }" class="btn btn-success">重新导入</a>
 				</li>
 			</ol>
 			</form>
