@@ -77,19 +77,8 @@
 										</c:if>
 										<c:if test="${item.briefingFilePath != '' }">
 											<c:if test="${accountAuth.accountRole.id == 2}">
-												<span class="dropDown">
-													<a  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-													<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>
-													>会议通知</a>
-													<ul class="dropDown-menu menu radius box-shadow">
-														<li>
-															<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')">查看</a>
-														</li>
-														<li>
-															<a href="#" onclick="btn_push('确定要退回会议通知吗?', ${item.pId}, 'statusAttach', 2)" >退回</a>
-														</li>
-													</ul>
-												</span>
+												<a href="javascript:;" onclick="modalDo(${item.pId})" data-id="${item.pId }"
+												<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>>会议通知</a>
 												
 											</c:if>
 											
@@ -162,11 +151,31 @@
 				</table>
 			</div>
 		</div>
+		<div id="modal-do" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content radius">
+					<div class="modal-header">
+						<h3 class="modal-title">请选择你的操作</h3>
+						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+					</div>
+					<div class="modal-body">
+						<p></p>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" id="modal-pid" value="0"/>
+						<button class="btn btn-primary" onclick="modalAttachView()">查看</button>
+						<button class="btn btn-danger" onclick="modalBtnPush()">退回</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- js placed at the end of the document so the pages load faster -->
 		<!--common script for all pages-->
 		<%@ include file="../shared/importJs.jsp"%>
 		<!--script for this page-->
 		<script type="text/javascript" src="<c:url value='/lib/datatables/1.10.0/jquery.dataTables.min.js'/>"></script>
+		<script type="text/javascript" src="<c:url value='/lib/bootstrap-modal/2.2.4/bootstrap-modal.js'/>"></script>
+		<script type="text/javascript" src="<c:url value='/lib/bootstrap-modal/2.2.4/bootstrap-modalmanager.js'/>"></script>
 		<script src="<c:url value='/static/app/js/project/projectList.js'/>"></script>
 		<script src="<c:url value='/static/app/js/table.js'/>"></script>
 </body>
