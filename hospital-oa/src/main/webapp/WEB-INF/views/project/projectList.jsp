@@ -155,7 +155,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content radius">
 					<div class="modal-header">
-						<h3 class="modal-title">请选择你的操作</h3>
+						<h3 class="modal-title">请您选择对会议通知的操作</h3>
 						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
 					</div>
 					<div class="modal-body">

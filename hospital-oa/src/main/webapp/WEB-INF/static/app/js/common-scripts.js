@@ -47,6 +47,13 @@ function btn_del(path) {
 
 function btn_push(confirmMsg, pId, statusType, status) {
 	if (confirm(confirmMsg)) {
+		var count = $("#count").val();
+		
+		if (count == 0) {
+			alert("你还未导入信息，请导入后再提交.");
+			return false;
+		}
+		
 		var params = {};
 		params.pId = pId;
 		params.statusType = statusType;

@@ -79,14 +79,15 @@ public class ProjectCourseController extends BaseController {
 		model.addAttribute("project", project);
 		model.addAttribute("pId", pId);
 		
+		List<ProjectCourse> list = new ArrayList<ProjectCourse>();
 		Short statusCourse = project.getStatusCourse();
 		if (accountRole.getId().equals(2L) && !statusCourse.equals((short)1)) {
-			List<ProjectCourse> list = new ArrayList<ProjectCourse>();
+//			List<ProjectCourse> list = new ArrayList<ProjectCourse>();
 			PageInfo pageInfo = new PageInfo(list);
 			model.addAttribute("contentModel", pageInfo);
 		} else {
 			PageInfo pageInfo = projectCourseService.selectByListPage(searchVo, pageNo, pageSize);
-			List<ProjectCourse> list = pageInfo.getList();
+			list = pageInfo.getList();
 			for (int i = 0 ; i < list.size(); i++) {
 				ProjectCourse item = list.get(i);
 				ProjectCourseVo vo = projectCourseService.getVo(item);
@@ -95,7 +96,9 @@ public class ProjectCourseController extends BaseController {
 			pageInfo = new PageInfo(list);
 			model.addAttribute("contentModel", pageInfo);
 		}
-
+		
+		model.addAttribute("count", list.size());
+		
 		return "project/courseList";
 	}
 	

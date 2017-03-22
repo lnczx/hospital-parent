@@ -16,7 +16,7 @@
 			<input type="hidden" name="totals" value="${totals}"/>
 			<input type="hidden" name="totalNews" value="${totalNews}"/>
 			<input type="hidden" name="totalUpdate" value="${totalUpdate}"/>
-			<h3><font color="red">您目前处于“未提交”状态，如需提交，请点击下方的“提交”按钮完成操作。</font></h3>
+			<h3><font color="red">确认以下导入信息无误后,请点击“保存”按钮</font></h3>
 			<ol>
 				<li>本次Excel导入文件中包含<font color="red">${totals}</font>条课程信息，其中新增<font color="red">${totalNews}</font>条课程, 其余<font color="red">${totalUpdate}</font>条课程在本项目中重复。</li>
 				<li>

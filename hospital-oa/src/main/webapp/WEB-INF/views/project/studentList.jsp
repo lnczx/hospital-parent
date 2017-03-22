@@ -75,6 +75,7 @@
 				<small>说明：下方按钮为绿色时表示已提交，红色表示退回，蓝色表示有数据但未提交，灰色表示提交后不能操作。</small>
 			</span>
 		</div>
+		<input type="hidden" id="count" value="${count }"/>
 		<div class="mt-20">
 			<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
 				<table id="DataTables_Table_0" class="table table-border table-bordered table-hover table-bg table-sort">

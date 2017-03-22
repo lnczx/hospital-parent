@@ -35,7 +35,7 @@
 						</span>
 						<button type="submit" class="btn btn-success" id="" name="" onClick="">
 							<i class="Hui-iconfont">&#xe600;</i>
-							开始导入
+							提交
 						</button>
 					</li>
 				</ol>

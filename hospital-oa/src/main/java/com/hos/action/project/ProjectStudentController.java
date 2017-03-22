@@ -94,15 +94,19 @@ public class ProjectStudentController extends BaseController {
 		AccountAuth accountAuth = AuthHelper.getSessionAccountAuth(request);
 		AccountRole accountRole = accountAuth.getAccountRole();
 		
+		List<ProjectStudent> list = new ArrayList<ProjectStudent>();
 		Short statusStudent = project.getStatusStudent();
 		if (accountRole.getId().equals(2L) && !statusStudent.equals((short)1)) {
-			List<ProjectStudent> list = new ArrayList<ProjectStudent>();
+//			List<ProjectStudent> list = new ArrayList<ProjectStudent>();
 			PageInfo pageInfo = new PageInfo(list);
 			model.addAttribute("contentModel", pageInfo);
 		} else {
 			PageInfo pageInfo = projectStudentService.selectByListPage(searchVo, pageNo, pageSize);		
+			list = pageInfo.getList();
 			model.addAttribute("contentModel", pageInfo);
 		}
+		
+		model.addAttribute("count", list.size());
 		
 		return "project/studentList";
 	}

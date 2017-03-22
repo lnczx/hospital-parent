@@ -10,9 +10,9 @@
 <body>
 	<div class="page-container">
 		<div class="Huialert Huialert-success radius">
-			<h3>导入成功：</h3>
+			<h3><font color="red">保存成功, 请查看学员，确认后点击“提交”按钮.</font></h3>
 			<ol>
-				<li>本地共导入<font color="red">${totals}</font>个学员，其中新增<font color="red">${totalNews}</font>个学员, 更新已存在的<font color="red">${totalUpdate}</font>个学员。</li>
+				<li>本次共导入<font color="red">${totals}</font>个学员，其中新增<font color="red">${totalNews}</font>个学员, 更新已存在的<font color="red">${totalUpdate}</font>个学员。</li>
 				<li>
 					<a href="/hospital-oa/project/student/student-list?pId=${pId }" class="btn btn-success">查看学员</a>
 				</li>
