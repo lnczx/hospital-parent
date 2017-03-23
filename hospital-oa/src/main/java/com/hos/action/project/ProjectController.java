@@ -418,12 +418,14 @@ public class ProjectController extends BaseController {
 		} else {
 			projectAttachService.insertSelective(record);
 			
-			//设定为project status_attach = 1
-			Projects project = projectService.selectByPrimaryKey(pId);
-			project.setStatusAttach(Constants.STATUS_1);
-			project.setUpdateTime(TimeStampUtil.getNowSecond());
-			projectService.updateByPrimaryKeySelective(project);
+			
 		}
+		
+		//设定为project status_attach = 1
+		Projects project = projectService.selectByPrimaryKey(pId);
+		project.setStatusAttach(Constants.STATUS_1);
+		project.setUpdateTime(TimeStampUtil.getNowSecond());
+		projectService.updateByPrimaryKeySelective(project);
 		
 		
 		return "project/attachImportOk";
