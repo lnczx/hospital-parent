@@ -40,7 +40,7 @@
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
 			<span class="l"> </span>
 			<span class="r">
-				<small>说明：下方按钮为绿色时表示已提交，红色表示退回，蓝色表示有数据但未提交，灰色表示提交后不能操作。</small>
+				<small class="c-primary">说明：下方按钮为绿色时表示已提交，红色表示退回，蓝色表示有数据但未提交。</small>
 			</span>
 		</div>
 		<div class="mt-20">
@@ -78,13 +78,18 @@
 										<c:if test="${item.briefingFilePath != '' }">
 											<c:if test="${accountAuth.accountRole.id == 2}">
 												<a href="javascript:;" onclick="modalDo(${item.pId})" data-id="${item.pId }"
-												<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>>会议通知</a>
-												
+													<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>>会议通知</a>
 											</c:if>
-											
 											<c:if test="${accountAuth.accountRole.id != 2}">
+												<!--  如果被退回，则显示弹窗，展现 查看和重新导入 -->
+												<c:if test="${item.statusAttach == 2}">
+													<a href="javascript:;" onclick="modalDoRole3(${item.pId})" data-id="${item.pId }"
+													<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>>会议通知</a>
+												</c:if>
+												<c:if test="${item.statusAttach != 2}">
 												<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')"
-												<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>>会议通知</a>
+													<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>>会议通知</a>
+												</c:if>
 											</c:if>
 										</c:if>
 										<c:if test="${item.briefingFilePath == '' }">
@@ -114,8 +119,7 @@
 										<c:if test="${item.briefingFilePath == '' }">
 											<a href="javascript:;" onclick="alert('提示：项目管理员还未上传本项目的会议通知。')" class="btn btn-primary-outline size-S radius">查看会议通知</a>&nbsp; 
 										</c:if>
-									</c:if> <!-- -----------------会议日程导入------------------------------------- --> 
-									<c:if test="${linkType == 'course' }">
+									</c:if> <!-- -----------------会议日程导入------------------------------------- --> <c:if test="${linkType == 'course' }">
 										<c:if test="${accountAuth.accountRole.id != 2}">
 											<a href="javascript:;"
 												onclick="btn_show_layer('导入会议日程','project/course/course-import?pId=${item.pId}','10001')"
@@ -129,8 +133,7 @@
 										</c:if>
 										<a href="javascript:;" onclick="btn_show_layer('查看会议日程','project/course/course-list?pId=${item.pId}','10001')"
 											<buttonClassTag:select hasData="${item.hasCourse}" status="${item.statusCourse }"/>>查看会议日程</a>
-									</c:if> <!-- -----------------学员导入项目列表------------------------------------- --> 
-									<c:if test="${linkType == 'student' }">
+									</c:if> <!-- -----------------学员导入项目列表------------------------------------- --> <c:if test="${linkType == 'student' }">
 										<c:if test="${accountAuth.accountRole.id != 2}">
 											<a href="javascript:;"
 												onclick="btn_show_layer('导入学员','project/student/student-import?pId=${item.pId}','10001')"
@@ -162,13 +165,32 @@
 						<p></p>
 					</div>
 					<div class="modal-footer">
-						<input type="hidden" id="modal-pid" value="0"/>
+						
 						<button class="btn btn-primary" onclick="modalAttachView()">查看</button>
 						<button class="btn btn-danger" onclick="modalBtnPush()">退回</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div id="modal-do-role3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content radius">
+					<div class="modal-header">
+						<h3 class="modal-title">请您选择对会议通知的操作</h3>
+						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+					</div>
+					<div class="modal-body">
+						<p></p>
+					</div>
+					<div class="modal-footer">
+						
+						<button class="btn btn-primary" onclick="modalAttachView()">查看</button>
+						<button class="btn btn-danger" onclick="modalReImport()">重新导入</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="modal-pid" value="0" />
 		<!-- js placed at the end of the document so the pages load faster -->
 		<!--common script for all pages-->
 		<%@ include file="../shared/importJs.jsp"%>

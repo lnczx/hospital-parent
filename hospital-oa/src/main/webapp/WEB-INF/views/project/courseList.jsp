@@ -75,7 +75,7 @@
 				</c:if>
 			</span>
 			<span class="r">
-				<small>说明：下方按钮为绿色时表示已提交，红色表示退回，蓝色表示有数据但未提交，灰色表示提交后不能操作。</small>
+				<small class="c-primary">说明：下方按钮为绿色时表示已提交，红色表示退回，蓝色表示有数据但未提交。</small>
 			</span>
 		</div>
 		<input type="hidden" id="count" value="${count }"/>
