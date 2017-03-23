@@ -14,8 +14,10 @@ function modalDoRole3(pId) {
 
 function modalAttachView() {
 	var pId = $("#modal-pid").val();
-
+	$("#modal-do").modal("hide");
+	$("#modal-do-role3").modal("hide");
 	btn_add_blank('project/attach-download?pId=' + pId);
+	
 }
 
 function modalBtnPush() {
