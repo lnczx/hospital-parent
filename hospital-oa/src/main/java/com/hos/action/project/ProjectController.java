@@ -451,7 +451,6 @@ public class ProjectController extends BaseController {
 			
 			String ext = fileName.substring(fileName.lastIndexOf(".") + 1).toUpperCase();
 			String viewName = project.getpNo() + project.getName() + "." + ext;
-//			viewName = viewName.replace("(国)", "");
 			viewName = FileUtil.processFileName(request, viewName);
 			FileUtil.fileDownload(request, response, viewName, filePath);
 		}
