@@ -137,10 +137,10 @@
 										<c:if test="${accountAuth.accountRole.id != 2}">
 											<a href="javascript:;"
 												onclick="btn_show_layer('导入学员','project/student/student-import?pId=${item.pId}','10001')"
-												<c:if test="${item.statusCourse != 1 }">
+												<c:if test="${item.statusStudent != 1 }">
 													class="btn btn-primary-outline size-S radius">
 													</c:if>
-												<c:if test="${item.statusCourse == 1 }">
+												<c:if test="${item.statusStudent == 1 }">
 													class="btn disabled  size-S radius">
 													</c:if>
 												导入学员</a> &nbsp;

@@ -1,5 +1,7 @@
 package com.meijia.utils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -7,9 +9,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -163,45 +169,36 @@ public class FileUtil {
 		}
 	}
 
-	public static void fileDownload(HttpServletRequest request, HttpServletResponse response, String fileName, String filePath) {
-
-		// 获取网站部署路径(通过ServletContext对象)，用于确定下载文件位置，从而实现下载
-		// 1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
-		response.setContentType("multipart/form-data");
-		// 2.设置文件头：最后一个参数是设置下载文件名(假如我们叫a.pdf)
-
-		final String userAgent = request.getHeader("USER-AGENT");
-
-		ServletOutputStream out;
-		// 通过文件路径获得File对象(假如此路径中有一个download.pdf文件)
-
+	public static HttpServletResponse fileDownload(HttpServletRequest request, HttpServletResponse response, String viewName, String filePath) {
 		try {
-			File file = new File(filePath + fileName);
-			fileName = processFileName(request, fileName);
-
-			response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
-
-			FileInputStream inputStream = new FileInputStream(file);
-
-			// 3.通过response获取ServletOutputStream对象(out)
-			out = response.getOutputStream();
-
-			int b = 0;
-			byte[] buffer = new byte[512];
-			while (b != -1) {
-				b = inputStream.read(buffer);
-				// 4.写到输出流(out)中
-				out.write(buffer, 0, b);
-			}
-			inputStream.close();
-			out.close();
-			out.flush();
-
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+//			viewName = processFileName(request, viewName);
+			// path是指欲下载的文件的路径。
+			File file = new File(filePath);
+			// 取得文件名。
+			String filename = file.getName();
+			// 取得文件的后缀名。
+			
+			
+			// 以流的形式下载文件。
+			InputStream fis = new BufferedInputStream(new FileInputStream(filePath));
+			byte[] buffer = new byte[fis.available()];
+			fis.read(buffer);
+			fis.close();
+			// 清空response
+			response.reset();
+			// 设置response的Header
+			response.setCharacterEncoding("utf-8");
+			response.addHeader("Content-Disposition", "attachment;filename=" + viewName);
+			response.addHeader("Content-Length", "" + file.length());
+			OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+			response.setContentType("application/octet-stream");
+			toClient.write(buffer);
+			toClient.flush();
+			toClient.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
+		return response;
 	}
 
 	/**
@@ -214,9 +211,7 @@ public class FileUtil {
 		String codedfilename = null;
 		try {
 			String agent = request.getHeader("USER-AGENT");
-			if (null != agent && -1 != agent.indexOf("MSIE") || 
-				null != agent && -1 != agent.indexOf("Trident") ||
-						null != agent && -1 != agent.indexOf("Edge")) {// ie
+			if (null != agent && -1 != agent.indexOf("MSIE") || null != agent && -1 != agent.indexOf("Trident") || null != agent && -1 != agent.indexOf("Edge")) {// ie
 
 				String name = java.net.URLEncoder.encode(fileNames, "UTF8");
 
@@ -225,9 +220,11 @@ public class FileUtil {
 
 				codedfilename = new String(fileNames.getBytes("UTF-8"), "iso-8859-1");
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return codedfilename;
 	}
 

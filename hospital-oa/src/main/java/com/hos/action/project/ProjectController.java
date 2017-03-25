@@ -437,6 +437,8 @@ public class ProjectController extends BaseController {
 	public String attachDownload(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		Long pId = Long.valueOf(request.getParameter("pId"));
 		
+		Projects project = projectService.selectByPrimaryKey(pId);
+		
 		ProjectSearchVo searchVo = new ProjectSearchVo();
 		searchVo.setpId(pId);
 		searchVo.setAttachType("briefing");
@@ -445,9 +447,13 @@ public class ProjectController extends BaseController {
 		if (!list.isEmpty()) {
 			ProjectAttach item = list.get(0);
 			String fileName = item.getFileName();
-			String filePath = Constants.IMPORT_PATH;
+			String filePath = Constants.IMPORT_PATH + fileName;
 			
-			FileUtil.fileDownload(request, response, fileName, filePath);
+			String ext = fileName.substring(fileName.lastIndexOf(".") + 1).toUpperCase();
+			String viewName = project.getpNo() + project.getName() + "." + ext;
+//			viewName = viewName.replace("(国)", "");
+			viewName = FileUtil.processFileName(request, viewName);
+			FileUtil.fileDownload(request, response, viewName, filePath);
 		}
 		
 		
