@@ -40,7 +40,7 @@
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
 			<span class="l"> </span>
 			<span class="r">
-				<small class="c-primary">说明：下方按钮为绿色时表示已提交，红色表示退回，蓝色表示有数据但未提交。</small>
+				<small class=" f-18 c-red">说明：下方按钮为绿色时表示已提交，红色表示退回，蓝色表示有数据但未提交。</small>
 			</span>
 		</div>
 		<div class="mt-20">
@@ -84,11 +84,11 @@
 												<!--  如果被退回，则显示弹窗，展现 查看和重新导入 -->
 												<c:if test="${item.statusAttach == 2}">
 													<a href="javascript:;" onclick="modalDoRole3(${item.pId})" data-id="${item.pId }"
-													<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>>会议通知</a>
+														<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>>会议通知</a>
 												</c:if>
 												<c:if test="${item.statusAttach != 2}">
-												<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')"
-													<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>>会议通知</a>
+													<a href="javascript:;" onclick="btn_add_blank('project/attach-download?pId=${item.pId}')"
+														<buttonClassTag:select hasData="true" status="${item.statusAttach }"/>>会议通知</a>
 												</c:if>
 											</c:if>
 										</c:if>
@@ -152,6 +152,10 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<c:import url="../shared/paging.jsp">
+					<c:param name="pageModelName" value="contentModel" />
+					<c:param name="urlAddress" value="/project/list" />
+				</c:import>
 			</div>
 		</div>
 		<div id="modal-do" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -165,14 +169,14 @@
 						<p></p>
 					</div>
 					<div class="modal-footer">
-						
 						<button class="btn btn-primary" onclick="modalAttachView()">查看</button>
 						<button class="btn btn-danger" onclick="modalBtnPush()">退回</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div id="modal-do-role3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div id="modal-do-role3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+			aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content radius">
 					<div class="modal-header">
@@ -183,7 +187,6 @@
 						<p></p>
 					</div>
 					<div class="modal-footer">
-						
 						<button class="btn btn-primary" onclick="modalAttachView()">查看</button>
 						<button class="btn btn-danger" onclick="modalReImport()">重新导入</button>
 					</div>
