@@ -35,7 +35,7 @@
 		<include refid="Base_Column_List" />
 		from project_course
 		<include refid="bySearchVo" />
-		order by course_date, start_time asc
+		order by course_date, STR_TO_DATE(start_time, '%T') asc
 	</select>
 
 	<select id="selectByListPage" resultMap="BaseResultMap" parameterType="com.hos.vo.project.ProjectCourseSearchVo">
@@ -43,7 +43,7 @@
 		<include refid="Base_Column_List" />
 		from project_course
 		<include refid="bySearchVo" />
-		order by course_date, start_time asc
+		order by course_date, STR_TO_DATE(start_time, '%T') asc
 	</select>
 
 	<sql id="bySearchVo">
