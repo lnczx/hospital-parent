@@ -38,6 +38,7 @@ import com.hos.vo.project.ProjectSearchVo;
 import com.hos.vo.project.ProjectVo;
 import com.meijia.utils.BeanUtilsExp;
 import com.meijia.utils.BoyerMooreUtil;
+import com.meijia.utils.DateUtil;
 import com.meijia.utils.ExcelUtil;
 import com.meijia.utils.FileUtil;
 import com.meijia.utils.RandomUtil;
@@ -98,6 +99,10 @@ public class ProjectController extends BaseController {
 		Long orgId = accountAuth.getOrgId();
 		if (orgId > 0L) {
 			searchVo.setOrgId(orgId);
+		}
+		
+		if (searchVo.getpYear() == null) {
+			searchVo.setpYear(DateUtil.getYear());
 		}
 
 		@SuppressWarnings("rawtypes")
